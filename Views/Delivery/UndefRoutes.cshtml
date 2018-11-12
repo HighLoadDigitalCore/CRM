@@ -1,0 +1,47 @@
+﻿@model DeliveryList
+@if (Model != null && Model.UndefOrders.Any())
+{
+    <div id="UndefRoutes">
+        <input name="IsApproved" type="hidden" value="@(Model.Approved ? 1 : 0)" />
+        <input name="HasUndef" type="hidden" value="@(Model.UndefOrders.Any() ? 1 : 0)" />
+
+        <h3>Способ доставки не указан</h3>
+        <hr />
+        <div class="delivery-body" style="padding: 20px">
+            <div class="delivery-group" skip="1">
+                @foreach (var order in Model.UndefOrders)
+                {
+                    <div class="order-route">
+                        <div class="name">
+                            <a href="@Url.Action("ViewOrder", "Shop", new {ID = order.ID})" onclick="return showOrderInfo(@order.OrderID);">Заказ @order.Order.OrderNumberOrID на сумму @order.Order.TotalSum.ToString("f1")</a>
+                        </div>
+                        <div class="controls">
+                            <div class="ctrl-cell">
+                                <span>Тип доставки:</span>
+                                <select name="ChangeType" arg="@order.ID" onchange="setDeliveryType(this)">
+                                    <option value="@((int)SectorTypes.Undefined)" selected="selected">Не указано</option>
+                                    <option value="@((int)SectorTypes.CarSector)">Автотранспорт</option>
+                                    <option value="@((int)SectorTypes.CourierSector)">Курьер</option>
+                                </select>
+                            </div>
+                            <div class="ctrl-cell">
+                                <a href="#" onclick="return detectAdress(this)" arg="@order.OrderID">уточнить расположение @Html.Raw(order.NeedPositionHtml)</a>
+                            </div>
+                            <div class="ctrl-cell">
+                                <a href="@Url.Action("ViewOrder", "Shop", new{ID = order.OrderID})" type="order" onclick="return removeFromList(this);" arg="@order.ID">убрать из списка</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+
+}
+else
+{
+    <div id="UndefRoutes">
+    </div>
+}

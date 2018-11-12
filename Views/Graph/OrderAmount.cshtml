@@ -1,0 +1,59 @@
+﻿@{
+    var generator = new GraphColorGenerator();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    var managers = currentUser.ManagerList.Select(x=> x.User).ToList();
+    managers.Add(currentUser.ShopOwner);
+}
+<script type="text/javascript" src="/Content/js/graph/orderamount.js"></script>
+<div id="morris">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Количество заказов
+                </header>
+                <div class="panel-body">
+                    <input type="hidden" id="PointsList" />
+                    <div id="orderamount" class="graph"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h3>Параметры графика</h3>
+                </header>
+                <div class="panel-body">
+                    <div class="periods">
+                        <h4>Период точки:</h4>
+                        @*<a class="period" href="#" arg="1" onclick="return loadPeriod(this);">Час</a>*@
+                        <a class="period active" href="#" arg="24" onclick="return oa.loadPeriod(this);">День</a>
+                        <a class="period" href="#" arg="168" onclick="return oa.loadPeriod(this);">Неделя</a>
+                        <a class="period" href="#" arg="336" onclick="return oa.loadPeriod(this);">2 недели</a>
+                        <a class="period" href="#" arg="720" onclick="return oa.loadPeriod(this);">Месяц</a>
+                        <a class="period" href="#" arg="2880" onclick="return oa.loadPeriod(this);">4 месяца</a>
+                        <a class="period" href="#" arg="4320" onclick="return oa.loadPeriod(this);">Полгода</a>
+                        <a class="period" href="#" arg="8640" onclick="return oa.loadPeriod(this);">Год</a>
+                    </div>
+                    <div class="periods">
+                        <h4>Графики:</h4>
+                        <div class="legeng">
+                            <span style="color: #cccccc" key="A" nm="Общее кол-во заказов">&mdash;</span>
+                            Общее кол-во заказов
+                        </div>
+                        @foreach (var manager in managers)
+                        {
+                            <div class="legeng">
+                                <span style="color: #@generator.NextColour()" key="M@(manager.ID)" nm="@manager.FullName">&mdash;</span>
+                                @manager.FullName
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+   
+</div>

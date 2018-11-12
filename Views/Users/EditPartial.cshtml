@@ -1,0 +1,133 @@
+﻿@{
+    var roles = (List<Role>)ViewBag.AllowedRoles;
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@model User
+<div id="UserForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    @if (ViewBag.Message != null)
+                    {
+                        <span style="font-weight: bold">@ViewBag.Message</span>
+                    }
+            </header>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("EditPartial", "Users", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "UserForm", OnComplete = "initUserFormUI();" }, new { @class = "form-horizontal tasi-form" }))
+                {
+                    @Html.HiddenFor(x => x.ID)
+                    <div class="form-group @(Model.IsPost && !Model.Email.IsMailAdress() ? "has-error" : "")">
+                        <label class="col-sm-2 col-sm-2 control-label">E-mail</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.Email" name="Email">
+                        </div>
+                    </div>
+                    <div class="form-group @(Model.IsPost && Model.UserSurname.IsNullOrEmpty() ? "has-error" : "")">
+                        <label class="col-sm-2 col-sm-2 control-label">Фамилия</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.UserSurname" name="UserSurname">
+                        </div>
+                    </div>
+                    <div class="form-group @(Model.IsPost && Model.UserName.IsNullOrEmpty() ? "has-error" : "")">
+                        <label class="col-sm-2 col-sm-2 control-label">Имя</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.UserName" name="UserName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Отчество</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.UserPatrinomic" name="UserPatrinomic">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">@(Model.ID > 0 ? "Новый пароль" : "Пароль")</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.Password" name="Password">
+                        </div>
+                    </div>
+                    <div class="form-group @(Model.IsPost && !Model.Phone.IsNullOrEmpty() ? "has-error" : "")">
+                        <label class="col-sm-2 col-sm-2 control-label">Телефон</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@Model.Phone" name="Phone">
+                        </div>
+                    </div>
+                    if (Model.ID != currentUser.ID)
+                    {
+
+
+                        <div class="form-group @(Model.IsPost && Model.UserRoleRadio == 0 ? "has-error" : "")">
+
+                            <label class="col-lg-2 col-sm-2 control-label">Тип пользователя</label>
+                            <div class="col-lg-10">
+                                @foreach (var role in roles)
+                                {
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" arg="@role.RoleName" onclick="changeShopView('Operator,Manager', this)" value="@role.RoleId" name="UserRoleRadio" @(Model.UserRoleRadio == role.RoleId ? "checked" : "")>
+                                            @role.RoleDescription
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group" id="shopView" style="@(Model.UserRoles.Contains("Operator") || Model.UserRoles.Contains("Manager") ? "" : "display:block")">
+
+                            <label class="col-lg-2 col-sm-2 control-label">Список магазинов</label>
+                            <div class="col-lg-10">
+                                @foreach (var shop in currentUser.AvailShopList)
+                                {
+                                    <div class="radio">
+                                        <label>
+                                            <input type="checkbox" value="@shop.ID" name="Shop_@(shop.ID)" @(Model.ShopList.Any(x => x.ID == shop.ID) ? "checked" : "")>
+                                            @shop.Name
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        @Html.Action("Permissions", "Users", new { TargetUserID = Model.ID })
+                    }
+                    <div class="form-group">
+                        <div class="col-sm-2">
+
+                        </div>
+                        <div class="col-sm-4">
+                            @if (helper.HasPermission(Permissions.UserEdit) || (Model.ID == 0 && helper.HasPermission(Permissions.UserAdd)))
+                            {
+                                <input type="submit" class="btn btn-success" value="Сохранить" />
+                            }
+                        </div>
+                        <div class="col-sm-6">
+                            @if (Model.ID > 0)
+                            {
+                                if (helper.HasPermission(Permissions.UserDelete) && Model.ID != currentUser.ID)
+                                {
+                                    <a style="float: right; margin-right: 20px" class="btn btn-danger" href="@Url.Action("Delete", "Users", new {ID = Model.ID})">Удалить</a>
+                                }
+                                if (helper.HasPermission(Permissions.UserLock) && Model.ID != currentUser.ID)
+                                {
+                                    <a style="float: right; margin-right: 20px" class="btn btn-warning" href="@Url.Action("Lock", "Users", new {ID = Model.ID})">@((Model.IsLocked ?? false) ? "Разблокировать" : "Заблокировать")</a>
+                                }
+                                if (helper.HasPermission(Permissions.UserAuth) && Model.ID != currentUser.ID)
+                                {
+                                    <a style="float: right; margin-right: 20px" class="btn btn-info" href="@Url.Action("Enter", "Users", new {ID = Model.ID})">Войти</a>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+@if (Model.RedirectURL.IsFilled())
+{
+    <script type="text/javascript">
+        document.location.href = '@(Model.RedirectURL)';
+    </script>
+}

@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Добавление заказа";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    bool? noShops = (bool?)ViewBag.NoShops;
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@section css{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+}
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+    <script src="/Content/js/common.js"></script>
+    <script src="/Content/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript" src="/Content/js/create-order.js"></script>
+}
+@model Order
+@if (noShops.HasValue && noShops.Value)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Для добавления заказа, в системе необходимо предварительно зарегистрировать магазин </p>
+        </div>
+        @if (helper.HasPermission(Permissions.ShopAdding))
+        {
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="@Url.Action("Edit", "Shop")">Создать магазин</a>
+            </div>
+
+        }
+    </div>
+}
+else
+{
+
+    var myorder = (currentUser.ShopOwnerID == Model.Shop.Owner && (currentUser.UserRoles.Contains("ShopOwner") || currentUser.UserRoles.Contains("Manager")));
+    var contracted = Model.ContractedOrders.Any(x => x.Contractor.UserBy == currentUser.ShopOwnerID && x.Contractor.AccessRight == 1);
+
+    if (myorder || contracted)
+    {
+        if (!contracted)
+        {
+            @Html.Action("ShopSelectRequired", "Common", new {ShopID = Model.ShopID})
+        }
+        <div class="row">
+            <input type="hidden" id="OrderID" value="@(Model.ID)" />
+            @Html.Action("ProductsList")
+        </div>
+        if (helper.HasPermission(Permissions.OrderEdit) || (helper.HasPermission(Permissions.OrderAdd) && Model.AddedByID == currentUser.ID && Model.Status == -1))
+        {
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.Action("ProductForm")
+                </div>
+                <div class="col-lg-6">
+                    @Html.Action("WarningBlock")
+                    @Html.Action("UserForm")
+                    @Html.Action("DeliveryBlock", new { ID = Model.ID })
+                    @Html.Action("SubmitForm")
+                </div>
+            </div>
+        }
+    }
+}

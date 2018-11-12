@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="1gb_trading1" Class="DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ms-sql-8.in-solve.ru;Initial Catalog=1gb_trading1;Persist Security Info=True;User ID=1gb_kermi-ftv" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TradingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.LogAction" Member="LogActions">
+    <Type Name="LogAction">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="LogAction_LogEntry" Member="LogEntries" ThisKey="ID" OtherKey="ActionID" Type="LogEntry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LogEntry" Member="LogEntries">
+    <Type Name="LogEntry">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="LogAction_LogEntry" Member="LogAction" ThisKey="ActionID" OtherKey="ID" Type="LogAction" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_LogEntry" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoginHistory" Member="LoginHistories">
+    <Type Name="LoginHistory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IPAddress" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="User_LoginHistory" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Managers" Member="Managers">
+    <Type Name="Manager">
+      <Column Name="ManagerUserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShopOwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Manager_ShopManager" Member="ShopManagers" ThisKey="ID" OtherKey="ManagerID" Type="ShopManager" />
+      <Association Name="User_Manager" Member="User" ThisKey="ManagerUserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_Manager1" Member="OwnerUser" ThisKey="ShopOwnerID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Marks" Member="Marks">
+    <Type Name="Mark">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quality" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Operator" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Delivery" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarkDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarkAuthorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Mark" Member="User" ThisKey="MarkAuthorID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Order_Mark" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PermissionGroups" Member="PermissionGroups">
+    <Type Name="PermissionGroup">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="PermissionGroup_Permission" Member="Permissions" ThisKey="ID" OtherKey="GroupID" Type="Permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PermissionsForRoles" Member="PermissionsForRoles">
+    <Type Name="PermissionsForRole">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PermissionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Role_PermissionsForRole" Member="Role" ThisKey="RoleID" OtherKey="RoleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Permission_PermissionsForRole" Member="Permission" ThisKey="PermissionID" OtherKey="ID" Type="Permission" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShopManagers" Member="ShopManagers">
+    <Type Name="ShopManager">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ManagerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Manager_ShopManager" Member="Manager" ThisKey="ManagerID" OtherKey="ID" Type="Manager" IsForeignKey="true" />
+      <Association Name="Shop_ShopManager" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.webpages_Membership" Member="Memberships">
+    <Type Name="Membership">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmationToken" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsConfirmed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="LastPasswordFailureDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PasswordFailuresSinceLastSuccess" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordChangedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordVerificationToken" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="PasswordVerificationTokenExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Membership" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.webpages_Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleDescription" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_PermissionsForRole" Member="PermissionsForRoles" ThisKey="RoleId" OtherKey="RoleID" Type="PermissionsForRole" />
+      <Association Name="Role_UsersInRole" Member="UsersInRoles" ThisKey="RoleId" OtherKey="RoleId" Type="UsersInRole" />
+      <Association Name="Role_UserAllowedRole" Member="UserAllowedRoles" ThisKey="RoleId" OtherKey="RoleID" Type="UserAllowedRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.webpages_UsersInRoles" Member="UsersInRoles">
+    <Type Name="UsersInRole">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Role_UsersInRole" Member="Role" ThisKey="RoleId" OtherKey="RoleId" Type="Role" IsForeignKey="true" />
+      <Association Name="User_UsersInRole" Member="User" ThisKey="UserId" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserAllowedRoles" Member="UserAllowedRoles">
+    <Type Name="UserAllowedRole">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowedRoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Role_UserAllowedRole" Member="Role" ThisKey="RoleID" OtherKey="RoleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TaxPlanes" Member="TaxPlanes">
+    <Type Name="TaxPlane">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="MonthCost" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="TaxPlane_Shop" Member="Shops" ThisKey="ID" OtherKey="TaxPlanID" Type="Shop" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shops" Member="Shops">
+    <Type Name="Shop">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TaxPlanID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_ShopManager" Member="ShopManagers" ThisKey="ID" OtherKey="ShopID" Type="ShopManager" />
+      <Association Name="Shop_OperatorShop" Member="OperatorShops" ThisKey="ID" OtherKey="ShopID" Type="OperatorShop" />
+      <Association Name="Shop_ShopProductChar" Member="ShopProductChars" ThisKey="ID" OtherKey="ShopID" Type="ShopProductChar" />
+      <Association Name="Shop_ShopSetting" Member="ShopSettings" ThisKey="ID" OtherKey="ShopID" Type="ShopSetting" />
+      <Association Name="Shop_Contractor" Member="Contractors" ThisKey="ID" OtherKey="ShopID" Type="Contractor" />
+      <Association Name="Shop_ShopProduct" Member="ShopProducts" ThisKey="ID" OtherKey="ShopID" Type="ShopProduct" />
+      <Association Name="Shop_ShopStore" Member="ShopStores" ThisKey="ID" OtherKey="ShopID" Type="ShopStore" />
+      <Association Name="Shop_MapSector" Member="MapSectors" ThisKey="ID" OtherKey="ShopID" Type="MapSector" />
+      <Association Name="Shop_Order" Member="Orders" ThisKey="ID" OtherKey="ShopID" Type="Order" />
+      <Association Name="Shop_DeliveryList" Member="DeliveryLists" ThisKey="ID" OtherKey="ShopID" Type="DeliveryList" />
+      <Association Name="Shop_GraphConstructor" Member="GraphConstructors" ThisKey="ID" OtherKey="ShopID" Type="GraphConstructor" />
+      <Association Name="TaxPlane_Shop" Member="TaxPlane" ThisKey="TaxPlanID" OtherKey="ID" Type="TaxPlane" IsForeignKey="true" />
+      <Association Name="User_Shop" Member="User" ThisKey="Owner" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductChars" Member="ProductChars">
+    <Type Name="ProductChar">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderedProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="OrderedProduct_ProductChar" Member="OrderedProduct" ThisKey="OrderedProductID" OtherKey="ID" Type="OrderedProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Permissions" Member="Permissions">
+    <Type Name="Permission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Permission_PermissionsForRole" Member="PermissionsForRoles" ThisKey="ID" OtherKey="PermissionID" Type="PermissionsForRole" />
+      <Association Name="Permission_UserPermission" Member="UserPermissions" ThisKey="ID" OtherKey="PermissionID" Type="UserPermission" />
+      <Association Name="PermissionGroup_Permission" Member="PermissionGroup" ThisKey="GroupID" OtherKey="ID" Type="PermissionGroup" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UserSurname" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UserPatrinomic" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="LastVisitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsPhoneConfirmed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RegStep" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nick" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DigitID" Type="System.String" DbType="NVarChar(9)" CanBeNull="true" />
+      <Column Name="ConfirmKey" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="IsLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_LogEntry" Member="LogEntries" ThisKey="ID" OtherKey="UserID" Type="LogEntry" />
+      <Association Name="User_LoginHistory" Member="LoginHistories" ThisKey="ID" OtherKey="UserID" Type="LoginHistory" />
+      <Association Name="User_Manager" Member="ManagerProfiles" ThisKey="ID" OtherKey="ManagerUserID" Type="Manager" />
+      <Association Name="User_Manager1" Member="MyManagers" ThisKey="ID" OtherKey="ShopOwnerID" Type="Manager" />
+      <Association Name="User_Mark" Member="Marks" ThisKey="ID" OtherKey="MarkAuthorID" Type="Mark" />
+      <Association Name="User_Membership" Member="Membership" ThisKey="ID" OtherKey="UserId" Type="Membership" Cardinality="One" />
+      <Association Name="User_UsersInRole" Member="UsersInRoles" ThisKey="ID" OtherKey="UserId" Type="UsersInRole" />
+      <Association Name="User_Shop" Member="Shops" ThisKey="ID" OtherKey="Owner" Type="Shop" />
+      <Association Name="User_UserPermission" Member="UserPermissions" ThisKey="ID" OtherKey="UserID" Type="UserPermission" />
+      <Association Name="User_OperatorShop" Member="OperatorShops" ThisKey="ID" OtherKey="UserID" Type="OperatorShop" />
+      <Association Name="User_ShopProductChar" Member="ShopProductChars" ThisKey="ID" OtherKey="UserID" Type="ShopProductChar" />
+      <Association Name="User_Consumer" Member="Consumers" ThisKey="ID" OtherKey="UserID" Type="Consumer" />
+      <Association Name="User_GraphSerial" Member="GraphSerials" ThisKey="ID" OtherKey="UserID" Type="GraphSerial" />
+      <Association Name="User_Graph" Member="Graphs" ThisKey="ID" OtherKey="UserID" Type="Graph" />
+      <Association Name="User_Contractor" Member="ContractorsBy" Storage="_Contractors" ThisKey="ID" OtherKey="UserBy" Type="Contractor" />
+      <Association Name="User_Contractor1" Member="ContractorsFor" Storage="_Contractors1" ThisKey="ID" OtherKey="UserFor" Type="Contractor" />
+      <Association Name="User_ContractedOrder" Member="ContractedOrders" ThisKey="ID" OtherKey="SenderID" Type="ContractedOrder" />
+      <Association Name="User_Store" Member="Stores" ThisKey="ID" OtherKey="OwnerID" Type="Store" />
+      <Association Name="User_Product" Member="Products" ThisKey="ID" OtherKey="OwnerID" Type="Product" />
+      <Association Name="User_MailingList" Member="MailingLists" ThisKey="ID" OtherKey="OwnerID" Type="MailingList" />
+      <Association Name="User_WorkerGroup" Member="WorkerGroups" ThisKey="ID" OtherKey="OwnerID" Type="WorkerGroup" />
+      <Association Name="User_Order" Member="Orders" ThisKey="ID" OtherKey="AddedByID" Type="Order" />
+      <Association Name="User_Car" Member="Cars" ThisKey="ID" OtherKey="OwnerID" Type="Car" />
+      <Association Name="User_Worker" Member="Workers" ThisKey="ID" OtherKey="OwnerID" Type="Worker" />
+      <Association Name="User_DeliveryList" Member="DeliveryLists" ThisKey="ID" OtherKey="ApprovedBy" Type="DeliveryList" />
+      <Association Name="User_GraphConstructor" Member="GraphConstructors" ThisKey="ID" OtherKey="UserID" Type="GraphConstructor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserPermissions" Member="UserPermissions">
+    <Type Name="UserPermission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PermissionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Permission_UserPermission" Member="Permission" ThisKey="PermissionID" OtherKey="ID" Type="Permission" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_UserPermission" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OperatorShops" Member="OperatorShops">
+    <Type Name="OperatorShop">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_OperatorShop" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" />
+      <Association Name="User_OperatorShop" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShopProductChars" Member="ShopProductChars">
+    <Type Name="ShopProductChar">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DefValue" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsMain" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoadInForm" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_ShopProductChar" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="User_ShopProductChar" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderChars" Member="OrderChars">
+    <Type Name="OrderChar">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Order_OrderChar" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShopSettings" Member="ShopSettings">
+    <Type Name="ShopSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ItemKey" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_ShopSetting" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consumers" Member="Consumers">
+    <Type Name="Consumer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Patrinomic" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddPhone" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Consumer_Order" Member="Orders" ThisKey="ID" OtherKey="ConsumerID" Type="Order" />
+      <Association Name="User_Consumer" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapPoints" Member="MapPoints">
+    <Type Name="MapPoint">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,16) NOT NULL" CanBeNull="false" />
+      <Column Name="Lng" Type="System.Decimal" DbType="Decimal(18,16) NOT NULL" CanBeNull="false" />
+      <Column Name="SectorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MapPoint_DeliveryAddress" Member="DeliveryAddresses" ThisKey="ID" OtherKey="PointID" Type="DeliveryAddress" />
+      <Association Name="MapSector_MapPoint" Member="MapSector" ThisKey="SectorID" OtherKey="ID" Type="MapSector" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapCity" Member="MapCities">
+    <Type Name="MapCity">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="MapCountry_MapCity" Member="MapCountry" ThisKey="CountryID" OtherKey="ID" Type="MapCountry" IsForeignKey="true" />
+      <Association Name="MapRegion_MapCity" Member="MapRegion" ThisKey="RegionID" OtherKey="ID" Type="MapRegion" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapCountry" Member="MapCountries">
+    <Type Name="MapCountry">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="MapCountry_MapCity" Member="MapCities" ThisKey="ID" OtherKey="CountryID" Type="MapCity" />
+      <Association Name="MapCountry_MapRegion" Member="MapRegions" ThisKey="ID" OtherKey="CountryID" Type="MapRegion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapRegion" Member="MapRegions">
+    <Type Name="MapRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Association Name="MapRegion_MapCity" Member="MapCities" ThisKey="ID" OtherKey="RegionID" Type="MapCity" />
+      <Association Name="MapCountry_MapRegion" Member="MapCountry" ThisKey="CountryID" OtherKey="ID" Type="MapCountry" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphSerials" Member="GraphSerials">
+    <Type Name="GraphSerial">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="GraphSerial_GraphSerialsOrder" Member="GraphSerialsOrders" ThisKey="ID" OtherKey="SerialID" Type="GraphSerialsOrder" />
+      <Association Name="GraphSerial_GraphSerialsRel" Member="GraphSerialsRels" ThisKey="ID" OtherKey="SerialID" Type="GraphSerialsRel" />
+      <Association Name="User_GraphSerial" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphSerialsOrders" Member="GraphSerialsOrders">
+    <Type Name="GraphSerialsOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SerialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="GraphSerial_GraphSerialsOrder" Member="GraphSerial" ThisKey="SerialID" OtherKey="ID" Type="GraphSerial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Order_GraphSerialsOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphTypeFunc" Member="GraphTypeFuncs">
+    <Type Name="GraphTypeFunc">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Func" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinSequenceCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="GraphTypeFunc_Graph" Member="Graphs" ThisKey="ID" OtherKey="TypeID" Type="Graph" />
+      <Association Name="GraphType_GraphTypeFunc" Member="GraphType" ThisKey="TypeID" OtherKey="ID" Type="GraphType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphTypes" Member="GraphTypes">
+    <Type Name="GraphType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="GraphType_GraphTypeFunc" Member="GraphTypeFuncs" ThisKey="ID" OtherKey="TypeID" Type="GraphTypeFunc" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Graph" Member="Graphs">
+    <Type Name="Graph">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MaxDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Period" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Graph_GraphSerialsRel" Member="GraphSerialsRels" ThisKey="ID" OtherKey="GraphID" Type="GraphSerialsRel" />
+      <Association Name="GraphTypeFunc_Graph" Member="GraphTypeFunc" ThisKey="TypeID" OtherKey="ID" Type="GraphTypeFunc" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_Graph" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphSerialsRels" Member="GraphSerialsRels">
+    <Type Name="GraphSerialsRel">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GraphID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SerialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="IsHidden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Graph_GraphSerialsRel" Member="Graph" ThisKey="GraphID" OtherKey="ID" Type="Graph" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="GraphSerial_GraphSerialsRel" Member="GraphSerial" ThisKey="SerialID" OtherKey="ID" Type="GraphSerial" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contractors" Member="Contractors">
+    <Type Name="Contractor">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserFor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AccessRight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SendDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="Contractor_ContractedOrder" Member="ContractedOrders" ThisKey="ID" OtherKey="ContractorID" Type="ContractedOrder" />
+      <Association Name="Shop_Contractor" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_Contractor" Member="UserByEntity" Storage="_User" ThisKey="UserBy" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Contractor1" Member="UserForEntity" Storage="_User1" ThisKey="UserFor" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractedOrders" Member="ContractedOrders">
+    <Type Name="ContractedOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SenderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ContractorCostType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Contractor_ContractedOrder" Member="Contractor" ThisKey="ContractorID" OtherKey="ID" Type="Contractor" IsForeignKey="true" />
+      <Association Name="User_ContractedOrder" Member="User" ThisKey="SenderID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Order_ContractedOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoredProducts" Member="StoredProducts">
+    <Type Name="StoredProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AlwaysExist" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StoredProduct_StoreProductRefilling" Member="StoreProductRefillings" ThisKey="ID" OtherKey="StoreProductID" Type="StoreProductRefilling" />
+      <Association Name="Store_StoredProduct" Member="Store" ThisKey="StoreID" OtherKey="ID" Type="Store" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Product_StoredProduct" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShopProducts" Member="ShopProducts">
+    <Type Name="ShopProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_ShopProduct" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Product_ShopProduct" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreProductRefilling" Member="StoreProductRefillings">
+    <Type Name="StoreProductRefilling">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="UnitCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Association Name="StoredProduct_StoreProductRefilling" Member="StoredProduct" ThisKey="StoreProductID" OtherKey="ID" Type="StoredProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ComplexProducts" Member="ComplexProducts">
+    <Type Name="ComplexProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="ComplexProduct_ComplexProductComponent" Member="ComplexProductComponents" ThisKey="ID" OtherKey="ProductID" Type="ComplexProductComponent" />
+      <Association Name="ComplexProduct_Product" Member="Products" ThisKey="ID" OtherKey="ComplexID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ComplexProductComponents" Member="ComplexProductComponents">
+    <Type Name="ComplexProductComponent">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ComplexID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ComplexProduct_ComplexProductComponent" Member="ComplexProduct" ThisKey="ProductID" OtherKey="ID" Type="ComplexProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Product_ComplexProductComponent" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShopStores" Member="ShopStores">
+    <Type Name="ShopStore">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_ShopStore" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Store_ShopStore" Member="Store" ThisKey="StoreID" OtherKey="ID" Type="Store" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Stores" Member="Stores">
+    <Type Name="Store">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="AdressID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Store_StoredProduct" Member="StoredProducts" ThisKey="ID" OtherKey="StoreID" Type="StoredProduct" />
+      <Association Name="Store_ShopStore" Member="ShopStores" ThisKey="ID" OtherKey="StoreID" Type="ShopStore" />
+      <Association Name="Store_MapSector" Member="MapSectors" ThisKey="ID" OtherKey="StoreID" Type="MapSector" />
+      <Association Name="Store_DeliveryListOrder" Member="DeliveryListOrders" ThisKey="ID" OtherKey="StoreID" Type="DeliveryListOrder" />
+      <Association Name="User_Store" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="DeliveryAddress_Store" Member="DeliveryAddress" ThisKey="AdressID" OtherKey="ID" Type="DeliveryAddress" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PriceFormula" Member="PriceFormulas">
+    <Type Name="PriceFormula">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SourcePriceGroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TargetPriceGroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedPercent" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Association Name="PriceGroup_PriceFormula" Member="PriceGroup" ThisKey="SourcePriceGroupID" OtherKey="ID" Type="PriceGroup" IsForeignKey="true" />
+      <Association Name="PriceGroup_PriceFormula1" Member="PriceGroup1" ThisKey="TargetPriceGroupID" OtherKey="ID" Type="PriceGroup" IsForeignKey="true" />
+      <Association Name="Product_PriceFormula" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PriceGroup" Member="PriceGroups">
+    <Type Name="PriceGroup">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueID" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="PriceGroup_PriceFormula" Member="PriceFormulas" ThisKey="ID" OtherKey="SourcePriceGroupID" Type="PriceFormula" />
+      <Association Name="PriceGroup_PriceFormula1" Member="PriceFormulas1" ThisKey="ID" OtherKey="TargetPriceGroupID" Type="PriceFormula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkerGroupParticipants" Member="WorkerGroupParticipants">
+    <Type Name="WorkerGroupParticipant">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WorkerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WorkerGroup_WorkerGroupParticipant" Member="WorkerGroup" ThisKey="GroupID" OtherKey="ID" Type="WorkerGroup" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Worker_WorkerGroupParticipant" Member="Worker" ThisKey="WorkerID" OtherKey="ID" Type="Worker" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Jobs" Member="Jobs">
+    <Type Name="Job">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsSingle" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="HasCar" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Job_Worker" Member="Workers" ThisKey="ID" OtherKey="JobID" Type="Worker" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MailingReplacements" Member="MailingReplacements">
+    <Type Name="MailingReplacement">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Replacement" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="MailingID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MailingList_MailingReplacement" Member="MailingList" ThisKey="MailingID" OtherKey="ID" Type="MailingList" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SiteSettings" Member="SiteSettings">
+    <Type Name="SiteSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Setting" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Editor" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ObjectType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Article" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitCode" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ImportID" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="SelfCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="OptCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ComplexID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Length" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="Product_StoredProduct" Member="StoredProducts" ThisKey="ID" OtherKey="ProductID" Type="StoredProduct" />
+      <Association Name="Product_ShopProduct" Member="ShopProducts" ThisKey="ID" OtherKey="ProductID" Type="ShopProduct" />
+      <Association Name="Product_ComplexProductComponent" Member="ComplexProductComponents" ThisKey="ID" OtherKey="ProductID" Type="ComplexProductComponent" />
+      <Association Name="Product_PriceFormula" Member="PriceFormulas" ThisKey="ID" OtherKey="ProductID" Type="PriceFormula" />
+      <Association Name="Product_OrderedProduct" Member="OrderedProducts" ThisKey="ID" OtherKey="ProductID" Type="OrderedProduct" />
+      <Association Name="ComplexProduct_Product" Member="ComplexProduct" ThisKey="ComplexID" OtherKey="ID" Type="ComplexProduct" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="User_Product" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MailingList" Member="MailingLists">
+    <Type Name="MailingList">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LetterKey" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="IsForAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TargetMail" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MailingList_MailingReplacement" Member="MailingReplacements" ThisKey="ID" OtherKey="MailingID" Type="MailingReplacement" />
+      <Association Name="User_MailingList" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeliveryAddress" Member="DeliveryAddresses">
+    <Type Name="DeliveryAddress">
+      <Column Name="Region" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Town" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Street" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="House" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Building" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Doorway" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Floor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Flat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Section" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PointID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="District" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="LiftCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="DeliveryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="DeliveryAddress_Store" Member="Stores" ThisKey="ID" OtherKey="AdressID" Type="Store" />
+      <Association Name="DeliveryAddress_Order" Member="Orders" ThisKey="ID" OtherKey="AdressID" Type="Order" />
+      <Association Name="MapPoint_DeliveryAddress" Member="MapPoint" ThisKey="PointID" OtherKey="ID" Type="MapPoint" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapSectors" Member="MapSectors">
+    <Type Name="MapSector">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MapSector_MapPoint" Member="MapPoints" ThisKey="ID" OtherKey="SectorID" Type="MapPoint" />
+      <Association Name="MapSector_MapSectorCar" Member="MapSectorCars" ThisKey="ID" OtherKey="SectorID" Type="MapSectorCar" />
+      <Association Name="MapSector_MapSectorCourier" Member="MapSectorCouriers" ThisKey="ID" OtherKey="SectorID" Type="MapSectorCourier" />
+      <Association Name="Shop_MapSector" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Store_MapSector" Member="Store" ThisKey="StoreID" OtherKey="ID" Type="Store" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkerGroups" Member="WorkerGroups">
+    <Type Name="WorkerGroup">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WorkerGroup_WorkerGroupParticipant" Member="WorkerGroupParticipants" ThisKey="ID" OtherKey="GroupID" Type="WorkerGroupParticipant" />
+      <Association Name="WorkerGroup_Car" Member="Cars" ThisKey="ID" OtherKey="WorkerGroupID" Type="Car" />
+      <Association Name="User_WorkerGroup" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapSectorCars" Member="MapSectorCars">
+    <Type Name="MapSectorCar">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CarID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SectorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MapSector_MapSectorCar" Member="MapSector" ThisKey="SectorID" OtherKey="ID" Type="MapSector" IsForeignKey="true" />
+      <Association Name="Car_MapSectorCar" Member="Car" ThisKey="CarID" OtherKey="ID" Type="Car" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MapSectorCouriers" Member="MapSectorCouriers">
+    <Type Name="MapSectorCourier">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WorkerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SectorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MapSector_MapSectorCourier" Member="MapSector" ThisKey="SectorID" OtherKey="ID" Type="MapSector" IsForeignKey="true" />
+      <Association Name="Worker_MapSectorCourier" Member="Worker" ThisKey="WorkerID" OtherKey="ID" Type="Worker" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedByID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ConsumerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsTemp" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Warning" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsImportant" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DeliveryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveryAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SkipMarkTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AdressID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CarID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_Mark" Member="Marks" ThisKey="ID" OtherKey="OrderID" Type="Mark" />
+      <Association Name="Order_OrderChar" Member="OrderChars" ThisKey="ID" OtherKey="OrderID" Type="OrderChar" />
+      <Association Name="Order_GraphSerialsOrder" Member="GraphSerialsOrders" ThisKey="ID" OtherKey="OrderID" Type="GraphSerialsOrder" />
+      <Association Name="Order_ContractedOrder" Member="ContractedOrders" ThisKey="ID" OtherKey="OrderID" Type="ContractedOrder" />
+      <Association Name="Order_DeliveryListOrder" Member="DeliveryListOrders" ThisKey="ID" OtherKey="OrderID" Type="DeliveryListOrder" />
+      <Association Name="Order_OrderedProduct" Member="OrderedProducts" ThisKey="ID" OtherKey="OrderID" Type="OrderedProduct" />
+      <Association Name="DeliveryAddress_Order" Member="OrderDelivery" ThisKey="AdressID" OtherKey="ID" Type="DeliveryAddress" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Shop_Order" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="User_Order" Member="User" ThisKey="AddedByID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Consumer_Order" Member="Consumer" ThisKey="ConsumerID" OtherKey="ID" Type="Consumer" IsForeignKey="true" />
+      <Association Name="Car_Order" Member="Car" ThisKey="CarID" OtherKey="ID" Type="Car" IsForeignKey="true" />
+      <Association Name="Worker_Order" Member="Worker" ThisKey="WorkerID" OtherKey="ID" Type="Worker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cars" Member="Cars">
+    <Type Name="Car">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxWeight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Width" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Length" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Passengers" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WorkerGroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Car_MapSectorCar" Member="MapSectorCars" ThisKey="ID" OtherKey="CarID" Type="MapSectorCar" />
+      <Association Name="Car_Order" Member="Orders" ThisKey="ID" OtherKey="CarID" Type="Order" />
+      <Association Name="Car_DeliveryListOrder" Member="DeliveryListOrders" ThisKey="ID" OtherKey="CarID" Type="DeliveryListOrder" />
+      <Association Name="User_Car" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="WorkerGroup_Car" Member="WorkerGroup" ThisKey="WorkerGroupID" OtherKey="ID" Type="WorkerGroup" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Workers" Member="Workers">
+    <Type Name="Worker">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="JobID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Document1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Document2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Worker_WorkerGroupParticipant" Member="WorkerGroupParticipants" ThisKey="ID" OtherKey="WorkerID" Type="WorkerGroupParticipant" />
+      <Association Name="Worker_MapSectorCourier" Member="MapSectorCouriers" ThisKey="ID" OtherKey="WorkerID" Type="MapSectorCourier" />
+      <Association Name="Worker_Order" Member="Orders" ThisKey="ID" OtherKey="WorkerID" Type="Order" />
+      <Association Name="Worker_DeliveryListOrder" Member="DeliveryListOrders" ThisKey="ID" OtherKey="WorkerID" Type="DeliveryListOrder" />
+      <Association Name="Job_Worker" Member="Job" ThisKey="JobID" OtherKey="ID" Type="Job" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_Worker" Member="User" ThisKey="OwnerID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeliveryListOrder" Member="DeliveryListOrders">
+    <Type Name="DeliveryListOrder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ListID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CarID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReturnPoint" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ShowOnMap" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Car_DeliveryListOrder" Member="Car" ThisKey="CarID" OtherKey="ID" Type="Car" IsForeignKey="true" />
+      <Association Name="Order_DeliveryListOrder" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Store_DeliveryListOrder" Member="Store" ThisKey="StoreID" OtherKey="ID" Type="Store" IsForeignKey="true" />
+      <Association Name="Worker_DeliveryListOrder" Member="Worker" ThisKey="WorkerID" OtherKey="ID" Type="Worker" IsForeignKey="true" />
+      <Association Name="DeliveryList_DeliveryListOrder" Member="DeliveryList" ThisKey="ListID" OtherKey="ID" Type="DeliveryList" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderedProducts" Member="OrderedProducts">
+    <Type Name="OrderedProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="OrderedProduct_ProductChar" Member="ProductChars" ThisKey="ID" OtherKey="OrderedProductID" Type="ProductChar" />
+      <Association Name="Order_OrderedProduct" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Product_OrderedProduct" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeliveryList" Member="DeliveryLists">
+    <Type Name="DeliveryList">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Approved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DeliveryList_DeliveryListOrder" Member="DeliveryListOrders" ThisKey="ID" OtherKey="ListID" Type="DeliveryListOrder" />
+      <Association Name="Shop_DeliveryList" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" />
+      <Association Name="User_DeliveryList" Member="User" ThisKey="ApprovedBy" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GraphConstructor" Member="GraphConstructors">
+    <Type Name="GraphConstructor">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GraphUID" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="PointPeriod" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Shop_GraphConstructor" Member="Shop" ThisKey="ShopID" OtherKey="ID" Type="Shop" IsForeignKey="true" />
+      <Association Name="User_GraphConstructor" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>

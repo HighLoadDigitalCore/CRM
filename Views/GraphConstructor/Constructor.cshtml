@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Конструктор графиков";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model IList<Graph>
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.common.core.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.common.dynamic.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.common.key.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.drawing.rect.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.common.effects.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.common.tooltips.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.line.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.bar.js"></script>
+    <script src="/Content/assets/RGraph/libraries/RGraph.pie.js"></script>
+
+    <!--[if lt IE 9]><script src="/Content/js/graph/excanvas.js"></script><![endif]-->
+
+    <script src="/Content/js/dtextend.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function() {
+            initDataTableHelper();
+        });
+        function initOrdersUI() {
+            initDataTableHelper();
+        }
+
+        function changeShop(obj) {
+            var overage = '@(Request.QueryString["Overage"])';
+            var ref = '/Graph/Constructor/StatConstructor/ShopID/' + $(obj).val();
+            if (overage == 'True')
+                if (ref.indexOf('?') < 0)
+                    ref += '?Overage=True';
+                else
+                    ref += '&Overage=True';
+            else {
+                var rest = '';
+                if (document.location.href.indexOf('?') >= 0) {
+                    rest = document.location.href.substr(document.location.href.indexOf('?'));
+                    ref += rest;
+                }
+            }
+            document.location.href = ref;
+        }
+    </script>
+    <script src="/Content/js/graph/graph-construct.js"></script>
+
+}
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/lou-multi-select/css/multi-select.css">
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+    <style>
+        .ms-optgroup-label {
+            background-color: #1abc9c;
+            color: #fff !important;
+            padding: 5px 10px !important;
+        }
+
+        .ms-container {
+            width: 475px !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-lg-9">
+    </div>
+    <div class="col-lg-3">
+        <a href="#nogo" onclick="showGraphForm(0);" class="btn btn-success form-control">Добавить график</a>
+        <br />
+        <br />
+
+    </div>
+
+</div>
+@foreach (var graph in Model)
+{
+    <div class="row graph-cell" arg="@graph.ID">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span class="graph-name">@graph.Name</span>
+                        <div class="frf">
+                            <a class="graph-edit" href="#nogo" onclick="editGraph(@graph.ID)">Редактировать</a>
+                            <a class="graph-hide-show" href="#nogo" onclick="showHideGraph(@graph.ID)">@Html.Raw(graph.IsHidden ? "Показать" : "Свернуть")</a>
+                            <a class="graph-delete" href="@Url.Action("DeleteGraph", "Graph", new{graph.ID})">Удалить</a>
+                        </div>
+                    </h2>
+                </div>
+                <div class="panel-body graph-cell" arg="@graph.ID" style="@(graph.IsHidden ? "display:none":"display:block")">
+                    <div class="graph-body" id="GraphBody_@(graph.ID)">
+                        <canvas id="CVS_@(graph.ID)" width="600" height="250" style="border-radius: 7px; border: 5px solid lightgray; box-shadow: 2px 2px 3px rgb(144, 144, 144);">[No canvas support]</canvas>
+                    </div>
+                    <div class="graph-filter">
+                        @Html.Action("GraphFilter", new { ID = graph.ID })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.Action("OrderSearchGraphPopup", "Common")
+@Html.Action("OrderSearchPartial", "Common", new { FormSettings = new JsonSerializable(new OrderSearchBlock("StatConstructor").Options).ToString() })

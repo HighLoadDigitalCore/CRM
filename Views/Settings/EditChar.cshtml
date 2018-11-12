@@ -1,0 +1,83 @@
+﻿@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    ViewBag.Title = "Редактирование характеристик";
+}
+@model ShopProductChar
+<div id="CharForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading"></header>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditChar", "Settings", new { }, FormMethod.Post, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        @Html.HiddenFor(x => x.ID)
+
+                        <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Название</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Name" name="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Значение по умолчанию<button class="btn btn-default btn-tip" type="button" data-placement="top" data-original-title="Это значение характеристики, которое заполняется по умолчанию">?</button></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.DefValue" name="DefValue">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Основная характеристика?</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(x => x.IsMain/*, new { @class = "form-control" }*/)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Подгружать при автозаполнении?</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(x => x.LoadInForm)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Тип характеристики</label>
+                            <div class="col-sm-10">
+
+                                @Html.DropDownListFor(x => x.Type, new[] { new SelectListItem() { Selected = Model.Type == 1, Value = "1", Text = "Для товаров" }, new SelectListItem() { Selected = Model.Type == 3, Value = "3", Text = "Для заказов" }, new SelectListItem() { Selected = Model.Type == 2, Value = "2", Text = "Для заказов и для товаров" } }, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Магазин</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="ShopID">
+                                    @if (currentUser.UserRoles.Contains("ShopOwner"))
+                                    {
+                                        <option value="" @(!Model.ShopID.HasValue ? "selected" : "")>Все магазины</option>
+                                    }
+                                    @foreach (var shop in currentUser.ShopList)
+                                    {
+                                        <option value="@shop.ID" @(Model.ShopID == shop.ID ? "selected" : "")>@shop.Name</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2">
+
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="submit" class="btn btn-success" value="Сохранить" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

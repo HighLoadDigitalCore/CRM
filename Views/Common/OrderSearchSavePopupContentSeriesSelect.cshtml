@@ -1,0 +1,18 @@
+﻿@{
+    var SerialList = (List<GraphSerial>)ViewBag.SerialList;
+    var SerialListForGraph = (List<int>)ViewBag.SerialListForGraph;
+    var SerialListPlane = (string) ViewBag.SerialListPlane;
+}
+@if (SerialList != null && SerialList.Any())
+{
+ 
+    <b>Выберите последовательности, которые хотите видеть на этом графике:</b>
+    <input name="SerialListPlane" id="SerialListPlane" type="hidden" value="@(SerialListPlane)" />
+    <select id='SerialList' name="SerialList" multiple='multiple'>
+        @foreach (var graph in SerialList)
+        {
+            <option value='@graph.ID' @(SerialListForGraph.Contains(graph.ID) ? "selected" : "")>@graph.Name</option>
+        }
+    </select>
+}
+

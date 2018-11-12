@@ -1,0 +1,235 @@
+﻿@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    ViewBag.Title = "Контрагенты";
+    var noshops = ((bool?)ViewBag.NoShops) ?? false;
+    var helper = new PermissionHelper();
+}
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    @*<script src="/Content/assets/data-tables/dataTables.fixedHeader.js"></script>*@
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+    <script src="/Content/js/contractors.js"></script>
+
+    <script type="text/javascript">
+        function savePercent(id, obj) {
+            $.post('/Contractor/SavePercent', { id: id, percent: $(obj).parent().find('.cost-inp').val() }, function (d) {
+                $(obj).parent().find('#message').html('<span style="color: green">Данные сохранены</span>');
+            });
+        }
+    </script>
+}
+@model MyContractors
+@if (helper.HasPermission(Permissions.ContragentEdit))
+{
+    if (noshops)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <b>У вас не добавлено ни одного магазина</b>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+
+        <div class="row" id="Contractors">
+            <div class="col-lg-6">
+                <section class="panel">
+                    <header class="panel-heading"></header>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12 contr-cell">
+                                <h4>Я являюсь контрагентом у:</h4>
+                                <div class="contractors">
+                                    @foreach (var contr in Model.MeContactors)
+                                    {
+                                        <div class="contractor-item">
+                                            <div class="c-name">
+                                                @contr.UserAnotherEntity.FullName (@contr.Shop.OrgNameOrName)
+                                                <div class="contacts">
+                                                    <span>E-mail:</span> <span>@contr.UserAnotherEntity.Email</span>
+                                                    <br />
+                                                    <span>Телефон:</span> <span>@contr.UserAnotherEntity.Phone</span>
+                                                    <br />
+                                                    <button class="btn btn-success">Написать сообщение</button>
+                                                </div>
+                                            </div>
+                                            <div class="c-ctrl"><a href="@Url.Action("Delete", new{ID = contr.ID})">Удалить</a></div>
+
+                                        </div>
+                                    }
+                                    @if (Model.IncomingContractors.Any())
+                                    {
+                                        <hr />
+                                        <div class="contractor-item no-border">
+                                            <b>Приглашения:</b>
+                                        </div>
+                                        foreach (var contr in Model.IncomingContractors)
+                                        {
+                                            <div class="contractor-item">
+                                                <div class="c-name">
+                                                    @contr.UserAnotherEntity.FullName (@contr.Shop.OrgNameOrName)
+                                                    <div class="contacts">
+                                                        <span>E-mail:</span> <span>@contr.UserAnotherEntity.Email</span>
+                                                        <br />
+                                                        <span>Телефон:</span> <span>@contr.UserAnotherEntity.Phone</span><br />
+                                                        <button class="btn btn-success">Написать сообщение</button>
+                                                    </div>
+                                                </div>
+                                                <div class="c-ctrl">
+                                                    @if (contr.UserFor == currentUser.ID && contr.Status == 0)
+                                                    {
+                                                        <a href="@Url.Action("StatusChange", new{ID = contr.ID, Status = 1, Rights = 0})">Принять</a>
+                                                        <a href="@Url.Action("StatusChange", new{ID = contr.ID, Status = 1, Rights = 1})">Принять и разр. редактирование</a>
+                                                        <a href="@Url.Action("StatusChange", new{ID = contr.ID, Status = -1})">Отклонить</a>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        }
+
+                                    }
+                                    @if (Model.IncomingContractorsDenied.Any())
+                                    {
+                                        <hr />
+                                        <div class="contractor-item no-border">
+                                            <b>Отклоненные приглашения:</b>
+                                        </div>
+                                        foreach (var contr in Model.IncomingContractorsDenied)
+                                        {
+                                            <div class="contractor-item">
+                                                <div class="c-name">@contr.UserAnotherEntity.FullName (@contr.Shop.OrgNameOrName)</div>
+                                                <div class="c-ctrl"><a href="@Url.Action("Delete", new{ID = contr.ID})">Удалить</a></div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-6">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="form-group" style="clear: both;overflow: hidden">
+                            <div class="col-sm-12 contr-cell">
+                                <h4>Мои контрагенты:</h4>
+                                <div class="contractors">
+                                    @foreach (var contr in Model.MyContactors)
+                                    {
+                                        <div class="contractor-item">
+                                            <div style="clear: both; overflow: hidden">
+                                                <div class="c-name">
+                                                    @contr.UserAnotherEntity.FullName &rarr; @contr.Shop.OrgNameOrName
+                                                    <div class="contacts">
+                                                        <span>E-mail:</span> <span>@contr.UserAnotherEntity.Email</span>
+                                                        <br />
+                                                        <span>Телефон:</span> <span>@contr.UserAnotherEntity.Phone</span><br />
+                                                        <button class="btn btn-success">Написать сообщение</button>
+                                                    </div>
+                                                </div>
+                                                <div class="c-ctrl"><a href="@Url.Action("Delete", new{ID = contr.ID})">Удалить</a></div>
+                                            </div>
+                                            <div class="cost-block">
+                                                Процент отчисления:
+                                                <input type="text" class="cost-inp" name="Cost" value="@contr.Cost" />
+                                                <button class="btn btn-success" style="margin-top: -4px" onclick="savePercent(@contr.ID, this);">Сохранить</button>
+                                                <div id="message"></div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    @if (Model.OutcomingContractors.Any())
+                                    {
+                                        <hr />
+                                        <div class="contractor-item no-border">
+                                            <b>Приглашения:</b>
+                                        </div>
+                                        foreach (var contr in Model.OutcomingContractors)
+                                        {
+                                            <div class="contractor-item">
+                                                <div class="c-name">
+                                                    @contr.UserAnotherEntity.FullName &rarr; @contr.Shop.OrgNameOrName
+                                                </div>
+                                                <div class="c-ctrl">
+                                                    <a href="@Url.Action("Delete", new {ID = contr.ID})">Удалить</a>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    }
+                                    @if (Model.OutcomingContractorsDenied.Any())
+                                    {
+                                        <hr />
+                                        <div class="contractor-item no-border">
+                                            <b>Отклоненные приглашения:</b>
+                                        </div>
+                                        foreach (var contr in Model.OutcomingContractorsDenied)
+                                        {
+                                            <div class="contractor-item">
+                                                <div class="c-name">@contr.UserAnotherEntity.FullName &rarr; @contr.Shop.OrgNameOrName</div>
+                                                <div class="c-ctrl"><a href="@Url.Action("Delete", new {ID = contr.ID})">Удалить</a></div>
+
+                                            </div>
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="clear: both;overflow: hidden">
+                            <hr />
+                            @Html.Action("ShopSelectRequired", "Common")
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel-body"><a class="btn btn-success form-control" style="width: 300px" onclick="showContrSearch(); return false;">Поиск контрагентов для магазина</a></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-sm" id="contrSearch" tabindex="-1" data-backdrop="static"
+             data-keyboard="false" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="mySmallModalLabel">Поиск контрагентов</h4>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Action("ContractorSearch")
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <b>У вас нет прав доступа к этому разделу</b>
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Товары на складах";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    var helper = new PermissionHelper();
+}
+@model IList<Product>
+@if (helper.HasPermission(Permissions.StoreProducts))
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    @*<script src="/Content/assets/data-tables/dataTables.fixedHeader.js"></script>*@
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+
+}
+else
+{
+    <h1>У вас нет прав доступа на просмотр этой информации</h1>
+}

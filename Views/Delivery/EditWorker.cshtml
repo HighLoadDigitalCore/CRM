@@ -1,0 +1,141 @@
+﻿@model Worker
+
+@{
+    ViewBag.Title = Model.ID > 0 ? "Редактирование данных сотрудника" : "Добавление нового сотрудника";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@section scripts{
+    <script src="/Content/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+<script src="/Content/js/syronex-colorpicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+            initColorPicker();
+        });
+        function showColorCell() {
+            var needcolor = $('#JobID option:selected').attr('needcolor');
+            if (needcolor == 1) {
+                $('#colorCellBlock').show();
+            } else {
+                $('#colorCellBlock').hide();
+            }
+        }
+        var colors = ['#EEEEEE', '#FFFF88', '#FF7400', '#CDEB8B', '#6BBA70', '#006E2E', '#C3D9FF', '#4096EE', '#356AA0', '#FF0096', '#B02B2C', '#000000', '#FFFFFF'];
+        function initColorPicker() {
+            var index = colors.indexOf($('input[name="Color"]').val());
+            if (index < 0)
+                index = colors.length - 1;
+
+            $('#colorCell').colorPicker(
+            {
+                defaultColor: index, // index of the default color
+                color: colors,
+                click: function (c) {
+                    $('input[name="Color"]').val(c);
+                    if (polygon != null) {
+                        polygon.options.set({ "strokeColor": c.replace('#', ''), "fillColor": c.replace('#', '') });
+
+                    }
+                }
+            });
+        }
+    </script>
+    @*    <script type="text/javascript">
+            function changeCarForm() {
+                if (
+                    $('#JobID option:selected').attr('hascar') == '1') {
+                    $('div[carexist="1"]').show();
+                } else {
+                    $('div[carexist="1"]').hide();
+                }
+            }
+        </script>*@
+}
+
+<div id="WorkerForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading"></header>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditWorker", "Delivery", new { }, FormMethod.Post, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        @Html.HiddenFor(x => x.ID)
+
+                        <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">ФИО</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Name" name="Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group @(Model.IsPost && Model.Phone.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Телефон</label>
+                            <div class="col-sm-10">
+                                <input type="text" data-mask="+7(999) 999-99-99" class="form-control" value="@Model.Phone" name="Phone">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Должность</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="JobID" id="JobID" onchange="showColorCell()">
+                                    @foreach (var job in Model.AvailableJobs)
+                                    {
+                                        <option hascar="@(job.HasCar?"1":"0")" needcolor="@(job.Code == "Courier"?1:0)" value="@job.ID" @(job.ID == Model.Job.ID ? "selected" : "")>@job.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: @(Model.Job.Code == "Courier"?"block":"none")" id="colorCellBlock">
+                            <label class="col-sm-2 control-label">Цвет маршрута</label>
+                            <div class="col-lg-8">
+                                <div id="colorCell"></div>
+                                <input type="hidden" name="Color" value="@Model.Color" />
+                            </div>
+                        </div>
+                        @*
+                            <div class="form-group @(Model.IsPost && Model.Job.HasCar && Model.CarName.IsNullOrEmpty() ? "has-error" : "")" style="@(Model.Job.HasCar ? "display:block":"display:none")" carexist="1">
+                                <label class="col-sm-2 col-sm-2 control-label">Название машины</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.CarName" name="CarName">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.Job.HasCar && Model.CarSize.IsNullOrEmpty() ? "has-error" : "")" style="@(Model.Job.HasCar ? "display:block":"display:none")" carexist="1">
+                                <label class="col-sm-2 col-sm-2 control-label">Габариты</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.CarSize" name="CarSize">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.Job.HasCar && Model.CarNumber.IsNullOrEmpty() ? "has-error" : "")" style="@(Model.Job.HasCar ? "display:block":"display:none")" carexist="1">
+                                <label class="col-sm-2 col-sm-2 control-label">Номер машины</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.CarNumber" name="CarNumber">
+                                </div>
+                            </div>
+                        *@
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Документ 1</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Document1" name="Document1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Документ 2</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Document2" name="Document2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="submit" class="btn btn-success" value="Сохранить" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

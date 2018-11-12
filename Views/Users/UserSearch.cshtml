@@ -1,0 +1,121 @@
+﻿@model UserFilter
+@{
+    var helper = new PermissionHelper();
+}
+<div id="UserView">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Поиск по параметрам</h2>
+                </div>
+                <div class="panel-body autopost">
+                    @using (Ajax.BeginForm("UserSearch", "Users", new AjaxOptions() { UpdateTargetId = "UserView", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initUsersUI()" }))
+                    {
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>ФИО, Email, Телефон, Логин (или их часть)</label>
+                                    @Html.TextBox("LoginOrName", Model.LoginOrName, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label">Тип пользователя</label>
+                                @Html.DropDownList("RoleID", Model.RoleList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label">Начальная дата</label>
+                                <input arg="date" type="text" class="form-control" value="@(Model.MinDate.HasValue ? Model.MinDate.Value.ToString("dd.MM.yyyy") : "" )" data-date-format="dd.mm.yyyy" id="MinDate" name="MinDate">
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label">Конечная дата</label>
+                                <input arg="date" type="text" class="form-control" value="@(Model.MaxDate.HasValue ? Model.MaxDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MaxDate" name="MaxDate">
+                            </div>
+@*
+                            <div class="col-lg-2">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-success form-control" type="submit" data-original-title="" title="">Поиск</button>
+                            </div>
+*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    @if (helper.HasPermission(Permissions.UserAdd))
+                    {
+                        <div class="row">
+                            <div class="col-lg-9"></div>
+                            <div class="col-lg-3">
+                                <a href="@Url.Action("Edit", "Users")" class="btn btn-success form-control">Добавить пользователя</a>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    }
+                    <div class="adv-table">
+                        <table class="display table table-bordered table-striped" id="example">
+                            <thead>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Дата регистрации</th>
+                                    <th>Тип пользователя</th>
+                                </tr>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Дата регистрации</th>
+                                    <th>Тип пользователя</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Result)
+                                {
+                                    <tr class="@((item.IsDeleted ?? false) ? "gradeX" : ((item.IsLocked ?? false)?"gradeU": "gradeA"))">
+                                        <td>
+                                            @*@if (helper.HasPermission(Permissions.UserEdit))*@
+
+                                            @Html.ActionLink(item.FullName, "Edit", "Users", new { ID = item.ID }, null)
+
+                                            @*
+                                                else
+                                                {
+                                                    @item.FullName
+                                                }
+                                            *@
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(item.Email, "Edit", "Users", new { ID = item.ID }, null)
+                                        </td>
+                                        <td>@item.Phone</td>
+                                        <td>@(item.Membership.CreateDate.HasValue ? item.Membership.CreateDate.Value.ToString("dd.MM.yyyy HH:mm") : "")</td>
+                                        <td class="center">@item.UsersInRoles.Select(x => x.Role.RoleDescription).JoinToString(", ")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Дата регистрации</th>
+                                    <th>Тип пользователя</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

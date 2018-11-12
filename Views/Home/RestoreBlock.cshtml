@@ -1,0 +1,36 @@
+﻿<div id="RestorePassBlock">
+    @using (Ajax.BeginForm("RestoreBlock", "Home", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "RestorePassBlock", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Забыли пароль ?</h4>
+        </div>
+        if (((string) ViewBag.Message).IsNullOrEmpty())
+        {
+            <div class="modal-body">
+
+                <p>Введите ваш логин, email или телефон</p>
+                @if (((string) ViewBag.Error).IsFilled())
+                {
+                    <p style="color:red">@ViewBag.Error</p>
+                }
+                <input type="text" name="login" placeholder="Логин, email или телефон" autocomplete="off" class="form-control placeholder-no-fix">
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Отмена</button>
+                <button class="btn btn-success" type="submit">Восстановить пароль</button>
+            </div>
+        }
+        else
+        {
+            <p>
+                <br/>
+                <br />
+                @ViewBag.Message
+                <br />
+                <br />
+            </p>
+        }
+    }
+
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Загрузка товаров из YML";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+}
+@*@Html.Action("ShopSelectRequired", "Common")*@
+@using (Html.BeginForm("YML", "Import", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading"></header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <h4>@ViewBag.Message</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label col-lg-2">Загрузка товаров из YML:</label>
+                        <div class="col-lg-10">
+                            <input type="file" name="FileName" />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="submit" name="SubmitForm" style="float: right" class="btn btn-success" value="Загрузить" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+}

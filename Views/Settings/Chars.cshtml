@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Настройки базы данных";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+
+@model IEnumerable<ShopProductChar>
+@section scripts{
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $('#example').dataTable({
+            stateSave: true,
+            "aaSorting": [[0, "desc"]],
+            "oLanguage": {
+                "sProcessing": "Подождите...",
+                "sLengthMenu": "Показать _MENU_ записей",
+                "sZeroRecords": "Записи отсутствуют.",
+                "sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                "sInfoEmpty": "Записи с 0 до 0 из 0 записей",
+                "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
+                "sInfoPostFix": "",
+                "sSearch": "Поиск:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Первая",
+                    "sPrevious": "Предыдущая",
+                    "sNext": "Следующая",
+                    "sLast": "Последняя"
+                },
+                "oAria": {
+                    "sSortAscending": ": активировать для сортировки столбца по возрастанию",
+                    "sSortDescending": ": активировать для сортировки столбцов по убыванию"
+                }
+            },
+
+        });
+    </script>
+}
+
+@if (currentUser.UserRoles.Contains("ShopOwner") || (currentUser.UserRoles.Contains("Manager") && currentUser.ManagerProfiles.First().ShopManagers.Any()))
+{
+    @Html.Action("ShopSelect", "Common")
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <a href="@Url.Action("EditChar", "Settings", (Request.QueryString["ShopID"].IsNullOrEmpty() ? (object) new {} : (object) new {ShopID = Request.QueryString["ShopID"]}))" class="btn btn-success">Добавить характеристику</a>
+                    <br/>
+                    <br/>
+                    <div class="adv-table">
+                        <table class="display table table-bordered table-striped" id="example">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Основная характеристика</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="gradeA">
+
+                                        <td><a href="@Url.Action("EditChar", "Settings", new{ShopID = item.ShopID, ID = item.ID})">@item.Name</a></td>
+                                        <td>@item.DefValue</td>
+                                        <td>@(item.IsMain ? "Да" : "Нет")</td>
+                                        <td class="center"><a href="@Url.Action("DeleteChar", "Settings", new {ID = item.ID})">Удалить</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Основная характеристика</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+else if (currentUser.UserRoles.Contains("Manager") && !currentUser.ManagerProfiles.First().ShopManagers.Any())
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <p>У вас нет доступных магазинов</p>
+                </div>
+            </section>
+        </div>
+    </div>
+}

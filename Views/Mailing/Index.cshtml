@@ -1,0 +1,129 @@
+﻿@model MailingList
+@{
+    var type = (int)ViewBag.Type;
+    ViewBag.Title = "Редактирование " + (type == 0 ? "почтовых" : "SMS") + " рассылок";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading"></header>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.DropDownList("MailingList", ViewBag.Mailings as SelectList, new { @class = "form-control" })
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">Редактирование рассылки "@Model.Name"</header>
+                <div class="panel-body">
+                    <div class="form-group">
+
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <fieldset>
+                                <div class="repl-list">
+                                    <div class="replacement">
+                                        <h4>Список подстановок:</h4>
+                                        <small style="color: orangered">Внимание! Все подстановки из списка должны быть использованы в тексте письма</small>
+                                    </div>
+                                    @foreach (var replacement in Model.MailingReplacements.OrderBy(x => x.Replacement))
+                                    {
+                                        <div class="replacement">
+                                            <div class="repl-val">@replacement.Replacement</div>
+                                            <div class="repl-name">&mdash; @replacement.Description</div>
+                                        </div>
+                                    }
+                                </div>
+                                @Html.HiddenFor(model => model.ID)
+                                <div class="form-group">
+                                    <div class="control-group">
+                                        <div class="col-sm-4">
+                                            <label for="Header" class="control-label">@(type == 0? "Тема письма":"Отправитель SMS")</label>
+                                            @*@Html.LabelFor(model => model.Header, new { @class = "control-label" })*@
+                                        </div>
+                                        <div class="col-sm-8">
+
+                                            @Html.TextBoxFor(model => model.Header, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Header)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: @(type == 0 ? "block":"none")">
+                                    <div class="control-group">
+                                        <div class="col-sm-4">
+                                            @Html.LabelFor(model => model.TargetMail, new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(model => model.TargetMail, Model.IsForAdmin ? (object)new { @class = "form-control" } : new { disabled = "disabled", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.TargetMail)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <label for="Header" class="control-label">@(type == 0 ? "Содержимое письма" : "Текст SMS")</label>
+                                        @*@Html.LabelFor(model => model.Letter, new { @class = "control-label" })*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        @Html.TextAreaFor(model => model.Letter, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Letter)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <br />
+                                        <input class="btn btn-success" type="submit" value="Сохранить изменения" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        var targetURL = '@(Url.Action("Index"))';
+        $().ready(function () {
+            $('#MailingList').change(function () {
+                document.location.href = targetURL + '?Type=@(type)&mailingID=' + $('#MailingList').val();
+            });
+        })
+    </script>
+
+    @if (type == 0)
+    {
+        <script type="text/javascript" src="/Content/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript">
+            
+            $().ready(function () {
+
+
+                if ($('#Letter').length) {
+                    CKEDITOR.replace('Letter', {
+                        filebrowserBrowseUrl: '/Content/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserImageBrowseUrl: '/Content/ckeditor/ckfinder/ckfinder.html?type=Images',
+                        filebrowserFlashBrowseUrl: '/Content/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                        filebrowserUploadUrl: '/Content/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+                        filebrowserImageUploadUrl: '/Content/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+                        filebrowserFlashUploadUrl: '/Content/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+                    });
+                }
+            });
+        </script>
+    }
+}

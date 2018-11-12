@@ -1,0 +1,63 @@
+﻿@model List<Shop>
+@{
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+
+}
+@if (!Model.Any())
+{
+    if (!currentUser.UserRoles.Contains("Admin"))
+    {
+        <h4>В системе обслуживания не зарегистрировано ни одного магазина для вас.</h4>
+    }
+}
+else
+{
+    <h4>Мои магазины:</h4>
+    <table class="main-qulity">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = item.ID, Page = "Overage", controller = "Common", action = "OrderSearch" })">@item.Name</a>
+                </td>
+                <td>
+                    <a class="@item.OverageMark.GetMarkColor(item.OverageMark.OverageTotal)" href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = item.ID, Page = "Overage", controller = "Common", action = "OrderSearch" })">
+                        <i class="fa fa-signal icon-rounded icon-primary" data-original-title="" title="Общая оценка"></i>
+                        @item.OverageMark.OverageTotal.ToString("f1")
+                    </a>
+                </td>
+                <td>
+                    <a class="@item.OverageMark.GetMarkColor(item.OverageMark.OverageOperator)" href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = item.ID, Page = "Overage", controller = "Common", action = "OrderSearch" })">
+                        <i class="fa fa-user icon-rounded icon-primary" data-original-title="" title="Работа оператора"></i>
+                        @item.OverageMark.OverageOperator.ToString("f1")
+                    </a>
+                </td>
+                <td>
+                    <a class="@item.OverageMark.GetMarkColor(item.OverageMark.OverageDelivery)" href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = item.ID, Page = "Overage", controller = "Common", action = "OrderSearch" })">
+                        <i class="fa fa-truck icon-rounded icon-primary" data-original-title="" title="Доставка"></i>
+                        @item.OverageMark.OverageDelivery.ToString("f1")
+                    </a>
+                </td>
+                <td>
+                    <a class="@item.OverageMark.GetMarkColor(item.OverageMark.OverageQuality)" href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = item.ID, Page = "Overage", controller = "Common", action = "OrderSearch" })">
+                        <i class="fa fa-support icon-rounded icon-primary" data-original-title="" title="Качество"></i>
+                        @item.OverageMark.OverageQuality.ToString("f1")
+                    </a>
+                </td>
+                <td>
+                    <a class="@item.OverageMark.GetMarkColor(item.OverageMark.OveragePrice)" href="@Url.Action("OrderSearch", "Common", new{ShopID = item.ID, Page = "Overage"})">
+                        <i class="fa fa-dollar icon-rounded icon-primary" data-original-title="" title="Цена"></i>
+                        @item.OverageMark.OveragePrice.ToString("f1")
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    if (helper.HasPermission(Permissions.ShopAdding))
+    {
+        <br />
+        <a href="@Url.Action("Edit", "Shop")" class="btn btn-info">Добавить новый магазин</a>
+    }
+
+}

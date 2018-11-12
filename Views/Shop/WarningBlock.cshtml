@@ -1,0 +1,129 @@
+﻿@model Order
+@{
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@if (helper.HasPermission(Permissions.OrderEdit) || (helper.HasPermission(Permissions.OrderAdd) && Model.AddedByID == currentUser.ID && Model.Status == -1))
+{
+    <div id="WarningBlock">
+        <div class="">
+            <section class="panel">
+                <header class="panel-heading"><h3>Информация о заказе</h3></header>
+                <div class="panel-body">
+                    @using (Ajax.BeginForm("WarningBlock", "Shop", new { ShopID = Request.QueryString["ShopID"] }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "WarningBlock", OnComplete = "refreshOrderProducts();" }, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        <input type="hidden" name="ID" value="@Model.ID" />
+                        if (ViewBag.Message != null)
+                        {
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4"></label>
+                                <div class="col-lg-6">
+                                    <span style="color: green; font-weight: bold">@ViewBag.Message</span>
+                                </div>
+                            </div>
+                        }
+
+                        if (Model.AvailableContractors.Any())
+                        {
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Отправить контрагенту:</label>
+                                <div class="col-lg-6">
+                                    <select name="ContractorID" class="form-control" onchange="calculateContractor(this)">
+                                        <option @(0 == Model.Contractor.ID ? "selected" : "") value="">Не выбрано</option>
+                                        @foreach (var item in Model.AvailableContractors)
+                                        {
+                                            <option price="@item.Cost" value="@item.ID" @(item.ID == Model.Contractor.ID ? "selected" : "")>@item.UserAnotherEntity.FullName (@item.Shop.OrgNameOrName)</option>
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group" id="ContractorCostCell" style="@(Model.Contractor.ID > 0 ? "display:block" : "display:none")">
+                                <label class="col-sm-2 control-label col-lg-4">Отчисления контрагенту:</label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="@Model.ContractedOrder.ContractorCost" name="ContractorCost" class="form-control" style="width: 150px; float: left" @(Model.ContractedOrders.Any() && Model.ContractedOrders.First().Contractor.Cost.HasValue ? "disabled=disabled" : "") />
+                                    <select name="ContractorCostType" @(Model.ContractedOrders.Any() && Model.ContractedOrders.First().Contractor.Cost.HasValue ? "disabled=disabled" : "") class="form-control" style="width:80px; float:right">
+                                        <option value="0" @(!Model.ContractedOrders.Any() || Model.ContractedOrders.First().ContractorCostType == 0 ? "selected" : "")>%</option>
+                                        <option value="1" @(Model.ContractedOrders.Any() && Model.ContractedOrders.First().ContractorCostType == 1 ? "selected" : "")>руб.</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Номер заказа:</label>
+                            <div class="col-lg-6">
+                                <input type="text" value="@Model.OrderNumber" name="OrderNumber" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-sm-2 control-label col-lg-4">Комментарий:<button data-original-title="Поставьте галочку, чтобы отметить, что это важный заказ" data-placement="top" type="button" class="btn btn-default btn-tip">?</button></label>
+                            <div class="col-lg-6">
+                                <div class="input-group m-bot15">
+                                    <span class="input-group-addon input-group-addon-danger">
+                                        @Html.CheckBoxFor(x => x.IsImportant)
+                                        @*<input type="checkbox" @(Model.Warning.IsFilled() ? "checked" : "")>*@
+                                    </span>
+                                    <input type="text" value="@Model.Warning" name="Warning" class="form-control" @*onkeyup="setBox(this); " onkeydown="setBox(this); " onkeypress="setBox(this);" *@>
+                                </div>
+                            </div>
+                        </div>
+                        if (!Model.DeliveryDate.HasValue ||
+                             (Model.DeliveryDate.Value > DateTime.Now) ||
+                             helper.HasPermission(Permissions.DeliveryEdit))
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-2 control-label col-lg-4">Дата доставки:</label>
+                                <div class="col-lg-6">
+                                    <input type="text" arg="date" value="@(Model.DeliveryDate.HasValue ? Model.DeliveryDate.Value.ToString("dd.MM.yyyy") : "")" name="DeliveryDate" data-date-format="dd.mm.yyyy" class="form-control">
+                                </div>
+                            </div>
+                        }
+                        @*  <div class="form-group" rel="char">
+
+                                <label class="col-sm-2 control-label col-lg-4">Адрес доставки:</label>
+                                <div class="col-lg-8">
+
+                                    <input type="text" value="@Model.DeliveryAddress" name="DeliveryAddress" class="form-control skip-auto">
+
+                                </div>
+                            </div>*@
+                        var counter = 1;
+                        foreach (var ch in Model.OrderChars)
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">@ch.Name:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="@ch.Value" name="Char_@(counter)_@(ch.ID)">
+                                </div>
+                                <div class="col-sm-2">
+                                    @if (helper.HasPermission(Permissions.ShopCharEdit) && !Model.Shop.IsCharExist(ch.Name, Request.QueryString["ShopID"].ToNullInt()))
+                                    {
+                                        <a href="#" class="glyphicon glyphicon-plus" title="Добавить характеристику в настройки базы" onclick="return saveCharOrder(this)" style="margin-right: 10px;"></a>
+                                    }
+                                    <a href="#" class="glyphicon glyphicon-remove" arg="@ch.Name" onclick="return removeLineOrder(this)" title="Удалить из списка"></a>
+
+                                </div>
+                            </div>
+                                    counter++;
+                        }
+                        <input type="hidden" id="charOrderCount" value="@counter" />
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <a href="#" id="add-char" onclick="addOrderChar(this); return false;">Добавить характеристику</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="submit" style="float: right" class="btn btn-success" onclick="saveReadOnly();" value="Сохранить данные" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}

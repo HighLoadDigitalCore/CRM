@@ -1,0 +1,52 @@
+﻿@model List<StoreProductRefilling>
+<div id="Refils" arg="@ViewBag.ProductID">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading"><h3>История пополнений товара на складах:</h3><a href="#nogo" onclick="$('#addproduct').modal('show');" class="btn btn-success" style="padding-right: 20px">Добавить товар на склад</a></header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>Название склада</th>
+                                <th>Дата</th>
+                                <th>Кол-во</th>
+                                <th>Ед. измерения</th>
+                                <th>Цена</th>
+                            </tr>
+                            <tr class="fr">
+                                <th type="text">Название склада</th>
+                                <th type="text">Дата</th>
+                                <th type="number-range">Кол-во</th>
+                                <th type="text">Ед. измерения</th>
+                                <th type="number-range">Цена</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeA">
+                                    <td><a href="@Url.Action("StoreEdit", "Store", new{ID = item.StoredProduct.Store.ID})">@item.StoredProduct.Store.Name</a></td>
+                                    <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                                    <td>@item.Amount</td>
+                                    <td>@ProductUnit.GetNameByCode(item.UnitCode)</td>
+                                    <td>@item.Price.ToString("f2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Название склада</th>
+                                <th>Дата</th>
+                                <th>Кол-во</th>
+                                <th>Ед. измерения</th>
+                                <th>Цена</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    @Html.Action("RefillForm")
+</div>

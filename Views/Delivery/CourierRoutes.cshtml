@@ -1,0 +1,188 @@
+﻿@model DeliveryList
+@{
+    var counter = 1;
+    var gc = 1;
+}
+@if (Model != null && Model.CourierPoints.Any())
+{
+    var grouped = Model.CourierPoints.Where(x => x.WorkerUID.HasValue).GroupBy(x => x.WorkerUID);
+    <div id="CourierRoutes">
+        <input name="IsApproved" type="hidden" value="@(Model.Approved ? 1 : 0)" />
+        <input name="HasUndefCourierRoutes" type="hidden" value="@(Model.CourierPointsUndef.Any() ? 1 : 0)" />
+
+        <h3>Доставка курьером</h3>
+        <hr />
+        <div class="delivery-body">
+            @foreach (var group in grouped)
+            {
+                var cr = Model.CurrentUser.GetWorkerByID(group.Key.Value);
+                var stores = Model.GetStoresForGroup(group, SectorTypes.CourierSector);
+                var storesAvail = Model.Shop.ShopStores.Select(x => x.Store);
+                <div class="delivery-group" skip="0" type="@((int)SectorTypes.CourierSector)" prefix="courier" arg="@group.Key" color="@Model.GetColor(group, SectorTypes.CourierSector)">
+                    <h4>Маршрут №@gc</h4>
+                    <div class="car-info">
+                        Курьер: @cr.Name @if (!Model.Approved)
+                        {
+                            <a href="#" style="color: blue" onclick="return changeDelivererForGroup(@Model.ID, @group.Key, @((int)SectorTypes.CourierSector))">редактировать</a>
+                        }<br />
+                        <div style="padding: 10px; border: 1px dotted gray">
+                            @if (!Model.IsWeightCorrectForGroup(group))
+                            {
+                                <button class="btn btn-danger btn-tip" type="button" data-placement="top" data-original-title="Внимание! Вес указан не у всех товаров. Возможны ошибке при рассчете общего веса">!</button>
+                            } Общий вес заказов: @Model.GetWeightForGroup(group) кг
+                        </div>
+                        Отображать маршрут на карте <input type="checkbox" id="ShowOnMap" onchange="changeMapShow(this)" tp="@((int)SectorTypes.CourierSector)" group="@Model.ID" arg="@group.Key" @(Model.IsShowOnMap(group) ? "checked" : "") /><br />
+                        <div class="route-info-len">
+                            <label onclick="$(this).parent().find('.info-list').toggle()">Длина маршрута: <span>&darr;</span></label><span id="length">0</span>&nbsp;км
+                            <div class="info-list"></div>
+                        </div>
+                        @if (!Model.Approved)
+                        {
+                            @Html.Raw("Возвращаться на склад?") <select id="BackRoute" tp="@((int)SectorTypes.CourierSector)" arg="@group.Key" group="@Model.ID" onchange="changeReturnPoint(this)">
+                                <option value="" @(!Model.HasReturnPoint(stores) ? "selected" : "")>Не возвращаться</option>
+                                @foreach (var store in storesAvail)
+                                {
+                                    <option value="@store.ID" pos="@store.PointDataJson" @(Model.GetReturnPoint(stores).StoreID == store.ID ? "selected" : "")>@store.Name</option>
+                                }
+                            </select>
+                            <br />
+                            <br />
+                            <input type="submit" class="btn btn-success" onclick="return addRoutePoints(this)" arg="@group.Key" tp="@((int)SectorTypes.CourierSector)" value="Добавить точки маршрута" />
+                        }
+                    </div>
+                    <div class="route-info">
+                        @foreach (var point in group.OrderBy(x => x.OrderNum))
+                        {
+                            if (point.Order != null)
+                            {
+                                <div class="order-route" arg="@point.ID" pos="@point.PointDataJson" type="order">
+                                    @if (!point.ReturnPoint && !Model.Approved)
+                                    {
+                                        <div class="move"></div>
+                                    }
+                                    <div class="name">
+                                        @counter. &nbsp;<a onclick="return showOrderInfo(@point.OrderID);" href="@Url.Action("ViewOrder", "Shop", new {ID = point.OrderID})">@point.Name</a>
+                                    </div>
+                                    <div class="controls">
+                                        @if (point.Order != null)
+                                        {
+                                            <div class="ctrl-cell">
+                                                <span>Тип доставки:</span>
+                                                <select name="ChangeType" arg="@point.ID" onchange=" setDeliveryType(this) " @(Model.Approved ? "disabled" : "")>
+                                                    <option value="@((int) SectorTypes.Undefined)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.Undefined ? "selected" : "")>Не указано</option>
+                                                    <option value="@((int) SectorTypes.CarSector)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.CarSector ? "selected" : "")>Автотранспорт</option>
+                                                    <option value="@((int) SectorTypes.CourierSector)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.CourierSector ? "selected" : "")>Курьер</option>
+                                                </select>
+                                            </div>
+                                            <div class="ctrl-cell">
+                                                <span>Курьер:</span>
+                                                <select name="ChangeAuto" type="@((int) SectorTypes.CourierSector)" arg="@point.ID" onchange=" setDeliverer(this) " @(Model.Approved ? "disabled" : "")>
+                                                    <option value="" @(!point.Order.WorkerID.HasValue ? "selected" : "")>Не выбрано</option>
+                                                    @foreach (var car in Model.CurrentUser.AvailableCouriers)
+                                                    {
+                                                        <option color="@car.Color" value="@car.ID" @(car.ID == point.Order.WorkerID ? "selected" : "")>@car.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            if (!Model.Approved)
+                                            {
+                                                <div class="ctrl-cell">
+                                                    <a onclick=" return detectAdress(this) " href="#" arg="@point.OrderID">уточнить расположение @Html.Raw(point.NeedPositionHtml)</a>
+                                                </div>
+                                                <div class="ctrl-cell">
+                                                    <a href="#" arg="@point.ID" onclick=" return removeFromList(this); " type="order">убрать из списка</a>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            if (point.Store != null && !point.ReturnPoint)
+                            {
+                                <div class="order-route" arg="@point.ID" type="store" pos="@point.PointDataJson">
+                                    @if (!point.ReturnPoint && !Model.Approved)
+                                    {
+                                        <div class="move"></div>
+                                    }
+                                    <div class="name">
+                                        @counter. &nbsp;<a href="@Url.Action("StoreEdit", "Store", new {ID = point.StoreID})">@point.Name</a>
+                                    </div>
+                                    @if (stores.Count > 1 && !Model.Approved)
+                                    {
+                                        <div class="controls">
+                                            <div class="ctrl-cell">
+                                                <a href="#" arg="@point.ID" onclick=" return removeFromList(this); " type="store">убрать из списка</a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            counter++;
+                        }
+                    </div>
+                </div>
+                        gc++;
+                        counter = 1;
+            }
+            @if (Model.CourierPointsUndef.Any())
+            {
+                <div class="delivery-group" skip="1">
+                    <h4>Заказы, для которых не определен курьер или расположение:</h4>
+                    <div class="route-info skip">
+                        @foreach (var point in Model.CourierPointsUndef)
+                        {
+                            <div class="order-route">
+                                <div class="name">
+                                    <a onclick="return showOrderInfo(@point.OrderID);" href="@Url.Action("ViewOrder", "Shop", new{ID = point.OrderID})">@point.Name</a>
+                                </div>
+                                <div class="controls">
+                                    @if (point.Order != null)
+                                    {
+
+                                        <div class="ctrl-cell">
+                                            <span>Тип доставки:</span>
+                                            <select name="ChangeType" arg="@point.ID" onchange="setDeliveryType(this)">
+                                                <option value="@((int) SectorTypes.Undefined)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.Undefined ? "selected" : "")>Не указано</option>
+                                                <option value="@((int) SectorTypes.CarSector)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.CarSector ? "selected" : "")>Автотранспорт</option>
+                                                <option value="@((int) SectorTypes.CourierSector)" @(point.Order.OrderDelivery.DeliveryType == (int)SectorTypes.CourierSector ? "selected" : "")>Курьер</option>
+                                            </select>
+                                        </div>
+                                        <div class="ctrl-cell">
+                                            <span>Курьер:</span>
+                                            <select name="ChangeAuto" type="@((int)SectorTypes.CourierSector)" arg="@point.ID" onchange="setDeliverer(this)">
+                                                <option value="" @(!point.Order.WorkerID.HasValue ? "selected" : "")>Не выбрано</option>
+                                                @foreach (var car in Model.CurrentUser.AvailableCouriers)
+                                                {
+                                                    <option color="@car.Color" value="@car.ID" @(car.ID == point.Order.WorkerID ? "selected" : "")>@car.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="ctrl-cell">
+                                            <a href="#" onclick="return detectAdress(this)" arg="@point.OrderID">уточнить расположение @Html.Raw(point.NeedPositionHtml)</a>
+                                        </div>
+                                        <div class="ctrl-cell">
+                                            <a href="#" arg="@point.ID" onclick="return removeFromList(this);" type="order">убрать из списка</a>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <br />
+        <br />
+    </div>
+
+}
+else
+{
+    <div id="CourierRoutes">
+    </div>
+}
+

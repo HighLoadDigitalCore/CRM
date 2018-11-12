@@ -1,0 +1,31 @@
+﻿@model IList<MapSector>
+<div id="EditCell">
+    <input type="hidden" id="ShopID" value="@ViewBag.ShopID" />
+    <section class="panel">
+        <header class="panel-heading"><h3>Список зон доставки:</h3></header>
+        <div class="panel-body">
+            @if (Model.Any())
+            {
+                foreach (var zone in Model)
+                {
+                    <div class="form-group" style="clear: both; overflow: hidden; margin-bottom: 10px">
+                        <label class="col-sm-2 control-label col-lg-12 sector-item" workerids="@zone.MapSectorCouriers.Select(x=> x.WorkerID).JoinToString(";")" type="@zone.Type" carids="@zone.MapSectorCars.Select(x=> x.CarID).JoinToString(";")" arg="@zone.ID" points="@zone.PointList" color="@zone.Color" style="padding-left: 0; padding-right: 0"><span title="Редактировать" onclick="editZone(@zone.ID); return false;" class="span-edit">@zone.Name</span><span class="span-del" title="Удалить" onclick="deleteZone(@zone.ID); return false;">X</span></label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-12" style="padding-left:0">У этого магазина не заданы зоны доставки</label>
+                </div>
+            }
+            <div class="form-group">
+                <div class="col-lg-4">
+                </div>
+                <div class="col-lg-8">
+                    <button class="btn btn-drop btn-success" onclick="createNewZone(); return false;">Добавить зону доставки</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

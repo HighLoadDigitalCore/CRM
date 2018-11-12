@@ -1,0 +1,20 @@
+﻿@model IList<ShopStore>
+@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+<section class="panel">
+    <header class="panel-heading"><h3>Магазины, работающие с этим складом:</h3>
+    <span id="messageBox"></span>
+    </header>
+    <div class="panel-body">
+        <input type="hidden" name="ShopList" value="@Model.Select(x=> x.ShopID).JoinToString(";")"/>
+        @foreach (var shop in currentUser.ShopList)
+        {
+            <label class="shop-list">
+                <input type="checkbox" onchange="saveShopList(@ViewBag.StoreID)" arg="@shop.ID" @(Model.Any(x=> x.ShopID == shop.ID)? "checked=checked":"") />
+                @shop.Name
+            </label>
+            <br />
+        }
+    </div>
+</section>

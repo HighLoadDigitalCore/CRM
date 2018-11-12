@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = Model.Overage ? "Заказы с оценкой за 2 недели" : "Список заказов";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model OrderFilter
+
+@Html.Partial("OrderSearch", Model)
+
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    @*<script src="/Content/assets/data-tables/dataTables.fixedHeader.js"></script>*@
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+    <link href="/Content/assets/morris.js-0.4.3/morris.css" rel="stylesheet" />
+    <script src="/Content/assets/morris.js-0.4.3/morris.js"></script>
+    <script src="/Content/assets/morris.js-0.4.3/raphael-min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            initOrdersUI();
+            createActions();
+
+        });
+
+        function initOrdersUI() {
+            initDataTableHelper();
+        }
+        function changeShop(obj) {
+            var overage = '@(Request.QueryString["Overage"])';
+            var ref = '/Shop/Orders/ShopID/' + $(obj).val();
+            if (overage == 'True')
+                if (ref.indexOf('?') < 0)
+                    ref += '?Overage=True';
+                else
+                    ref += '&Overage=True';
+            else {
+                var rest = '';
+                if (document.location.href.indexOf('?') >= 0) {
+                    rest = document.location.href.substr(document.location.href.indexOf('?'));
+                    ref += rest;
+                }
+            }
+            document.location.href = ref;
+        }
+    </script>
+}
+@section css{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+}

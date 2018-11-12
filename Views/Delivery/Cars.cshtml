@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Автопарк";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model IList<Car>
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            initDataTableHelper();
+        });
+    </script>
+}
+<div class="row">
+    <section class="col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped exclude-last" id="example">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Номер</th>
+                                <th>Макс. груз</th>
+                                <th>Длина</th>
+                                <th>Ширина</th>
+                                <th>Высота</th>
+                                <th>Кол-во пассажиров</th>
+                                <th type="skip" class="nofilter nosort"></th>
+                            </tr>
+                            <tr>
+                                <th>Название</th>
+                                <th>Номер</th>
+                                <th>Макс. груз</th>
+                                <th>Длина</th>
+                                <th>Ширина</th>
+                                <th>Высота</th>
+                                <th>Кол-во пассажиров</th>
+                                <th type="skip" class="nofilter nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.Name, "EditCar", "Delivery", new { ID = item.ID }, null)
+                            </td>
+                            <td>
+                                @item.Number
+                            </td>
+                            <td>
+                                @item.MaxWeight
+                            </td>
+                            <td>
+                                @item.Length
+                            </td>
+                            <td>
+                                @item.Width
+                            </td>
+                            <td>
+                                @item.Height
+                            </td>
+                            <td>
+                                @item.Passengers
+                            </td>
+                            <td class="center"><a href="@Url.Action("DeleteCar", "Delivery", new { ID = item.ID })">удалить</a></td>
+                        </tr>
+                        }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Название</th>
+                                <th>Номер</th>
+                                <th>Макс. груз</th>
+                                <th>Длина</th>
+                                <th>Ширина</th>
+                                <th>Высота</th>
+                                <th>Кол-во пассажиров</th>
+                                <th class="nofilter nosort"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </section>
+
+</div>
+

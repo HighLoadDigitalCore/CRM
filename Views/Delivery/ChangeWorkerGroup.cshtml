@@ -1,0 +1,36 @@
+﻿@model object[]
+@{
+    var groups = (List<WorkerGroup>)Model[0];
+}
+<div id="DeliveryPopupContent">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Изменение экипажа доставки:</h4>
+        </div>
+        <div class="modal-body">
+            <b id="error" style="font-weight: bold; color: red"></b>
+            @if (groups.Any())
+            {
+                <h4>Доступные экипажи для данного автотранспорта:</h4>
+
+                foreach (var group in groups)
+                {
+                    <label><input type="radio" name="WorkerGroup" value="@group.ID" /> @group.Name</label>
+                    <br />
+                }
+                <hr />
+                <br />
+                <input type="submit" value="Сохранить" class="btn btn-success" onclick="saveWorkerGroup(@Model[1]); return false;" />
+
+            }
+            @if (!groups.Any())
+            {
+                <b>На сегодня нет свободных экипажей, подходящих для выбранного транспорта.</b>
+                <br />
+                <br />
+                <a target="_blank" class="btn btn-success" href="@Url.Action("EditWorkerGroup", "Delivery")">Добавить экипаж</a>
+            }
+        </div>
+    </div>
+</div>

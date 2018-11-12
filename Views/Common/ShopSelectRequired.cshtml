@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    var a = ViewContext.ParentActionViewContext.RouteData.Values["action"].ToString();
+    var c = ViewContext.ParentActionViewContext.RouteData.Values["controller"].ToString();
+}
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Выбор магазина
+            </header>
+            <div class="panel-body">
+                <div class="form-group">
+                    <select id="ShopID" class="form-control" url="@(Request.GenerateURL(new List<string>(){"ShopID"}))" onchange="document.location.href=$(this).attr('url')+'?ShopID='+$(this).val()">
+                        @foreach (var shop in Model)
+                        {
+                            <option value="@shop.Value" @(shop.Selected ? "selected" : "")>@shop.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

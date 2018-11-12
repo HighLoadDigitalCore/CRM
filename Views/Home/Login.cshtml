@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Вход в систему";
+    Layout = "~/Views/Shared/LoginPage.cshtml";
+}
+<div class="form-login">
+    @Html.Action("RegisterBlock", "Home")
+    @Html.Action("LoginBlock", "Home")
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @Html.Action("RestoreBlock", "Home")
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="/Content/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+    <script type="text/javascript">
+        function setRegForm(obj) {
+            $('.reg-block').hide();
+            $('.reg-block[arg="' + $(obj).val() + '"]').show();
+            return false;
+        }
+
+        function checkNick(obj) {
+            if ($(obj).val() == '') {
+                $(obj).removeClass('nick-short');
+                $('.nick-check').remove();
+                $(obj).removeClass('error-field');
+                return;
+            } else {
+                $(obj).addClass('nick-short');
+            }
+            $.post('/Home/CheckNick', { nick: $(obj).val() }, function (d) {
+                var img = $('.nick-check');
+                if (!img.length) {
+                    $('#Nick').after('<img class="nick-check">');
+                    img = $('.nick-check');
+                }
+                if (d == '1') {
+                    img.attr('src', '/Content/img/OK.png?w=34&h=34');
+                    $(obj).removeClass('error-field');
+                } else {
+                    img.attr('src', '/Content/img/CANCEL.png?w=36&h=36');
+                    $(obj).addClass('error-field');
+                }
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿@model object[]
+@{
+    var cars = (List<Car>)Model[0];
+    var couriers = (List<Worker>)Model[1];
+    
+}
+<div id="DeliveryPopupContent">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Изменение способа доставки для группы заказов:</h4>
+        </div>
+        <div class="modal-body">
+            <b id="error" style="font-weight: bold; color: red"></b>
+            @if (cars.Any())
+            {
+                <h4>Доставка автотранспортом:</h4>
+
+                foreach (var car in cars)
+                {
+                    <label><input type="radio" name="Deliverer" tp="@((int)SectorTypes.CarSector)" value="@car.ID" /> @car.Name</label>
+                    <br />
+                }
+                <hr />
+            }
+            @if (couriers.Any())
+            {
+                <h4>Доставка курьером:</h4>
+                foreach (var car in couriers)
+                {
+                    <label><input type="radio" name="Deliverer" tp="@((int)SectorTypes.CourierSector)" value="@car.ID" /> @car.Name</label>
+                    <br />
+                }
+                <hr />
+            }
+            @if (!cars.Any() && !couriers.Any())
+            {
+                <b>В базе данных нет других доставщиков, кроме уже выбранного</b>
+            }
+            <br />
+            <input type="submit" value="Сохранить" class="btn btn-success" onclick="saveDelivererForGroup(@Model[2], @Model[3], @Model[4]); return false;" />
+        </div>
+    </div>
+</div>

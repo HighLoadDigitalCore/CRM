@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OrderedProduct>
+@{
+    var helper = new PermissionHelper();
+    var order = (Order)ViewBag.Order;
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+<div ID="OrdersTable">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading"><h3>Заказанные товары</h3></header>
+            <div class="panel-body">
+                @if (helper.HasPermission(Permissions.OrderEdit) || (helper.HasPermission(Permissions.OrderAdd) && order.AddedByID == currentUser.ID && order.Status == -1))
+                {
+                    <div class="row">
+                        <div class="col-lg-9"></div>
+                        <div class="col-lg-3">
+                            <a href="#" onclick=" return addProduct() " class="btn btn-success form-control">Добавить товар</a>
+                        </div>
+                    </div>
+                }
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped exclude-last" id="example">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Артикул</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeA">
+                                    <td>
+                                        @if (helper.HasPermission(Permissions.OrderEdit))
+                                        {
+                                            <a href="#" onclick=" return editOrderedProduct(this); " arg="@item.ID" title="Редактировать">@item.Product.Name</a>
+                                        }
+                                        else
+                                        {
+                                            @item.Product.Name
+                                        }
+                                    </td>
+                                    <td>
+                                        @item.Product.Article
+                                    </td>
+                                    <td>@item.Price</td>
+                                    <td>@(item.Amount)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Название</th>
+                                <th>Артикул</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

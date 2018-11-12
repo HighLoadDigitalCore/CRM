@@ -1,0 +1,28 @@
+﻿@model Product
+@{
+    int Level = (int)ViewData["Level"];
+    string indent = "";
+    for (int i = 0; i < Level; i++)
+    {
+        indent += "-";
+    }
+    var components = new List<ComplexProductComponent>();
+    if (Model != null && Model.ComplexProduct != null)
+    {
+        components = new DataContext().ComplexProductComponents.Where(x => x.ComplexID == Model.ComplexProduct.ID).ToList();
+    }
+
+}
+@if (components.Any())
+{
+    <div class="sub-list" style="padding-left: @(20*Level)px">
+        @foreach (var component in components)
+        {
+            <div style="margin-top: 3px">
+                @Html.Raw(indent)@Html.Raw("&nbsp;")<a href="@Url.Action("EditProduct", new {ID = component.Product.ID})">@component.Product.Name - @component.Amount @component.Product.AmountUnitName</a>
+                <br />
+                @Html.Partial("SubComponents", component.Product, new ViewDataDictionary() { new KeyValuePair<string, object>("Level", Level + 1) })
+            </div>
+        }
+    </div>
+}

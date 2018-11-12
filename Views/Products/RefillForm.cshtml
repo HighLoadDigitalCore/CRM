@@ -1,0 +1,79 @@
+﻿@model Product
+@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+<div class="modal fade bs-example-modal-sm" id="addproduct" tabindex="-1" data-backdrop="static"
+     data-keyboard="false" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="reloadRefillList();" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="mySmallModalLabel">Добавить поступление товара на склад:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" id="messageBox">
+                        
+                    </div>
+                </div>
+                <input type="hidden" id="ProductID" value="@Model.ID" />
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="">Выберите склад</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <select id='StoreID' name="StoreID" class="form-control">
+                            @foreach (var store in currentUser.StoreList)
+                            {
+                                <option value='@store.ID'>@store.Name</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="">Дата поступления:</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" arg="date" id="Date" class="form-control"/>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="">Цена:</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" id="Price" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="">Количество:</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" id="Amount" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="">Единица измерения:</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <select id="Unit" class="form-control">
+                            @foreach (var unit in ProductUnit.CodeList)
+                            {
+                                <option value="@unit.UnitCode">@unit.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                
+                <br />
+                <button onclick="saveRefilling();" class="btn btn-success">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+

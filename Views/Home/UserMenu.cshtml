@@ -1,0 +1,28 @@
+﻿@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@if (currentUser.ID > 0)
+{
+
+ <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            @*<img alt="" src="img/avatar1_small.jpg">*@
+            <span class="username">@currentUser.FullName</span>
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <div class="log-arrow-up"></div>
+            <li><a href="@Url.Action("Edit", "Users", new{ID = currentUser.ID})"><i class=" fa fa-suitcase"></i>Профиль</a></li>
+            @if (currentUser.UserRoles.Contains("ShopOwner"))
+            {
+                <li><a href="@Url.Action("EditSettings", "Settings")"><i class=" fa fa-envelope"></i>Реквизиты</a></li>
+            }
+@*
+            
+            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+            <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+*@
+            <li><a href="@Url.Action("LogOut", "Home")"><i class="fa fa-key"></i> Выход</a></li>
+        </ul>
+    </li>
+}

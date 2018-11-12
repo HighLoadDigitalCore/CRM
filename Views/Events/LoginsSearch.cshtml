@@ -1,0 +1,85 @@
+﻿@model LoginsFilter
+<div id="LoginView">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Поиск по параметрам</h2>
+                </div>
+                <div class="panel-body autopost">
+                    @using (Ajax.BeginForm("LoginsSearch", "Events", new AjaxOptions() { UpdateTargetId = "LoginView", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initLoginsUI()" }))
+                    {
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Пользователь</label>
+                                    @Html.DropDownList("UserID", Model.UserList, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label">Начальная дата</label>
+                                <input type="text" arg="date" class="form-control" value="@(Model.MinDate.HasValue ? Model.MinDate.Value.ToString("dd.MM.yyyy") : "" )" data-date-format="dd.mm.yyyy" id="MinDate" name="MinDate">
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label">Конечная дата</label>
+                                <input type="text" arg="date" class="form-control" value="@(Model.MaxDate.HasValue ? Model.MaxDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MaxDate" name="MaxDate">
+                            </div>
+@*
+                            <div class="col-lg-2">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-success form-control" type="submit" data-original-title="" title="">Поиск</button>
+                            </div>
+*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="adv-table">
+                        <table class="display table table-bordered table-striped" id="example">
+                            <thead>
+                                <tr>
+                                    <th>Номер записи</th>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>IP адрес</th>
+                                </tr>  
+                                 <tr>
+                                    <th>Номер записи</th>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>IP адрес</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Result)
+                                {
+                                    <tr class="gradeA">
+                                        <td>@item.ID.ToString("d8")</td>
+                                        <td>@item.LoginDate.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                        <td>@item.User.FullName</td>
+                                        <td class="center">@item.IPAddress.ToIPString()</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Номер записи</th>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>IP адрес</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

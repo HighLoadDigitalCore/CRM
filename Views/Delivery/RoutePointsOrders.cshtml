@@ -1,0 +1,25 @@
+﻿@model RoutePointList
+<div id="RoutePointOrders" data="@(new JsonSerializable(Model.Param).ToString())">
+    <h4>Доступные заказы:</h4>
+    <hr style="margin: 0 0 5px 0" />
+    <label style="float: left; padding-top: 6px; display: inline-block;margin-right: 10px">Выберите дату:</label> <input type="text" style="width: 100px" value="@(Model.Param.Date.HasValue ? Model.Param.Date.Value.ToString("dd.MM.yyyy"):"")" id="RouteOrderDateFilter" class="form-control" />
+    <hr style="margin: 5px 0 0 0" />
+    @if (Model.Orders.Any())
+    {
+        <div id="OrderPointList">
+            @foreach (var store in Model.Orders)
+            {
+            <div class="route-point-add">
+                <div class="order-for-add">
+                    <input type="checkbox" value="@store.ID" tp="order" />
+                    <b>Заказ №@store.OrderNumberOrID</b> (@store.TotalCount товар@(store.TotalCount.GetStringPostfix(WordKind.Man)), общий вес - @store.TotalWeight кг, общий объем - @store.TotalVolume м<sup>3</sup>)
+                </div>
+            </div>
+            }
+        </div>
+    }
+    else
+    {
+        <span style="margin-top: 20px">Не найдено заказов для доставки за выбранную дату</span>
+    }
+</div>

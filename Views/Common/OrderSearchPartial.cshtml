@@ -1,0 +1,469 @@
+﻿@using System.Web.Script.Serialization
+@model OrderSearchBlock
+@{
+    var helper = new PermissionHelper();
+}
+@if (Model.HasPermission)
+{
+    if (Model.Model.ShopList.Any())
+    {
+        <div id="OrderView">
+            @if (!Model.Options.HideFilter)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h2 class="panel-title"><a id="search-head">Поиск по параметрам</a></h2>
+                            </div>
+
+                            <div class="panel-body" id="SearchFormCell">
+                                @if (!Model.Options.HideRegionFilter)
+                                {
+                                    @Html.Action("RegionFilter")
+                                }
+                                @using (Ajax.BeginForm("OrderSearchPartial", "Common", new AjaxOptions() { UpdateTargetId = "OrderView", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initOrdersUI()" }))
+                                {
+                                    <input type="hidden" name="FormSettings" value="@(new JsonSerializable(Model.Options).ToString())" />
+                                    <input type="hidden" name="ListOverride" id="ListOverride" />
+                                    <div class="row @(Model.Options.SkipAutoPost ? "" : "autopost")">
+                                        @if (!Model.Options.HideShopFilter)
+                                        {
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Магазин</label>
+                                                @Html.DropDownList("ShopID", Model.Model.ShopList, new { @class = "form-control skip-auto", onchange = "changeShop(this);return false;" })
+                                            </div>
+                                        }
+                                        @if (!Model.Options.HideCreateRangeFilter)
+                                        {
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Создан с</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MinDate.HasValue ? Model.Model.MinDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MinDate" name="MinDate">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Создан по</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MaxDate.HasValue ? Model.Model.MaxDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MaxDate" name="MaxDate">
+                                            </div>
+                                        }
+                                        @if (!Model.Options.HideDeliveryRangeFilter)
+                                        {
+
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Доставка с</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MinDateDelivery.HasValue ? Model.Model.MinDateDelivery.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MinDateDelivery" name="MinDateDelivery">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Доставка по</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MaxDateDelivery.HasValue ? Model.Model.MaxDateDelivery.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MaxDateDelivery" name="MaxDateDelivery">
+                                            </div>
+                                        }
+                                        @if (!Model.Options.HideDeliveryExactFilter)
+                                        {
+
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Дата доставки</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.ExactDateDelivery.HasValue ? Model.Model.ExactDateDelivery.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="ExactDateDelivery" name="ExactDateDelivery">
+                                            </div>
+                                        }
+
+
+                                        @Html.HiddenFor(x => x.Model.Status)
+                                        @*
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Статус заказа</label>
+                                                @Html.DropDownList("Status", Model.StatusList, new { @class = "form-control" })
+
+                                            </div>
+                                        *@
+                                        @*
+                                            <div class="col-lg-2">
+                                                <label>&nbsp;</label>
+                                                <button class="btn btn-success form-control" type="submit" data-original-title="" title="">Поиск</button>
+                                            </div>
+                                        *@
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row" style="display:@(Model.Options.HideBody ? "none":"block")">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <div class="panel-body">
+                            @if (!Model.Options.HideActionMenu)
+                            {
+                                <div id="GroupActions" style="display: none">
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <div class="input-group m-bot15">
+                                                @if (!Model.Options.HideStatusChange)
+                                                {
+
+                                                    <div class="input-group-btn" style="width: auto">
+                                                        @if (helper.HasPermission(Permissions.OrderStatusChange) || helper.HasPermission(Permissions.OrderDelete))
+                                                        {
+                                                            <button tabindex="-1" class="btn btn-primary" type="button">Изменить статус</button>
+                                                            <button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" style="margin-right: 20px">
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul role="menu" class="dropdown-menu">
+                                                                @if (helper.HasPermission(Permissions.OrderStatusChange))
+                                                                {
+                                                                    <li><a href="#nogo" onclick=" changeStatus(0) ">Ожидает отгрузки</a></li>
+                                                                    <li><a href="#nogo" onclick=" changeStatus(100) ">Доставлен</a></li>
+
+
+                                                                }
+                                                                @if (helper.HasPermission(Permissions.OrderDelete))
+                                                                {
+                                                                    <li><a href="#nogo" onclick=" changeStatus(-10) ">Удален</a></li>
+                                                                }
+
+                                                                @if (helper.HasPermission(Permissions.OrderStatusPayed))
+                                                                {
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#nogo" onclick=" changeStatus(50) ">Оплачен</a></li>
+                                                                    <li><a href="#nogo" onclick=" changeStatus(-50) ">Неоплачен</a></li>
+                                                                }
+
+                                                                @if (helper.HasPermission(Permissions.OrderEdit))
+                                                                {
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#nogo" onclick=" changeWarning(1) ">Пометить важным</a></li>
+                                                                    <li><a href="#nogo" onclick=" changeWarning(0) ">Снять отметку</a></li>
+                                                                }
+                                                            </ul>
+                                                        }
+
+                                                    </div>
+                                                }
+
+                                                @if ((helper.HasPermission(Permissions.OrderMailSend) || helper.HasPermission(Permissions.OrderSMSSend)) && !Model.Options.HideSpamSend)
+                                                {
+                                                    <div class="input-group-btn right-square" style="width: auto">
+                                                        <button tabindex="-1" class="btn btn-primary" type="button">Рассылка</button>
+                                                        <button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" style="margin-right: 20px; border-radius: 0">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul role="menu" class="dropdown-menu">
+                                                            @if (helper.HasPermission(Permissions.OrderMailSend))
+                                                            {
+                                                                <li><a href="#nogo" onclick="$('#SendType').val('mail'); $('#spamResult').html(''); $('#SendHeader').val(''); $('#SendBody').val(''); loadSpamContent('@(Model.Options.EmailTemplate)'); $('#emailSpam').modal('show');return false;">E-mail рассылка</a></li>
+                                                            }
+                                                            @if (helper.HasPermission(Permissions.OrderSMSSend))
+                                                            {
+                                                                <li><a href="#nogo" onclick="$('#SendType').val('sms'); $('#spamResult').html(''); $('#SendHeader').val(''); $('#SendBody').val(''); loadSpamContent('@(Model.Options.SMSTemplate)'); $('#emailSpam').modal('show'); return false; ">SMS рассылка</a></li>
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    @Html.Action("OrderSearchSpamPopup")
+
+                                                }
+                                                @if (helper.HasPermission(Permissions.StatConstructor) && !Model.Options.HideStatSave)
+                                                {
+                                                    <div class="input-group-btn" style="width: auto">
+                                                        <button tabindex="-1" class="btn btn-primary" type="button" onclick="initSaveForm(); $('#saveForm').modal('show'); return false;" style="margin-right: 20px">Сохранить список</button>
+                                                    </div>
+                                                    @Html.Action("OrderSearchSavePopup")
+                                                }
+                                                @if (!Model.Options.HideContragent && Model.AvailableContractors.Any())
+                                                {
+                                                    <div class="input-group-btn right-square" style="width: auto">
+                                                        <button tabindex="-1" class="btn btn-primary" type="button">Отправить контрагенту</button>
+                                                        <button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" style="margin-right: 20px; border-radius: 0">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul role="menu" class="dropdown-menu">
+                                                            @foreach (var contractor in Model.AvailableContractors)
+                                                            {
+                                                                <li><a href="#nogo" arg="@contractor.ID" onclick="sendToContractor(@contractor.ID);">@contractor.UserAnotherEntity.FullName (@contractor.Shop.OrgNameOrName)</a></li>
+
+                                                            }
+                                                            <li><a href="#nogo" arg="0" onclick="sendToContractor(0);">Отменить отправку контрагенту</a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                }
+
+                                                @*
+                                            @if (helper.HasPermission(Permissions.DeliveryOrders))
+                                            {
+                                                <div class="input-group-btn" style="width: auto">
+
+                                                    <button tabindex="-1" class="btn btn-primary" type="button" onclick=" createDelivery() " style="margin-right: 20px">Распределить доставку</button>
+                                                </div>
+                                            }$1$<button tabindex="-1" class="btn btn-primary" type="button">Распечатать</button>#1#
+                                                *@
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            @if (helper.HasPermission(Permissions.OrderAdd) && !Model.Options.HideCreateOrderBtn)
+                                            {
+
+                                                <a href="@Url.Action("CreateOrder", "Shop")" class="btn btn-success form-control">Добавить заказ</a>
+                                                <br />
+                                                <br />
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                    @if (!Model.Options.HideExportMenu)
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <div class="input-group m-bot15">
+                                                    <div class="input-group-btn">
+                                                        <button tabindex="-1" class="btn btn-primary" type="button" onclick=" exportToXls() " style="margin-right: 20px">Экспорт в Excel</button>
+                                                        <button tabindex="-1" class="btn btn-primary" type="button" onclick=" exportToTorg() " style="margin-right: 20px">Экспорт в TORG12</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                            <div class="adv-table">
+                                <table class="display table table-bordered table-striped exclude-first exclude-second" id="example" @*_shop@(model.shopid)*@>
+                                    <thead>
+                                        <tr>
+                                            <th class="nofilter">#</th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th class="nosort"><input type="checkbox" onchange=" toggleAll(this) " style="display: none" name="toggler" /></th>
+                                            }
+                                            <th>Номер</th>
+                                            <th>Контрагент</th>
+                                            <th>Дата</th>
+                                            <th>Менеджер</th>
+                                            <th>ФИО покупателя</th>
+                                            <th>Телефон</th>
+                                            <th>Оплачен?</th>
+                                            <th>Статус</th>
+                                            <th>Розничная цена</th>
+                                            <th>Процент отчисления</th>
+                                            <th>Оптовая цена</th>
+                                            <th>Себестоимость</th>
+                                            <th>Стоимость доставки</th>
+                                            <th>Прибыль</th>
+                                            @*
+                                        <th>Прибыль опт</th>
+                                            *@
+                                            <th>% прибыли розница</th>
+                                            <th>% прибыли опт</th>
+                                            <th>Артикулы товаров</th>
+                                            <th>Наименования товаров</th>
+                                            <th>Общая оценка</th>
+                                            <th>Работа оператора</th>
+                                            <th>Доставка</th>
+                                            <th>Качество</th>
+                                            <th>Цена</th>
+                                            <th>Дата доставки</th>
+                                            <th>Адрес доставки</th>
+                                            <th>Водитель</th>
+                                            <th>Комментарий</th>
+                                            @if (Model.Model.Result.Any())
+                                            {
+                                                foreach (var orderChar in Model.Model.Result.First().OrderCharList)
+                                                {
+                                                    <th>@orderChar.Name</th>
+                                                }
+                                            }
+
+                                        </tr>
+                                        <tr class="fr">
+                                            <th type="skip"></th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th type="skip" class="nosort nofilter"><input type="checkbox" onchange=" toggleAll(this) " name="toggler" /></th>
+                                            }
+                                            <th type="text">Номер</th>
+                                            <th type="dropdown">Контрагент</th>
+                                            <th type="text">Дата</th>
+                                            <th type="dropdown">Менеджер</th>
+                                            <th type="text">ФИО покупателя</th>
+                                            <th type="text">Телефон</th>
+                                            <th type="dropdown">Оплачен?</th>
+                                            <th type="dropdown">Статус</th>
+                                            <th type="number-range">Розничная цена</th>
+                                            <th type="number-range">Процент отчисления</th>
+                                            <th type="number-range">Оптовая цена</th>
+                                            <th type="number-range">Себестоимость</th>
+                                            <th type="number-range">Стоимость доставки</th>
+                                            <th type="number-range">Прибыль</th>
+                                            @*
+                                        <th type="number-range">Прибыль опт</th>
+                                            *@
+                                            <th type="number-range">% прибыли розница</th>
+                                            <th type="number-range">% прибыли опт</th>
+                                            <th type="text">Артикулы товаров</th>
+                                            <th type="text">Наименования товаров</th>
+                                            <th type="number-range">Общая оценка</th>
+                                            <th type="number-range">Работа оператора</th>
+                                            <th type="number-range">Доставка</th>
+                                            <th type="number-range">Качество</th>
+                                            <th type="number-range">Цена</th>
+                                            <th type="text">Дата доставки</th>
+                                            <th type="text">Адрес доставки</th>
+                                            <th type="text">Водитель</th>
+                                            <th type="text">Комментарий</th>
+                                            @if (Model.Model.Result.Any())
+                                            {
+                                                foreach (var orderChar in Model.Model.Result.First().OrderCharList)
+                                                {
+                                                    <th type="text">@orderChar.Name</th>
+                                                }
+                                            }
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Model.Result)
+                                        {
+                                            <tr class="@(item.StatusCSS)" arg="@item.ID">
+                                                <td class="num"></td>
+                                                @if (!Model.Options.HideCheckBoxes)
+                                                {
+                                                    <td><input type="checkbox" onchange=" createActions(); " arg="@item.ID" name="groupCbx" /></td>
+                                                }
+                                                <td>
+                                                    @Html.ActionLink(item.OrderNumber.IsFilled() ? item.OrderNumber : ("[{0}]".FormatWith(item.ID.ToString("d8"))), "ViewOrder", "Shop", new { ID = item.ID }, null)
+                                                    @*
+
+                                                @if (helper.HasPermission(Permissions.OrderEdit))
+                                                {
+                                                    @Html.ActionLink("#" + item.ID.ToString("d8"), "CreateOrder", "Shop", new { ID = item.ID }, null)
+                                                }
+                                                else
+                                                {
+                                                    @item.ID.ToString("d8")
+                                                }
+                                                    *@
+                                                </td>
+                                                <td>@item.Contractor.Shop.OrgNameOrNameOrEmpty</td>
+                                                <td>@item.CreateDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                                <td>@(item.User.FullName)</td>
+                                                <td>@(item.Consumer == null ? "---" : item.Consumer.FullName)</td>
+                                                <td>@(item.Consumer == null ? "---" : item.Consumer.Phone)</td>
+                                                <td>@item.IsPayed.ToYesNoStatus()</td>
+                                                <td>@item.StatusText</td>
+                                                <td>@item.TotalSum.ToString("f2")</td>
+                                                <td>@item.ContractorPercent.ToString("f2")</td>
+                                                <td>@item.OptSum.ToString("f2")</td>
+                                                <td>@item.TotalSelfCost.ToString("f2")</td>
+                                                <td>@item.DeliveryCost.ToString("f2")</td>
+                                                <td>@item.TotalProfit.ToString("f2")</td>
+                                                @*<td>0</td>*@
+                                                <td>@item.ProfitPercent.ToString("f2")</td>
+                                                <td>@item.ProfitPercentOpt.ToString("f2")</td>
+                                                <td>@item.Artikuls</td>
+                                                <td>@item.Products</td>
+                                                <td>@item.OrderMark.Total.ToString("f1")</td>
+                                                <td>@item.OrderMark.Operator</td>
+                                                <td>@item.OrderMark.Delivery</td>
+                                                <td>@item.OrderMark.Quality</td>
+                                                <td>@item.OrderMark.Price</td>
+                                                <td>@(item.DeliveryDate.HasValue ? item.DeliveryDate.Value.ToString("dd.MM.yyyy") : "")</td>
+                                                <td>@item.OrderDeliveryOrNull.FullAddress</td>
+                                                <td>@(item.Car == null ? (item.Worker == null ? "--не указан--" : item.Worker.Name) : item.Car.Name)</td>
+                                                <td>@item.Warning</td>
+                                                @foreach (var ch in Model.Model.Result.First().OrderCharList)
+                                                {
+                                                    <td>@(item.OrderChars.Any(x => x.Name == ch.Name) ? item.OrderChars.First(x => x.Name == ch.Name).Value : "")</td>
+                                                }
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="nofilter">#</th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th class="nosort"><input type="checkbox" onchange=" toggleAll(this) " style="display: none" name="toggler" /></th>
+                                            }
+                                            <th>Номер</th>
+                                            <th>Контрагент</th>
+                                            <th>Дата</th>
+                                            <th>Менеджер</th>
+                                            <th>ФИО покупателя</th>
+                                            <th>Телефон</th>
+                                            <th>Оплачен?</th>
+                                            <th>Статус</th>
+                                            <th arg="sum">Розничная цена</th>
+                                            <th arg="sum">Процент отчисления</th>
+                                            <th arg="sum">Оптовая цена</th>
+                                            <th arg="sum">Себестоимость</th>
+                                            <th arg="sum">Стоимость доставки</th>
+                                            <th arg="sum">Прибыль</th>
+                                            @*
+                                        <th arg="sum">Прибыль опт</th>
+                                            *@
+                                            <th arg="sum">% прибыли розница</th>
+                                            <th arg="sum">% прибыли опт</th>
+                                            <th>Артикулы товаров</th>
+                                            <th>Наименования товаров</th>
+                                            <th>Общая оценка</th>
+                                            <th>Работа оператора</th>
+                                            <th>Доставка</th>
+                                            <th>Качество</th>
+                                            <th>Цена</th>
+                                            <th>Дата доставки</th>
+                                            <th>Адрес доставки</th>
+                                            <th>Водитель</th>
+                                            <th>Комментарий</th>
+                                            @if (Model.Model.Result.Any())
+                                            {
+                                                foreach (var orderChar in Model.Model.Result.First().OrderCharList)
+                                                {
+                                                    <th>@orderChar.Name</th>
+                                                }
+                                            }
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+    }
+    else if (helper.HasPermission(Permissions.ShopAdding))
+    {
+        <h3>Для добавления заказов необходимо предварительно создать магазин.</h3>
+        <br />
+
+        <a href="@Url.Action("Edit", "Shop")" class="btn btn-info">Добавить новый магазин</a>
+    }
+    else
+    {
+        <h3>Для добавления заказов необходимо предварительно создать магазин.</h3>
+        <br />
+
+
+        <h3>У вас нет прав на создание магазина.</h3>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">У вас нет прав доступа на просмотр этой информации</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}

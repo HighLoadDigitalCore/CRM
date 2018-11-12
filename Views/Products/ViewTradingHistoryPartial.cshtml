@@ -1,0 +1,32 @@
+﻿@model System.Linq.IQueryable<Trading.Models.Order>
+@{
+    var pid = (int)ViewBag.ProductID;
+}
+<div id="Trading">
+    @if (!Model.Any())
+    {
+        <h3>Выбранный товар ни разу не продан в этом магазине</h3>
+    }
+    else
+    {
+        <table class="display table table-bordered table-striped dataTable">
+            <tr>
+                <td>Номер заказа</td>
+                <td>Дата заказа</td>
+                <td>Продано товара</td>
+                <td>Сумма продажи</td>
+                <td>% от стоимости заказа</td>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td><a href="@Url.Action("ViewOrder", "Shop", new {ID = order.ID})">@order.OrderNumberOrID</a></td>
+                    <td>@order.CreateDate.ToString("dd.MM.yyyy")</td>
+                    <td>@order.OrderedProducts.Where(x => x.ProductID == pid).Sum(x => x.Amount) @order.OrderedProducts.First(x => x.ProductID == pid).Product.AmountUnitName</td>
+                    <td>@order.OrderedProducts.Where(x => x.ProductID == pid).Sum(x => x.Amount * x.Price).ToString("f2")</td>
+                    <td>@order.GetPercent(pid).ToString("f2")</td>
+                </tr>
+            }
+        </table>
+    }
+</div>

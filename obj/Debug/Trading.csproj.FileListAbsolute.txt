@@ -1,0 +1,7 @@
+D:\Sites\Trading\Trading\bin\Trading.dll.config
+D:\Sites\Trading\Trading\bin\Trading.dll
+D:\Sites\Trading\Trading\bin\Trading.pdb
+D:\Sites\Trading\Trading\bin\PawnHunter.Numerals.dll
+D:\Sites\Trading\Trading\obj\Debug\Trading.dll
+D:\Sites\Trading\Trading\obj\Debug\Trading.pdb
+D:\Sites\Trading\Trading\obj\Debug\Trading.csprojResolveAssemblyReference.cache

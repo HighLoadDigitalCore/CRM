@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = (Model.ID == 0 ? "Создание нового пользователя" : "Редактирование данных пользователя");
+    Layout = "~/Views/Shared/MainPage.cshtml";
+
+}
+@section css
+{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/lou-multi-select/css/multi-select.css">
+    <style>
+        .ms-optgroup-label {
+            background-color: #1abc9c;
+            color: #fff !important;
+            padding: 5px 10px !important;
+        }
+
+        .ms-container {
+            width: 475px !important;
+        }
+    </style>
+}
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            initUserFormUI();
+        });
+
+        function changeShopView(args, obj) {
+            var p = args.split(',');
+
+            var showed = false;
+            for (var i = 0; i < p.length; i++) {
+                if ($(obj).attr('arg') == p[i]) {
+                    $('#shopView').show();
+                    showed = true;
+                    break;
+                }
+            }
+            if (!showed) {
+                $('#shopView').hide();
+                $('#shopView').find('input[type="checkbox"]').removeAttr('checked');
+            }
+        }
+
+        function initUserFormUI() {
+            $('#optgroup').multiSelect({
+                selectableOptgroup: true, afterSelect: function (values) {
+                    var selected = $('#PermissionList').val().split(',');
+                    if (selected[0] == "")
+                        selected.splice(0, 1);
+                    
+                    for (var i = 0; i< values.length;i++) {
+                        if ($.inArray(values[i], selected)<0) {
+                            selected.push(values[i]);
+                        }
+                    }
+                    $('#PermissionList').val(selected.join(','));
+                    console.log($('#PermissionList').val());
+                },
+                afterDeselect: function (values) {
+                    var selected = $('#PermissionList').val().split(',');
+                    if (selected[0] == "")
+                        selected.splice(0, 1);
+
+                    for (var i = 0; i < values.length; i++) {
+                        var index = $.inArray(values[i], selected);
+                        if (index >=0) {
+                            selected.splice(index, 1);
+                        }
+                    }
+
+                    $('#PermissionList').val(selected.join(','));
+                    console.log($('#PermissionList').val());
+                }
+            });
+        }
+    </script>
+}
+@Html.Action("EditPartial")
+

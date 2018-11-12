@@ -1,0 +1,60 @@
+﻿@model Graph
+@if (Model.SubmitSuccess)
+{
+    <script type="text/javascript">
+        closeGraphFormAndReload(@(Model.HasCreated ? 1:0), @(Model.ID));
+    </script>
+}
+<div id="GraphForm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">@(Html.Raw(Model.ID > 0 ? "Редактирование графика" : "Добавление графика"))</h4>
+        </div>
+        <div class="modal-body">
+            @using (Ajax.BeginForm("OrderSearchGraphPopupContent", "Common", new { }, new AjaxOptions() { UpdateTargetId = "GraphForm", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initGraphCreateUI();" }))
+            {
+                <a href="#nogo" onclick="showSeqEdit(); return false;">Редактировать последовательности</a><br />
+                <div style="clear: both; overflow: hidden">
+                    <p class="error" id="spamResult">@Model.ErrorText</p>
+                    @Html.HiddenFor(x => x.ID)
+                    <p class="dialog-line @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error":"")">
+                        <input type="text" class="form-control" value="@Model.Name" placeholder="Название графика" name="Name" id="Name">
+                    </p>
+                    <p class="dialog-line">
+                        Тип графика:
+                        <select name="GraphTypeID" name="GraphTypeID" onchange="reloadFuncList(this); return true;">
+                            @foreach (var type in Model.TypeList)
+                            {
+                                var id = Model.GraphTypeFunc != null ? Model.GraphTypeFunc.TypeID : Model.GraphTypeID;
+                                <option value="@type.ID" @(type.ID == id ? "selected" : "")>@type.Name</option>
+                            }
+                        </select>
+                    </p>
+                    <p class="dialog-line @(Model.IsPost && Model.TypeID == 0 ? "has-error":"")">
+                        Функция статистики:
+                        @{
+                var funcs = Model.GetTypeFuncList(Model.TypeID);
+                        }
+                        <select name="TypeID" id="TypeID">
+                            @foreach (var type in funcs)
+                            {
+                                <option value="@type.ID" @(type.ID == Model.TypeID ? "selected" : "")>@type.Name</option>
+                            }
+                        </select>
+                    </p>
+
+                    <p class="dialog-line @(Model.IsPost && Model.SerialListPlane.IsNullOrEmpty() ? "has-error":"")">
+                        @Html.Action("OrderSearchSavePopupContentSeriesSelect", "Common", new { ID = Model.ID, SerialListPlane = Model.SerialListPlane })
+                    </p>
+                    <p class="dialog-line">
+                        <button class="btn btn-primary" type="submit">Сохранить данные</button>
+                    </p>
+
+                </div>
+
+            }
+        </div>
+    </div>
+
+</div>

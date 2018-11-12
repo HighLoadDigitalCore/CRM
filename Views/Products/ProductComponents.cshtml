@@ -1,0 +1,81 @@
+﻿@using System.Web.UI.WebControls
+@model List<ComplexProductComponent>
+<div id="ProductComponents">
+    @if (((int?)ViewBag.ProductID).HasValue)
+    {
+        using (Ajax.BeginForm("ProductComponents", "Products", new { ProductID = ViewBag.ProductID }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ProductComponents", OnComplete = "autoCompleteProduct();" }, new { @class = "form-horizontal tasi-form" }))
+        {
+            <section class="panel">
+                <header class="panel-heading"><h3>Состав товара</h3></header>
+                <div class="panel-body">
+                    @if (Model.Any())
+                    {
+                        <div id="CompList">
+                            @foreach (var component in Model)
+                            {
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        <a href="@Url.Action("EditProduct", new{ID = component.Product.ID})"><b>@component.Product.Name</b></a> - @component.Amount @component.Product.AmountUnitName
+                                        @Html.Partial("SubComponents", component.Product, new ViewDataDictionary(){new KeyValuePair<string, object>("Level", 1)})
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a onclick="deleteComponent(@component.ID, @ViewBag.ProductID, this) " href="#nogo">удалить</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="CompList">
+                            <b>Данный продукт не имеет составных частей</b>
+                        </div>
+                    }
+                    <hr />
+                    <header class="panel-heading">
+                        <h3>Добавить компоненты</h3>
+                        @if (ViewBag.Message != null)
+                        {
+                            <br />
+                            <span style="color: red"><b>@ViewBag.Message</b></span>
+
+                        }
+
+                    </header>
+
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Название или артикул</label>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="NewComponentID" name="NewComponentID" />
+                            <input type="text" class="form-control" value="" id="ComponentName" name="ComponentName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Количество</label>
+                        <div class="col-sm-6">
+
+                            <input type="text" class="form-control" value="1" id="Amount" name="Amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-8">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" style="float: right" class="btn btn-success" value="Сохранить данные" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        <section class="panel">
+            <header class="panel-heading"><h3>Состав товара</h3></header>
+            <div class="panel-body">
+                <b>Для редактирования состава товара необходимо вначале добавить продукт в БД</b>
+            </div>
+        </section>
+    }
+</div>

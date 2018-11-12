@@ -1,0 +1,150 @@
+﻿@model Trading.Models.Store
+
+@{
+    ViewBag.Title = "Редактирование данных о складе";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    var helper = new PermissionHelper();
+}
+@section scripts
+{
+    <script type="text/javascript">
+
+        function saveShopList(storeID) {
+            var lst = '';
+
+            $('.shop-list input:checked').each(function () {
+                lst += $(this).attr('arg') + ";";
+            });
+            $.post('/Common/SaveStoreShops', { StoreID: storeID, Shops: lst }, function (data) {
+                $('#messageBox').html('Данные успешно сохранены');
+                $('#messageBox').css('color', 'green');
+            });
+        }
+
+    </script>
+}
+
+
+@if (helper.HasPermission(Permissions.DeliveryStores))
+{
+    <div id="StoreForm">
+
+        <div class="row">
+            <div class="col-lg-6">
+                @Html.Action("AdressEditor", new PointSettings() { HouseName = "DeliveryAddress.House", LatInputName = "DeliveryAddress.Lat", LngInputName = "DeliveryAddress.Lng", RegionName = "DeliveryAddress.Region", StreetName = "DeliveryAddress.Street", TownName = "DeliveryAddress.Town", DistrictName = "DeliveryAddress.District", AddressDetectionEnabled = 1 })
+            </div>
+            <div class="col-lg-6">
+                @using (Html.BeginForm("StoreEdit", "Store", new { ShopID = ViewBag.ShopID }, FormMethod.Post, new { @class = "form-horizontal tasi-form" }))
+                {
+                    @Html.Action("ShopSelectMulti", "Common", new { StoreID = Model.ID })
+                    <section class="panel">
+                        <header class="panel-heading"><h3>Информация о складе:</h3></header>
+                        <div class="panel-body">
+
+                            <input type="hidden" name="ID" value="@Model.ID" />
+                            @*<input type="hidden" name="ShopID" value="@Model.ShopID" />*@
+                            <input type="hidden" name="DeliveryAddress.Lat" value="@Model.DeliveryAddress.Lat" />
+                            <input type="hidden" name="DeliveryAddress.Lng" value="@Model.DeliveryAddress.Lng" />
+
+                            @if (ViewBag.Message != null)
+                            {
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4"></label>
+                                <div class="col-lg-8">
+                                    <span style="color: green; font-weight: bold">@ViewBag.Message</span>
+                                </div>
+                            </div>
+                            }
+                            <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Название склада:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.Name" name="Name" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group @(Model.IsPost && Model.DeliveryAddress.Region.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Регион:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Region" name="DeliveryAddress.Region" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.DeliveryAddress.District.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Район:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.District" name="DeliveryAddress.District" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.DeliveryAddress.Town.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Город:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Town" name="DeliveryAddress.Town" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.DeliveryAddress.Street.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Улица:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Street" name="DeliveryAddress.Street" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsPost && Model.DeliveryAddress.House.IsNullOrEmpty() ? "has-error" : "")">
+                                <label class="col-sm-2 control-label col-lg-4">Дом:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.House" name="DeliveryAddress.House" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Корпус:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Building" name="DeliveryAddress.Building" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Строение:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Section" name="DeliveryAddress.Section" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Подъезд:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Doorway" name="DeliveryAddress.Doorway" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Код двери:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Code" name="DeliveryAddress.Code" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Этаж:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Floor" name="DeliveryAddress.Floor" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4">Квартира:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="@Model.DeliveryAddress.Flat" name="DeliveryAddress.Flat" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-8">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="submit" style="float: right" class="btn btn-success" value="Сохранить данные" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+}
+

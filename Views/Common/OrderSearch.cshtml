@@ -1,0 +1,72 @@
+﻿@model OrderSearchBlock
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@if (Model.Options.AddViewName.IsFilled())
+{
+    @Html.Action(Model.Options.AddViewName, Model.Options.AddControllerName)
+}
+
+@Html.Partial("OrderSearchPartial", Model)
+
+@if (Model.Options.AddViewNameLower.IsFilled())
+{
+    @Html.Action(Model.Options.AddViewNameLower, Model.Options.AddControllerNameLower)
+}
+
+
+
+
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    @*<script src="/Content/assets/data-tables/dataTables.fixedHeader.js"></script>*@
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+    <link href="/Content/assets/morris.js-0.4.3/morris.css" rel="stylesheet" />
+    <script src="/Content/assets/morris.js-0.4.3/morris.js"></script>
+    <script src="/Content/assets/morris.js-0.4.3/raphael-min.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            initOrdersUI();
+            createActions();
+        });
+        function initOrdersUI() {
+            initDataTableHelper();
+        }
+        function changeShop(obj) {
+            var ref = document.location.href.substr(0, document.location.href.indexOf('ShopID/') + 7) + $(obj).val();
+            var hash = "";
+            if (document.location.href.indexOf('?') >= 0) {
+                hash = document.location.href.substr(document.location.href.indexOf('?') + 1);
+                ref += "?" + hash;
+            }
+            document.location.href = ref;
+        }
+    </script>
+}
+@section css{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="/Content/assets/lou-multi-select/css/multi-select.css">
+    <style>
+        .ms-optgroup-label {
+            background-color: #1abc9c;
+            color: #fff !important;
+            padding: 5px 10px !important;
+        }
+
+        .ms-container {
+            width: 475px !important;
+        }
+    </style>
+}
+

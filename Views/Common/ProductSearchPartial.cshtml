@@ -1,0 +1,189 @@
+﻿@using System.Web.Script.Serialization
+@model ProductSearchBlock
+@{
+    var helper = new PermissionHelper();
+}
+@if (Model.HasPermission)
+{
+    if (Model.Model.ShopList.Any())
+    {
+        <div id="OrderView">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <a class="btn btn-success" href="@Url.Action("EditProduct", "Products")">Добавить новый товар</a>
+                    </div>
+                </div>
+            </div>
+            @if (!Model.Options.HideFilter)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h2 class="panel-title"><a id="search-head">Поиск по параметрам</a></h2>
+                            </div>
+                            
+                            <div class="panel-body" id="SearchFormCell">
+                               
+                                @using (Ajax.BeginForm("ProductSearchPartial", "Common", new AjaxOptions() { UpdateTargetId = "OrderView", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initOrdersUI()" }))
+                                {
+                                    <input type="hidden" name="FormSettings" value="@(new JsonSerializable(Model.Options).ToString())" />
+                                    <div class="row autopost">
+                                        @if (!Model.Options.HideShopFilter)
+                                        {
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Магазин</label>
+                                                @Html.DropDownList("ShopID", Model.Model.ShopList, new { @class = "form-control skip-auto", onchange = "changeShop(this);return false;" })
+                                            </div>
+                                        }
+                                        @if (!Model.Options.HideStoreFilter)
+                                        {
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Склад</label>
+                                                @Html.DropDownList("StoreID", Model.Model.StoreList, new { @class = "form-control skip-auto", onchange = "changeStore(this);return false;" })
+                                            </div>
+                                        }
+                                        @if (!Model.Options.HideCreateRangeFilter)
+                                        {
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Создан с</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MinDate.HasValue ? Model.Model.MinDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MinDate" name="MinDate">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label class="control-label">Создан по</label>
+                                                <input type="text" arg="date" class="form-control" value="@(Model.Model.MaxDate.HasValue ? Model.Model.MaxDate.Value.ToString("dd.MM.yyyy") : "")" data-date-format="dd.mm.yyyy" id="MaxDate" name="MaxDate">
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <div class="panel-body">
+                            @if (!Model.Options.HideActionMenu)
+                            {
+                                <div id="GroupActions" style="display: none">
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                        </div>
+                                        <div class="col-lg-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="adv-table">
+                                <table class="display table table-bordered table-striped exclude-first exclude-second" id="example" @*_shop@(model.shopid)*@>
+                                    <thead>
+                                        <tr>
+                                            <th class="nofilter">#</th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th class="nosort"><input type="checkbox" onchange=" toggleAll(this) " style="display: none" name="toggler" /></th>
+                                            }
+                                            <th>Название</th>
+                                            <th>Дата создания</th>
+                                            <th>Артикул</th>
+                                            <th>Ед. измерения</th>
+                                            <th>Цена</th>
+                                            <th>Себестоимость</th>
+                                            <th>Оптовая цена</th>
+                                            <th>Доп. характеристики</th>
+                                        </tr>
+                                        <tr class="fr">
+                                            <th type="skip"></th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th type="skip" class="nosort nofilter"><input type="checkbox" onchange=" toggleAll(this) " name="toggler" /></th>
+                                            }
+                                            <th type="text">Название</th>
+                                            <th type="text">Дата создания</th>
+                                            <th type="text">Артикул</th>
+                                            <th type="text">Ед. измерения</th>
+                                            <th type="number-range">Цена</th>
+                                            <th type="number-range">Себестоимость</th>
+                                            <th type="number-range">Оптовая цена</th>
+                                            <th type="text">Доп. характеристики</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Model.Result)
+                                        {
+                                            <tr arg="@item.ID">
+                                                <td class="num"></td>
+                                                @if (!Model.Options.HideCheckBoxes)
+                                                {
+                                                    <td><input type="checkbox" onchange=" createProductActions(); " arg="@item.ID" name="groupCbx" /></td>
+                                                }
+                                                <td>
+                                                    @Html.ActionLink(item.Name.IsFilled() ? item.Name : ("[{0}]".FormatWith(item.Article)), "ViewProduct", "Products", new { ID = item.ID }, null)
+                                                </td>
+                                                <td>@item.AddedDate.ToString("dd.MM.yyyy")</td>
+                                                <td>@item.Article</td>
+                                                <td>@(item.AmountUnitName)</td>
+                                                <td>@((item.Price ?? 0).ToString("f2"))</td>
+                                                <td>@((item.SelfCost ?? 0).ToString("f2"))</td>
+                                                <td>@((item.OptCost ?? 0).ToString("f2"))</td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="nofilter">#</th>
+                                            @if (!Model.Options.HideCheckBoxes)
+                                            {
+                                                <th class="nosort"><input type="checkbox" onchange=" toggleAll(this) " style="display: none" name="toggler" /></th>
+                                            }
+                                            <th>Название</th>
+                                            <th>Дата создания</th>
+                                            <th>Артикул</th>
+                                            <th>Ед. измерения</th>
+                                            <th>Цена</th>
+                                            <th>Себестоимость</th>
+                                            <th>Оптовая цена</th>
+                                            <th>Доп. характеристики</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+    }
+    else if (helper.HasPermission(Permissions.ShopAdding))
+    {
+        <h3>Для добавления товаров необходимо предварительно создать магазин.</h3>
+        <br />
+        <a href="@Url.Action("Edit", "Shop")" class="btn btn-info">Добавить новый магазин</a>
+    }
+    else
+    {
+        <h3>Для добавления товаров необходимо предварительно создать магазин.</h3>
+        <br />
+        <h3>Но у вас нет прав на создание магазина!</h3>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">У вас нет прав доступа на просмотр этой информации</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,49 @@
+﻿@model List<Shop>
+<div id="Shops" arg="@ViewBag.ProductID">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading"><h3>Товар находится в продаже в следующих магазинах:</h3><a href="#nogo" onclick="$('#shoplist').modal('show');" class="btn btn-success" style="padding-right: 20px">Редактировать</a></header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Всего продано</th>
+                                <th>На сумму</th>
+                                <th>История продаж</th>
+                            </tr>
+                            <tr class="fr">
+                                <th type="text">Название</th>
+                                <th type="number-range">Всего продано</th>
+                                <th type="number-range">На сумму</th>
+                                <th type="skip"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeA">
+                                    <td><a href="@Url.Action("Edit", "Shop", new{ID = item.ID})">@item.Name</a></td>
+                                    <td>@item.Orders.SelectMany(x => x.OrderedProducts.Where(z => z.ProductID == ViewBag.ProductID)).Sum(x => x.Amount)</td>
+                                    <td>@item.Orders.SelectMany(x => x.OrderedProducts.Where(z => z.ProductID == ViewBag.ProductID)).Sum(x => x.Amount * x.Price)</td>
+                                    <td><a href="#" onclick="showTrading(@item.ID, @ViewBag.ProductID)">посмотреть историю продаж</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Название</th>
+                                <th>Всего продано</th>
+                                <th>На сумму</th>
+                                <th>История продаж</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    @Html.Action("EditShopList", "Products", new { ID = ViewBag.ProductID })
+    @Html.Action("ViewTradingHistory")
+</div>

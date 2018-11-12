@@ -1,0 +1,66 @@
+﻿<script type="text/javascript" src="/Content/js/graph/status.js"></script>
+<div id="morris">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Статус заказа
+                </header>
+                <div class="panel-body">
+                    <input type="hidden" id="PointsList" />
+                    <div id="status" class="graph"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h3>Параметры графика</h3>
+                </header>
+                <div class="panel-body">
+                    <div class="periods">
+                        <h4>Период точки:</h4>
+                        @*<a class="period" href="#" arg="1" onclick="return loadPeriod(this);">Час</a>*@
+                        <a class="period active" href="#" arg="24" onclick="return st.loadPeriod(this);">День</a>
+                        <a class="period" href="#" arg="168" onclick="return st.loadPeriod(this);">Неделя</a>
+                        <a class="period" href="#" arg="336" onclick="return st.loadPeriod(this);">2 недели</a>
+                        <a class="period" href="#" arg="720" onclick="return st.loadPeriod(this);">Месяц</a>
+                        <a class="period" href="#" arg="2880" onclick="return st.loadPeriod(this);">4 месяца</a>
+                        <a class="period" href="#" arg="4320" onclick="return st.loadPeriod(this);">Полгода</a>
+                        <a class="period" href="#" arg="8640" onclick="return st.loadPeriod(this);">Год</a>
+                    </div>
+                    <div class="periods">
+                        <h4>Графики:</h4>
+@*
+                        <div class="legeng">
+                            <span style="color: #000000">&mdash;</span>
+                            Общая оценка
+                        </div>
+*@
+                        <div class="legeng">
+                            <span style="color: #4a8bc2">&mdash;</span>
+                            Ожидает отгрузки
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #ff6c60">&mdash;</span>
+                            Доставлен
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #a9d86e">&mdash;</span>
+                            Заполнение
+                        </div>
+
+                        <div class="legeng">
+                            <span style="color: #ff00ff">&mdash;</span>
+                            Удален
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+ 
+</div>

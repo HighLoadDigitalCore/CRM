@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Адреса складов";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    var helper = new PermissionHelper();
+}
+
+@model IEnumerable<Store>
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/assets/lou-multi-select/js/jquery.multi-select.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+}
+@if (!currentUser.AvailShopList.Any())
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <p>У вас не зарегистрировано магазинов в системе</p>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+
+else if (helper.HasPermission(Permissions.DeliveryStores))
+{
+    @Html.Action("ShopSelectRequired", "Common")
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <a href="@Url.Action("StoreEdit", "Store", (Request.QueryString["ShopID"].IsNullOrEmpty() ? (object) new {} : (object) new {ShopID = Request.QueryString["ShopID"]}))" class="btn btn-success">Добавить склад</a>
+                    <br />
+                    <br />
+                    <div class="adv-table">
+                        <table class="display table table-bordered table-striped" id="example">
+                            <thead>
+                                <tr>
+                                    <th>Название склада</th>
+                                    @if (helper.HasPermission(Permissions.StoreProducts))
+                                    {
+                                        <th>Товары на складе</th>
+
+                                    }
+                                    <th>Адрес</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="gradeA">
+
+                                        <td><a href="@Url.Action("StoreEdit", "Store", new {ID = item.ID})">@item.Name</a></td>
+                                        @if (helper.HasPermission(Permissions.StoreProducts))
+                                        {
+                                            <td><a href="@Url.RouteUrl("DefaultProductSearch", new { ShopID = currentUser.DefShopID, StoreID = item.ID, Page = "StoredProducts", controller = "Common", action = "ProductSearch" })">список товаров</a></td>
+                                        }
+                                        <td>@item.DeliveryAddress.FullAddress</td>
+                                        <td><a href="@Url.Action("StoreDelete", "Store", new {ID = item.ID})">удалить</a></td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Название склада</th>
+                                    @if (helper.HasPermission(Permissions.StoreProducts))
+                                    {
+                                        <th>Товары на складе</th>
+
+                                    }
+
+                                    <th>Адрес</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+}

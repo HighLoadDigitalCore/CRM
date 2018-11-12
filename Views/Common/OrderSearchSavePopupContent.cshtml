@@ -1,0 +1,57 @@
+﻿@model SaveOrdersModel
+<div id="SearchSaveContent">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="mySmallModalLabel">Сохранить выборку заказов для графика</h4>
+    </div>
+    <div class="modal-body">
+        <div style="clear: both; overflow: hidden">
+            @if (Model.SubmitSuccess)
+            {
+                <script type="text/javascript">
+                    $().ready(function () {
+                        reloadGraphicsUI('@(Model.GraphListPlane)');
+                    })
+                </script>
+
+                <h3>Последовательность сохранена</h3>
+            }
+            else
+            {
+                using (Ajax.BeginForm("OrderSearchSavePopupContent", "Common", new { }, new AjaxOptions() { UpdateTargetId = "SearchSaveContent", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, OnComplete = "initSerialCreateUI();" }))
+                {
+                    <input name="ID" type="hidden" value="@Model.ID" />
+                    <p class="error" id="spamResult">@Model.Result</p>
+                    <p style="display: block; margin: 10px 0; clear: both; overflow: hidden">
+                        Вами выбрано <b>@Model.Count</b> заказ@(Model.Count.Pluralize(new[] { "", "а", "ов" })) для построения статистики
+                        @if (Model.MinDate.HasValue)
+                        {
+                            <span>
+                                ,<br /> минимальная дата создания заказа - <b>@Model.MinDate.Value.ToString("d MMMMM yyyy, HH:mm")</b>
+                            </span>
+                        }
+                        @if (Model.MinDate.HasValue)
+                        {
+                            <span>
+                                ,<br /> максимальная дата создания заказа - <b>@Model.MaxDate.Value.ToString("d MMMMM yyyy, HH:mm")</b>
+                            </span>
+                        }
+                        <br />
+                        <br />
+                        <input type="hidden" class="form-control" value="@Model.OrderList" name="OrderList" id="OrderList">
+                    </p>
+                    <p style="display: block; margin: 10px 0; clear: both; overflow: hidden">
+                        <input type="text" class="form-control" name="Name" id="Name" placeholder="Укажите название выборки" />
+                    </p>
+                    <p style="display: block; margin: 10px 0; clear: both; overflow: hidden">
+                        @Html.Action("OrderSearchSavePopupContentGraphSelect", new { SerialID = Model.ID, Model.GraphListPlane })
+                    </p>
+
+                    <p style="display: block; margin: 10px 0; clear: both; overflow: hidden">
+                        <button class="btn btn-primary" type="submit">Сохранить</button>
+                    </p>
+                }
+            }
+        </div>
+    </div>
+</div>

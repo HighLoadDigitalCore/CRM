@@ -1,0 +1,16 @@
+﻿@{
+    var GraphList = (List<Graph>)ViewBag.GraphList;
+    var GraphListForSerial = (List<int>)ViewBag.GraphListForSerial;
+    var GraphListPlane = (string)ViewBag.GraphListPlane;
+}
+@if (GraphList!=null && GraphList.Any())
+{
+    <b>Выберите графики, на которых вы хотите отображать данную последовательность:</b>
+    <input id='GraphListPlane' name="GraphListPlane" type="hidden" value="@GraphListPlane">
+    <select id='GraphList' name="GraphList" multiple='multiple'>
+        @foreach (var graph in GraphList)
+        {
+            <option value='@graph.ID' @(GraphListForSerial.Contains(graph.ID) ? "selected" : "")>@graph.Name</option>
+        }
+    </select>
+}

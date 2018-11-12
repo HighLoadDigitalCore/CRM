@@ -1,0 +1,57 @@
+﻿@{
+    var errors = (List<string>)ViewBag.Errors;
+    var redirect = (string)ViewBag.RedirectURL;
+}
+@model Order
+
+<div id="SubmitForm">
+    @if (redirect.IsFilled())
+    {
+        <script type="text/javascript">
+            document.location.href = '@(redirect)';
+        </script>
+    }
+
+    <div class="">
+        <section class="panel">
+            <div class="panel-body">
+                @using (Ajax.BeginForm("SubmitForm", "Shop", new { }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "SubmitForm" }, new { @class = "form-horizontal tasi-form" }))
+                {
+                    <input type="hidden" name="ShopID" id="ShopIDHidden" value=""/>
+                    <input type="hidden" name="ID" id="ID" value="@Model.ID"/>
+                    if (errors!=null && errors.Any())
+                    {
+                        <div class="form-group has-error">
+                            <label class="col-sm-12" style="color: brown">@Html.Raw(errors.JoinToString("<br>"))</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-12">
+                                @if (Model.Status < 0)
+                                {
+                                    @Html.Raw("Вся информация заполнена, заказ может быть отправлен в обработку");
+                                }
+                                else
+                                {
+                                    @Html.Raw("Заказ отправлен в обработку");
+                                }
+                            </label>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="submit" style="float: right" class="btn btn-success" onclick="$('#WarningBlock form').submit(); $('#CustomerForm form').submit(); $('#DeliveryBlock form').submit(); return false;" value="Сохранить все данные" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="submit" name="SubmitForm" style="float: right" class="btn btn-success" onclick="$('#ShopIDHidden').val($('#ShopID').val())" value="Отправить заказ в обработку" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>

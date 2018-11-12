@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Мои магазины";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var helper = new PermissionHelper();
+}
+@model IEnumerable<Shop>
+@section scripts{
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+<script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function () {
+
+            $('#example').dataTable({
+                stateSave: true,
+                "aaSorting": [[0, "desc"]],
+                "oLanguage": {
+                    "sProcessing": "Подождите...",
+                    "sLengthMenu": "Показать _MENU_ записей",
+                    "sZeroRecords": "Записи отсутствуют.",
+                    "sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                    "sInfoEmpty": "Записи с 0 до 0 из 0 записей",
+                    "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Поиск:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "Первая",
+                        "sPrevious": "Предыдущая",
+                        "sNext": "Следующая",
+                        "sLast": "Последняя"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": активировать для сортировки столбца по возрастанию",
+                        "sSortDescending": ": активировать для сортировки столбцов по убыванию"
+                    }
+                },
+
+            });
+        })
+    </script>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <div class="panel-body">
+                @if (helper.HasPermission(Permissions.ShopAdding))
+                {
+                    
+                    <div class="row">
+                        <div class="col-lg-9"></div>
+                        <div class="col-lg-3">
+                            <a href="@Url.Action("Edit", "Shop")" class="btn btn-success form-control">Добавить магазин</a>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                }
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Ссылка</th>
+                                <th>Тариф</th>
+                                <th>Менеджеры</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeA">
+                                    <td>@Html.ActionLink(item.Name, "Edit", "Shop", new { ID = item.ID }, null)</td>
+                                    <td>
+                                        <a target="_blank" href="@item.Link">@item.Link</a>
+                                    </td>
+                                    <td>
+                                        @item.TaxPlane.Name
+                                    </td>
+                                    <td>
+                                        @foreach (var manager in item.ShopManagers)
+                                        {
+                                            <a href="@Url.Action("Edit", "Users", new {ID = manager.Manager.ManagerUserID})">@manager.Manager.User.FullName</a>
+                                            @Html.Raw("&nbsp;")
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (helper.HasPermission(Permissions.ShopDelete))
+                                        {
+                                            <a href="@Url.Action("Delete", "Shop", new {ID = item.ID})">Удалить</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Название</th>
+                                <th>Ссылка</th>
+                                <th>Тариф</th>
+                                <th>Менеджеры</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

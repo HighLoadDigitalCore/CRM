@@ -1,0 +1,143 @@
+﻿@model ProductModel
+@{
+    var shid = (int?)ViewBag.ShopID;
+    var helper = new PermissionHelper();
+}
+@if (shid.HasValue)
+{
+    <div id="ProductForm">
+        <div class="">
+            <section class="panel">
+                <header class="panel-heading"><h3>@(Html.Raw(Model.OrderedProductID > 0 ? "Редактирование товара &laquo;" + Model.Name + "&raquo;" : "Добавление товара в заказ"))</h3></header>
+                <div class="panel-body">
+                    @using (Ajax.BeginForm("ProductForm", "Shop", new { ShopID = shid }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ProductForm", OnComplete = "refreshOrderProducts();autoCompleteProduct();" }, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        <input type="hidden" name="ID" value="@Model.OrderID" />
+                        <input type="hidden" name="OrderedProductID" value="@Model.OrderedProductID" />
+                        <div class="form-group @(Model.IsPost && Model.Article.IsNullOrEmpty() ? "has-error" : "")" rel="char">
+                            <label class="col-sm-4 control-label">Артикул</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Article" name="Article">
+                            </div>
+                        </div>
+                        <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")" rel="char">
+                            <label class="col-sm-4 control-label">Название</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Name" name="Name">
+                            </div>
+                        </div>
+                        <div class="form-group @(Model.IsPost && !Model.Price.HasValue ? "has-error" : "")" rel="char">
+                            <label class="col-sm-4 control-label">Цена</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Price" name="Price">
+                            </div>
+                        </div>
+                        if (helper.HasPermission(Permissions.SelfCostWrite))
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">Себестоимость</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="@Model.SelfCost" name="SelfCost">
+                                </div>
+                            </div>
+                        }
+                        else if (helper.HasPermission(Permissions.SelfCostRead) && Model.SelfCost.HasValue)
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">Себестоимость</label>
+                                <div class="col-sm-6">
+                                    <input type="text" disabled="disabled" class="form-control" value="@Model.SelfCost" name="SelfCost">
+                                </div>
+                            </div>
+                        }
+                        if (helper.HasPermission(Permissions.OptCostWrite))
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">Оптовая цена</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="@Model.OptCost" name="OptCost">
+                                </div>
+                            </div>
+                        }
+                        else if (helper.HasPermission(Permissions.OptCostRead) && Model.OptCost.HasValue)
+                        {
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">Оптовая цена</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" disabled="disabled" value="@Model.OptCost" name="OptCost">
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group @(Model.IsPost && !Model.Amount.HasValue ? "has-error" : "")" rel="char">
+                            <label class="col-sm-4 control-label">Количество</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Amount" name="Amount">
+                            </div>
+                        </div>
+                        <div class="form-group @(Model.IsPost && Model.UnitCode.IsNullOrEmpty() ? "has-error" : "")" rel="char">
+                            <label class="col-sm-4 control-label">Ед. измерения</label>
+                            <div class="col-sm-6">
+                                <select name="UnitCode" class="form-control">
+                                    @foreach (var unit in ProductUnit.CodeList)
+                                    {
+                                        <option @(unit.UnitCode == Model.UnitCode || (Model.UnitCode.IsNullOrEmpty() && unit.DefVal) ? "selected" : "") value="@unit.UnitCode">@unit.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        @*
+                            <div class="form-group" rel="char">
+                                <label class="col-sm-4 control-label">Вес</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="@Model.Weight" name="Weight">
+                                </div>
+                            </div>
+                        *@
+                                    var counter = 1;
+                                    foreach (var ch in Model.Chars)
+                                    {
+                                        <div class="form-group" rel="char" arg="char-cell">
+                                            <label class="col-sm-4 control-label">@ch.Name</label>
+                                            <div class="col-sm-6">
+                                                <input type="hidden" value="@ch.Name" name="CharName_@(ch.Name)">
+                                                <input type="text" class="form-control" value="@ch.Value" name="Char_@(ch.Name)">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                @if (helper.HasPermission(Permissions.ShopCharEdit) && !Model.IsCharExist(ch.Name, Request.QueryString["ShopID"].ToNullInt()))
+                                                {
+                                                    <a href="#" class="glyphicon glyphicon-plus" title="Добавить характеристику в настройки базы" onclick="return saveChar(this)" style="margin-right: 10px;"></a>
+                                                }
+                                                <a href="#" class="glyphicon glyphicon-remove" arg="@ch.Name" onclick="return removeLine(this)" title="Удалить из списка"></a>
+                                            </div>
+                                        </div>
+                                                counter++;
+                                    }
+                                    <input type="hidden" id="charCount" value="@counter" />
+                                    <div class="form-group">
+                                        <div class="col-sm-8">
+                                            <a href="#" id="add-char" onclick="addChar(this); return false;">Добавить характеристику</a>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="submit" style="float: right" class="btn btn-success" value="@(Model.OrderedProductID > 0 ? "Сохранить данные" : "Добавить товар")" />
+                                        </div>
+                                    </div>
+                        if (Model.IsSuccess)
+                        {
+
+                            <div class="form-group">
+                                <div class="col-sm-7">
+                                    <img src="/Content/img/OK.png?w=34&h=34" />
+                                    Данные успешно сохранены
+                                </div>
+                                <div class="col-sm-5">
+                                    <a href="#ProductForm" onclick="addProduct(); return true;" class="btn btn-success form-control">Добавить еще товар</a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}

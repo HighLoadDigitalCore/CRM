@@ -1,0 +1,24 @@
+﻿@model Car
+@{
+    var cnt = Model.Passengers + 1;
+    var prc = (int)(100/(Model.Passengers + 1));
+}
+<table id="CarSheme" class="car-scheme" style="width: 100%">
+    <tr>
+        @for (var i = 0; i < cnt; i++)
+        {
+            <td style="width: @prc%" class="@(i==0? "driver-cell":"pass-cell")"></td>
+        }
+    </tr>
+    <tr>
+        <td colspan="@cnt" style="vertical-align: middle; text-align: center; height: 200px">
+            Параметры:
+            <br/>
+            Длина: @(Model.Length.HasValue ? (Model.Length + " см") : "-не указано-")<br/>
+            Ширина: @(Model.Width.HasValue ? (Model.Width + " см") : "-не указано-")<br/>
+            Высота: @(Model.Height.HasValue ? (Model.Height + " см") : "-не указано-")<br/>
+            Грузоподъем: @(Model.MaxWeight) тн<br/>
+        </td>
+    </tr>
+</table>
+

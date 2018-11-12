@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Конструктор товаров";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+    <script src="/Content/js/complex-product.js"></script>
+}
+<input type="hidden" value="@ViewBag.ProductID" id="ProductID"/>
+<div class="row">
+    <div class="col-lg-12">
+        @if (((int?)ViewBag.ProductID).HasValue)
+        {
+            <a class="btn btn-success" href="@Url.Action("ViewProduct", "Products", new {ID = ViewBag.ProductID})">Вернуться на страницу товара</a>
+        }
+        <a class="btn btn-success" href="/Products/EditProduct">Добавить новый товар</a>
+        <br/>
+        <br/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        @Html.Action("ProductForm", new { ID = ViewBag.ProductID })
+    </div>
+    <div class="col-lg-6">
+        @Html.Action("ProductComponents", new { ID = ViewBag.ProductID })
+    </div>
+</div><div class="row">
+    <div class="col-lg-6">
+      
+    </div>
+    <div class="col-lg-6">
+        @Html.Action("ProductSize", new { ID = ViewBag.ProductID })
+    </div>
+</div>

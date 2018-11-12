@@ -1,0 +1,121 @@
+﻿@model Car
+
+@{
+    ViewBag.Title = "Редактирование данных автомобиля";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@section scripts
+{
+    <script src="/Content/js/syronex-colorpicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var colors = ['#EEEEEE', '#FFFF88', '#FF7400', '#CDEB8B', '#6BBA70', '#006E2E', '#C3D9FF', '#4096EE', '#356AA0', '#FF0096', '#B02B2C', '#000000', '#FFFFFF'];
+        function initColorPicker() {
+            var index = colors.indexOf($('input[name="Color"]').val());
+            if (index < 0)
+                index = colors.length - 1;
+
+            $('#colorCell').colorPicker(
+            {
+                defaultColor: index, // index of the default color
+                color: colors,
+                click: function (c) {
+                    $('input[name="Color"]').val(c);
+                    if (polygon != null) {
+                        polygon.options.set({ "strokeColor": c.replace('#', ''), "fillColor": c.replace('#', '') });
+
+                    }
+                }
+            });
+        }
+
+        $().ready(function () {
+            initColorPicker();
+        });
+    </script>
+}
+<div id="WorkerForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <span style="color: red">@Model.ErrorText</span>
+                </header>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditCar", "Delivery", new { }, FormMethod.Post, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        @Html.HiddenFor(x => x.ID)
+                        <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Название</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Name" name="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Экипаж</label>
+                            <div class="col-sm-10">
+                                <select name="WorkerGroupID" class="form-control">
+                                    <option value="" @(!Model.WorkerGroupID.HasValue ? "selected" : "")>Не выбран</option>
+                                    @foreach (var workerGroup in Model.CurrentUser.AvailableWorkerGroupsForCar(Model))
+                                    {
+                                        <option value="@workerGroup.ID" @(Model.WorkerGroupID == workerGroup.ID ? "selected" : "")>@workerGroup.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group @(Model.IsPost && !Model.Passengers.HasValue ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Кол-во пассажиров</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Passengers" name="Passengers">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Цвет маршрута:</label>
+                            <div class="col-sm-10">
+                                <div id="colorCell"></div>
+                                <input type="hidden" name="Color" value="@Model.Color" />
+                            </div>
+                        </div>
+
+                        <div class="form-group @(Model.IsPost && Model.Number.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Номер</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Number" name="Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Грузоподъемность, тн</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.MaxWeight" name="MaxWeight">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Длина, см</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Length" name="Length">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Ширина, см</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Width" name="Width">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Высота, см</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Height" name="Height">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="submit" class="btn btn-success" value="Сохранить" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

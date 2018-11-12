@@ -1,0 +1,29 @@
+﻿@model DeliveryListOrder
+
+
+<div id="DeliveryPopupContent">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Перенос доставки на другую дату:</h4>
+        </div>
+        @if (Model != null && Model.Order != null)
+        {
+            <div class="modal-body delivery">
+                <h4>Выберите новую дату доставки:</h4>
+                <input class="form-control" order="@Model.ID" data-min-date="@DateTime.Now.Date.AddDays(1).ToString("dd.MM.yyyy")" type="text" arg="date" name="NewDate" value="@(Model.Order.DeliveryDate.HasValue ? Model.Order.DeliveryDate.Value.ToString("dd.MM.yyyy"): "")" />
+                <hr style="" />
+                <h4>Отправить оповещение:</h4>
+                <select name="Notify" id="Notify" class="form-control">
+                    <option value="-1">Не отправлять</option>
+                    <option value="0">SMS оповещение</option>
+                    <option value="1">Email оповещение</option>
+                    <option value="2">SMS и Email</option>
+                </select>
+                <br/>
+                <br/>
+                <input type="submit" value="Сохранить" class="btn btn-success" onclick="changeDeliveryDate(this); return false;" />
+            </div>
+        }
+    </div>
+</div>

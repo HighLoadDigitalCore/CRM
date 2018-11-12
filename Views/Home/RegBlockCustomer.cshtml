@@ -1,0 +1,50 @@
+﻿@model RegisterModelCustomerStep1
+<div id="RegBlockCutomer" class="reg-block" arg="2" style="@(Model.Type==2 || Model.IsPost? "":"display:none")">
+    @using (Ajax.BeginForm("RegBlockCustomer", "Home", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "RegBlockCutomer", InsertionMode = InsertionMode.Replace, OnComplete = "initUI();" }, new { @class = "form-login-part form-login-first" }))
+    {
+        <h2 class="form-login-heading">Регистрация в системе</h2>
+        <div class="login-wrap">
+            <p>Введите ваши данные</p>
+            <div class="radio">
+                <label>
+                    <input type="radio" value="1" name="Type" onclick="setRegForm(this); return false;">
+                    Интернет-магазин
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" checked="checked" value="2" name="Type">
+                    Покупатель
+                </label>
+            </div>
+            <input type="text" class="form-control @(Model.IsPost && Model.Surname.IsNullOrEmpty()? "error-field":"")" placeholder="Фамилия" name="Surname" value="@Model.Surname">
+            <input type="text" class="form-control @(Model.IsPost && Model.Name.IsNullOrEmpty()? "error-field":"")" placeholder="Имя" name="Name" value="@Model.Name">
+            <input type="text" class="form-control" placeholder="Отчество" name="Patrinomic" value="@Model.Patrinomic">
+            <input type="text" style="transition: none" class="form-control @((Model.IsPost && Model.HasNick )? "error-field":"") @Model.NickCSS" placeholder="Никнейм" id="Nick" name="Nick" onkeyup="checkNick(this)" value="@Model.Nick">
+            @if (Model.Nick.IsFilled())
+            {
+                if (Model.IsPost && Model.HasNick)
+                {
+                    <img src="/Content/img/CANCEL.png?w=42&h=42" class="nick-check" />
+                }
+                else if (Model.IsPost && !Model.HasNick)
+                {
+                    <img src="/Content/img/OK.png?w=42&h=42" class="nick-check" />
+                }
+            }
+            <input type="email" class="form-control @((Model.IsPost && (Model.Email.IsNullOrEmpty() || !Model.Email.IsMailAdress() ))? "error-field":"")" placeholder="Email" name="Email" value="@Model.Email">
+            <input type="password" class="form-control @((Model.IsPost && (Model.Password.IsNullOrEmpty() || Model.Password.Length<6 ))? "error-field":"")" placeholder="Пароль" name="Password" value="@Model.Password">
+            <label class="checkbox @(Model.IsPost && !Model.Agree ? "error-box" : "")" style="font-size: 13px">
+                @Html.CheckBox("Agree", Model.Agree)
+                <span>Нажимая на кнопку «Зарегистрироваться», я соглашаюсь с публичной офертой и правилами сайта.</span>
+            </label>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Зарегистрироваться</button>
+            @if (Model.Message.IsFilled())
+            {
+                <div class="registration">
+                    @Model.Message
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,106 @@
+﻿@model IList<Store>
+@{
+    var helper = new PermissionHelper();
+}
+<script src="//api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+<script src="/Content/js/jquery-ui-1.11.2.custom/jquery-ui.min.js" type="text/javascript"></script>
+<input type="hidden" id="PointsList" />
+@if (Model.Any())
+{
+    <input type="hidden" id="StoreEmpty" value="0" />
+    foreach (Store store in Model)
+    {
+        <input type="hidden" class="store-data" value="@store.PointDataJson" uid="@store.ID" nm="@store.Name" />
+    }
+}
+else
+{
+    <input type="hidden" id="StoreEmpty" value="1" />
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Вы не добавили ни одного склада для этого магазина. Рассчет маршрута невозможен.
+                </header>
+                <div class="panel-body">
+                    @if (helper.HasPermission(Permissions.DeliveryStores))
+                    {
+                        <a href="@Url.Action("StoreEdit", "Store")" class="btn btn-danger">Добавить склад</a>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}
+
+<div class="modal fade bs-example-modal-sm" id="DeliveryPopup" tabindex="-1" data-backdrop="static"
+     data-keyboard="false" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div id="DeliveryPopupContent"></div>
+    </div>
+</div>
+
+
+<select id="Drivers" style="display: none" onchange="changeDriver(this)" oid="0"></select>
+
+<section class="panel">
+    <header class="panel-heading"><h3>Заказы, требующие доставки:</h3></header>
+    <div class="panel-body">
+        <div id="ZoneFilter" style="float: left; margin-right: 50px">
+            Отображать зоны:
+            <select>
+                <option value="0">Все</option>
+                <option value="1">Автотранспорт</option>
+                <option value="2">Курьеры</option>
+                <option value="3">Не отображать</option>
+            </select>
+        </div>
+        <div id="RouteFilter" style="float: left">
+            Отображать маршруты:
+            <select>
+                <option value="0">Все</option>
+                <option value="1">Автотранспорт</option>
+                <option value="2">Курьеры</option>
+                <option value="3">Не отображать</option>
+            </select>
+        </div>
+        <div style="clear: both; overflow: hidden"></div>
+        <div id="map" style="width: 100%; height: 587px"></div>
+        <div id="CarRoutes">
+            @Html.Action("CarRoutes", "Delivery", new { Date = DateTime.Now.Date, ShopID = ViewContext.RouteData.Values["ShopID"] })
+        </div>
+        <div id="CourierRoutes">
+            @Html.Action("CourierRoutes", "Delivery", new { Date = DateTime.Now.Date, ShopID = ViewContext.RouteData.Values["ShopID"] })
+        </div>
+        <div id="UndefRoutes">
+            @Html.Action("UndefRoutes", "Delivery", new { Date = DateTime.Now.Date, ShopID = ViewContext.RouteData.Values["ShopID"] })
+        </div>
+        @if (helper.HasPermission(Permissions.DeliveryApprove))
+        {
+            <div id="ApproveList" style="display: none">
+                <span id="errorCellApprove" style="color: red"></span>
+                <br/>
+                <label>Оповещение:</label>
+                <select id="NotifyTemplate">
+                    <option value="">Не выбран</option>
+                </select>
+                <input type="submit" class="btn btn-success" onclick="return approveList(1);" value="Утвердить маршрутный лист" />
+            </div>
+        }
+        @if (helper.HasPermission(Permissions.DeliveryApprovedEdit))
+        {
+            <div id="ApproveListRepeat" style="display: none">
+                <span id="errorCellApproveRepeat" style="color: yellowgreen">Внимание маршрутный лист уже утвержден. Чтобы разрешить повторное редактирование листа, нажмите на кнопку ниже</span>
+                <br/>
+                <input type="submit" class="btn btn-success" onclick="return approveList(0);" value="Разблокировать лист" />
+            </div>
+        }
+     
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="/Content/js/delivery.js">
+
+</script>

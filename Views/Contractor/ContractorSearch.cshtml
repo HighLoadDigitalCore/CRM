@@ -1,0 +1,13 @@
+﻿@model string
+<div id="ContrForm">
+    <div style="clear: both; overflow: hidden">
+        <p class="dialog-line">
+            <input type="text" class="form-control" id="SearchWord" name="SearchWord" value="@Model" placeholder="ФИО, Email или название организации" />
+        </p>
+        <p class="dialog-line">
+            <input type="submit" class="btn btn-success" name="SearchBtn" value="Поиск" onclick="searchContractors(this); return false;" />
+        </p>
+    </div>
+    <div style="clear: both; overflow: hidden" id="SearchResults"></div>
+</div>
+

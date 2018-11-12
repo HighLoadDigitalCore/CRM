@@ -1,0 +1,68 @@
+﻿@model Order
+
+
+<div class="" style="padding-left: 0">
+    <section class="">
+        <div class="">
+            <header class="panel-heading">
+                <h4>Список товаров</h4>
+            </header>
+            <div class="form-group">
+
+                <div class="col-sm-12">
+                    <table style="width: 100%" class="short-prods">
+                        <tr>
+                            <th>
+                                Название
+                            </th>
+                            <th>
+                                Кол-во
+                            </th>
+                            <th>
+                                Вес
+                            </th>А
+                            <th>
+                                Объем
+                            </th>
+                            <th>
+                                Стоимость
+                            </th>
+                        </tr>
+                        @foreach (var product in Model.OrderedProducts)
+                        {
+
+                            <tr>
+                                <td>
+                                    @product.Product.Name
+                                </td>
+                                <td>
+                                    @product.Amount
+                                </td>
+                                <td>
+                                    @product.SumWeight.ToUndefString(def: "-не указан-")
+                                </td>
+                                <td>
+                                    @product.SumVolume.ToUndefString(def: "-не указан-")
+                                </td>
+                                <td>
+                                    @product.SumPrice
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>
+                                Итого:
+                            </th>
+                            <th>@Model.TotalCount</th>
+                            <th>@Model.TotalWeight</th>
+                            <th>@Model.TotalVolume</th>
+                            <th>@Model.TotalSum</th>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

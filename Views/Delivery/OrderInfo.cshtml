@@ -1,0 +1,22 @@
+﻿@model Order
+@{
+    Model.Customer.ForPopup = true;
+}
+<div id="DeliveryPopupContent">
+    <div class="modal-content" style="width: 900px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Информация о заказе №@Model.OrderNumberOrID:</h4>
+        </div>
+        <div class="modal-body" style="width: 900px">
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.Partial("~/Views/Shop/UserFormView.cshtml", Model.Customer)
+                </div>
+                <div class="col-lg-8">
+                    @Html.Partial("~/Views/Shop/ProductListShort.cshtml", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

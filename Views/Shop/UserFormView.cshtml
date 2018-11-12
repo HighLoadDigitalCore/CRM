@@ -1,0 +1,145 @@
+﻿@model Customer
+
+<div class="@(Model.ForPopup ? "" : "col-lg-6")">
+    <section class="@(Model.ForPopup ? "panel-popup" : "panel")">
+
+        <div class="@(Model.ForPopup ? "" : "panel-body")">
+            <header class="panel-heading">
+                @if (Model.ForPopup)
+                {
+                    <h4>Данные о покупателе</h4>
+                }
+                else
+                {
+                    <h3>Данные о покупателе</h3>
+                }
+                @if (Model.Message.IsFilled())
+                {
+                    <p>@Model.Message</p>
+                }
+            </header>
+
+            <input type="hidden" name="OrderID" value="@Model.OrderID" />
+            <input type="hidden" name="CustomerID" value="@Model.CustomerID" />
+            <div class="form-group @(Model.IsPost && Model.Surname.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Фамилия</label>
+                <div class="col-sm-7">
+                    @Model.Surname
+                    @*<input type="text" class="form-control" readonly="readonly" value="@Model.Surname" name="Surname">*@
+                </div>
+            </div>
+            <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Имя</label>
+                <div class="col-sm-7">
+                    @*<input type="text" class="form-control" readonly="readonly" value="@Model.Name" name="Name">*@
+                    @Model.Name
+                </div>
+            </div>
+            <div class="form-group" style="clear: both">
+                <label class="col-sm-4 control-label">Отчество</label>
+                <div class="col-sm-7">
+                    @*<input type="text" class="form-control" readonly="readonly" value="@Model.Patrinomic" name="Patrinomic">*@
+                    @Model.Patrinomic
+                </div>
+            </div>
+            <div class="form-group" style="clear: both">
+                <label class="col-sm-4 control-label">Пол</label>
+                <div class="col-sm-7">
+                    @Html.Raw((Model.Sex ?? true) ? "Мужской" : "Женский")
+                    @*
+                        <select class="form-control disabled" disabled="disabled" name="Sex">
+                            <option value="True" @(Model.Sex.HasValue  && Model.Sex.Value ? "selected" : "")>Мужской</option>
+                            <option value="False" @(Model.Sex.HasValue && !Model.Sex.Value ? "selected" : "")>Женский</option>
+                        </select>
+                    *@
+                </div>
+            </div>
+            <div class="form-group @(Model.IsPost && Model.Phone.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Телефон</label>
+                <div class="col-sm-7">
+                    @*<input type="text" data-mask="(999) 999-99-99" readonly="readonly" class="form-control" value="@Model.Phone" name="Phone">*@
+                    @Model.Phone
+                </div>
+            </div>
+            <div class="form-group @(Model.IsPost && Model.AddPhone.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Доп. телефон</label>
+                <div class="col-sm-7">
+                    @*<input type="text" data-mask="(999) 999-99-99" readonly="readonly" class="form-control" value="@Model.AddPhone" name="AddPhone">*@
+                    @Model.AddPhone
+                </div>
+            </div>
+            <div class="form-group @(Model.IsPost && Model.Email.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Email</label>
+                <div class="col-sm-7">
+                    @*<input type="text" readonly="readonly" class="form-control" value="@Model.Email" name="Email">*@
+                    @Model.Email
+                </div>
+            </div>
+
+            <div class="form-group @(Model.IsPost && !Model.DeliveryDate.HasValue ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Дата доставки</label>
+                <div class="col-sm-7">
+                    @Html.Raw(Model.DeliveryDate.HasValue ? Model.DeliveryDate.Value.ToString("d MMMM yyyy, HH:mm") : "")
+                </div>
+            </div>
+
+
+            <div class="form-group @(Model.IsPost && Model.DeliveryAdress.IsNullOrEmpty() ? "has-error" : "")" style="clear: both">
+                <label class="col-sm-4 control-label">Адрес доставки</label>
+                <div class="col-sm-7">
+                    @Model.DeliveryAdress
+                </div>
+            </div>
+            @if (Model.Order.WorkerID.HasValue || Model.Order.CarID.HasValue)
+            {
+                if (Model.Order.IsDeliveryApproved)
+                {
+                    if (Model.Order.CarID.HasValue)
+                    {
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">Тип доставки</label>
+                            <div class="col-sm-7">
+                                Автотранспорт
+                            </div>
+                        </div>
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">Машина</label>
+                            <div class="col-sm-7">
+                                @Model.Order.Car.Name
+                            </div>
+                        </div>
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">Телефон водителя</label>
+                            <div class="col-sm-7">
+                                @Model.Order.Car.DriverPhone
+                            </div>
+                        </div>
+                    }
+                    if (Model.Order.WorkerID.HasValue)
+                    {
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">Тип доставки</label>
+                            <div class="col-sm-7">
+                                Курьер
+                            </div>
+                        </div>
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">ФИО</label>
+                            <div class="col-sm-7">
+                                @Model.Order.Worker.Name
+                            </div>
+                        </div>
+                        <div class="form-group" style="clear: both">
+                            <label class="col-sm-4 control-label">Телефон</label>
+                            <div class="col-sm-7">
+                                @Model.Order.Worker.Phone
+                            </div>
+                        </div>
+                    }
+
+                }
+            }
+
+        </div>
+    </section>
+</div>

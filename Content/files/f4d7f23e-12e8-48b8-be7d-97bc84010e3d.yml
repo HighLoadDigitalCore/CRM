@@ -1,0 +1,1597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2014-12-05 17:15">
+<shop>
+<name>ООО «Новые камеры»</name>
+<company>Новикам</company>
+<url>http://novicam.ru</url>
+<currencies>
+<currency id="RUR"/>
+</currencies>
+<categories><category id="1">Системы видеонаблюдения</category><category id="3189" parentId="1">Видеокамеры</category><category id="1202" parentId="1">Видеорегистраторы</category><category id="2391" parentId="1">Блоки питания</category><category id="1362" parentId="1">Коммутационное оборудование</category><category id="3185" parentId="1">Аксессуары</category><category id="3717" parentId="1">Контроль доступа</category></categories>
+<local_delivery_cost>0</local_delivery_cost>
+<offers>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_85_3.6mm.aspx</url>
+<price>890</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/b11a3c87-e280-42f9-af08-367d881da71e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam 85 3.6мм внутренняя цветная купольная видеокамера</name>
+<description>Видеокамеры цветные купольные NOVIcam, матрица CCD SHARP 1/4'', 12 v DC, объектив 3.6 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_85H_2.8mm.aspx</url>
+<price>1150</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/9b865d9a-746f-4a9a-883a-ca4d24dbdb9d.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam 85H 2.8мм внутренняя цветная купольная видеокамера</name>
+<description>Видеокамеры цветные купольные NOVIcam, матрица SONY 1/3" CCD, 12 v DC, объектив 2.8 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_85H_3.6mm.aspx</url>
+<price>1150</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/b11a3c87-e280-42f9-af08-367d881da71e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam 85H 3.6мм внутренняя цветная купольная видеокамера</name>
+<description>Видеокамеры цветные купольные NOVIcam, матрица SONY 1/3" CCD, 12 v DC, объектив 3.6 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_85A_2.8mm.aspx</url>
+<price>1190</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/96862f7b-5648-4491-81f0-f0f681583b53.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam 85A 2.8мм внутренняя цветная купольная видеокамера</name>
+<description>Купольная цветная видеокамера для внутренних помещений</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_85A_3.6mm.aspx</url>
+<price>1190</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/b11a3c87-e280-42f9-af08-367d881da71e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam 85A 3.6мм внутренняя цветная купольная видеокамера</name>
+<description>Видеокамеры цветные купольные NOVIcam, матрица CCD SHARP 1/4'' либо CCD SHARP 1/3'', 12 v DC, объектив 2.8 / 3.6 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_F1plus.aspx</url>
+<price>7275</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3870093c-1097-4878-81dd-549c201e85ef.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam F1+</name>
+<description>4-х канальный видеорегистратор со встроенным монитором, с качеством записи D1 (704x576 px) 100 к/с. Возможность подключения к облачному сервису NOVIcloud</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_F1s.aspx</url>
+<price>7489</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/0a609dff-a2da-4144-8851-d4bc53df5061.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam F1s</name>
+<description>Компактный мультиплексный видеорегистратор с возможностью записи 4 каналов в разрешении 960H (960x576) и реальном времени (25к/с на канал). Возможность подключения к облачному сервису NOVIcloud. Поддержка 3G модемов</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_IV-807E_2.8mm.aspx</url>
+<price>899</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/8ae0bef0-9e14-4aee-ad56-be8715f1dd9e.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Иннови) INNOVI IV-807E 2.8мм  внутренняя цветная купольная видеокамера с ИК-подсветкой</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_SW170_2.8~12mm.aspx</url>
+<price>5199</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7ad407e7-745b-445a-bf30-f787fb29c882.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>INNOVI SW170 2.8~12мм</name>
+<description>Видеокамера цветная купольная INNOVI. Матрица PIXIM 1/3" Seawolf. 0.0001 люкс, 690 эффективных ТВ линий, DC12V. Объектив варифокальный 2.8 ~ 12 мм с фиксированной диафрагмой. Встроенное меню (OSD). ИК-подсветка 15 м.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_SW600.aspx</url>
+<price>5350</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/4383368c-ac9c-49b3-b426-9f4d79564d56.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>INNOVI SW600</name>
+<description>Видеокамера внутренняя цветная корпусная INNOVI. Матрица PIXIM 1/3" Seawolf. 0.0001люкс, 690 эффективных ТВ линий, DC12V/24V. Крепление под объектив CS. Встроенное меню (OSD).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_SW320_2.8~12mm.aspx</url>
+<price>7349</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/813e45fd-1020-4215-83e5-f2e27f6492c6.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>INNOVI SW320 2.8~12мм</name>
+<description>Видеокамера цветная купольная INNOVI супервысокого разрешения. Матрица PIXIM 1/3" Seawolf. 0.0001 люкс, 690 эффективных ТВЛ, DC12V / AC24V. Профессиональный варифокальный объектив 2.8 ~ 12 мм  с автодиафрагмой. Встроенное меню (OSD). ИК-подсветка 15м. Класс защиты IP66.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-207.aspx</url>
+<price>179</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7aee1b43-92f9-4d1a-bf03-b5a7f6ea134a.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-Link PV-207 Пассивный приемопередатчик видеосигнала по витой паре</name>
+<description>Одноканальный Пассивный приемопередатчик Видео PAL / NTSC в реальном времени. Частота DC до 5 мГц. Встроенная защита подключаемого оборудования, защита от перенапряжения и грозозащита.
+
+</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-401R.aspx</url>
+<price>685</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/07915656-92bd-438d-b78b-dfc1f5b70854.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-Link PV-401R Пассивный приемопередатчик видеосигнала по витой паре</name>
+<description>4-канальный Пассивный приемопередатчик Видео по витой паре
+</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-351T.aspx</url>
+<price>845</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3ae3b3ee-632e-4316-bd32-4a0253186334.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-Link PV-351T Активный передатчик видеосигнала по витой паре</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W69AMR_2.8~12mm.aspx</url>
+<price>3849</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/5c4db98a-6052-445d-942d-720915598827.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W69AMR 2.8~12мм всепогодная уличная камера с ИК-подсветкой</name>
+<description>Видеокамера цветная погодозащищенная IP66 NOVIcam с ИК-подсветкой 30м, матрица SONY Super HAD II 600 ТВЛ, 12 v DC, с кронштейном, варифокальный объектив 2,8 ~
+ 12 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_SW330_2.8~12mm.aspx</url>
+<price>6699</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/8966bcf8-bd7a-4fd8-aa86-e566f06b9545.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>INNOVI SW330 2.8~12мм</name>
+<description>Видеокамера цветная купольная INNOVI супервысокого разрешения. Матрица PIXIM 1/3" Seawolf. 0.0001 лк, 690 эффективных ТВ линий, DC12V / AC24V. Профессиональный варифокальный объектив 2.8 ~ 12 мм с автодиафрагмой. ИК-подсветка 15м. Механический ИК-фильтр (День/Ночь). Класс пыле- и влагозащиты IP66. Встроенное меню (OSD).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/INNOVI_SW360_2.8~12mm.aspx</url>
+<price>8345</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/26855086-5d05-469e-a584-c57b044a2056.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>INNOVI SW360 2.8~12мм</name>
+<description>Видеокамера всепогодная уличная INNOVI. Матрица PIXIM 1/3" Nightwolf. 0.0001 люкс, 690 эффективных ТВ линий. Встроенное меню (OSD). ИК-подсветка до 50м (48 ИК-светодиодов). Варифокальный объектив 2.8 ~ 12 мм. Питание DC12V / AC24V.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W93AR20_2.8~12mm.aspx</url>
+<price>2599</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/04e92b60-22ad-4172-9dc0-6399b4d257e3.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W93AR20 2.8~12мм антивандальная уличная камера с ИК-подсветкой</name>
+<description>Видеокамера цветная погодозащищенная купольная антивандальная NOVIcam с ИК-подсветкой.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-1601R.aspx</url>
+<price>4869</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/1f95a5d7-947b-4617-8868-79bf4973001e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-Link PV-1601R Пассивный приемопередатчик видеосигнала по витой паре</name>
+<description>16-канальный Пассивный приемник видео по витой паре, с помощью которого возможно осуществлять передачу PAL/NTSC в реальном времени
+</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-2004R-DSA.aspx</url>
+<price>4198</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/98010cb8-c2f5-4907-8546-6280662e7df7.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ_Линк) PV-Link PV-2004R-DSA  Активный приемник видеосигнала по витой паре</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-1610RJ.aspx</url>
+<price>8898</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/45269c5d-5dde-474a-9924-b323bcab42f9.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-1610RJ</name>
+<description>16-канальный активный приемник видео по витой паре</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-BNC50.aspx</url>
+<price>70</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/04ba27bb-e572-44a7-a246-7e37e112db1d.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-BNC50</name>
+<description>Кабель коаксиальный, с двух сторон располагаются разъемы BNC папа (центральный контакт позолоченный)
+Удобен при расключении Передатчиков по витой паре PV-Link к видеорегистратору при подключении мониторов и т.п.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-DC1A.aspx</url>
+<price>278</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/a5d9272e-b2a3-4032-a078-628ed2737819.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-DC1A  Блок питания постоянного напряжения 12В 1А</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-DC1Am.aspx</url>
+<price>364</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e4cdb2cf-b26f-471a-a45a-64582ebdb6ee.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-DC1Am</name>
+<description>Профессиональный блок питания 12В 1А с отсеком для коммутации</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-DC2A.aspx</url>
+<price>513</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e43923f3-a7a2-4e0c-b4c4-7de4a9132381.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-DC2A</name>
+<description>Профессиональный блок питания 12В 2A</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-DC2Aplus.aspx</url>
+<price>1316</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/4f562720-28c7-47a1-945d-7b0e3d3e1890.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-DC2A+</name>
+<description>Профессиональный бесперебойный блок питания уличного исполнения 12В 2А с герметичным отсеком для коммутации</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-3001D.aspx</url>
+<price>429</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/9c949374-84cd-4f3b-8205-39c2f2835f33.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link (ПВ-Линк) PV-Link PV-3001D Пассивный приемопередатчик видеосигнала по витой паре с преобразователем переменного напряжения 24В в постоянное напряжение 12В</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-T2F.aspx</url>
+<price>27</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/4a59ae67-d7c4-4699-a70a-d56f3cec2f9f.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-T2F</name>
+<description>Позволяет подключиться к разъему питания видеокамеры DC
+Со стороны кабеля две зажимные клеммы (винт)</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-BNC150.aspx</url>
+<price>106</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/526d64a1-fe57-4e4e-836e-90967df2e5f1.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-BNC150</name>
+<description>Кабель коаксиальный, с двух сторон располагаются разъемы BNC папа (центральный контакт позолоченный)
+Удобен при расключении Передатчиков по витой паре PV-Link к видеорегистратору при подключении мониторов и т.п.
+Патч корд для PV-BNC30: BNC (п) - BNC (п)  30см
+Патч корд для BNC (п) - BNC (п) 150см</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W54HR20_6mm.aspx</url>
+<price>1069</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e5ba436f-3668-4335-b878-f32c90ea8b57.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam W54HR20 6мм</name>
+<description>Видеокамеры цветные погодозащищённые NOVIcam с ИК-подсветкой до 20 м. Матрица CCD Sony 1/3", 470 ТВ линий, 12vDC 50мА / 230 мА (ИК вкл). Объектив 6мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/ZK111.aspx</url>
+<price>10047</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3d515c0d-90cb-4dc6-a67a-fc6538042217.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>ZK111</name>
+<description>Пульт управления поворотными камерами со встроенным дисплеем</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-T2BNC.aspx</url>
+<price>27</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/c90ca35f-29aa-40cd-9ceb-61bc88478bbf.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-T2BNC</name>
+<description>Двухконтактный разъем PV-Link PV-T2BNC представляет собой электромеханическое устройство, предназначенное для согласованного соединения проложенного кабеля с BNC коннектором камеры с целью передачи сигнала. 
+Со стороны кабеля разъем имеет зажимные контакты (закручиваются отверткой), а со стороны камеры BNC разъем.
+Материал разъема: пластик, нержавеющая сталь, аллюминий, центральный контакт - медный.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-T2M.aspx</url>
+<price>27</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/cc46d08d-0b8b-40f5-9d2d-6f4a1b42e0c8.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-T2M</name>
+<description>Двухконтактный разъем PV-Link PV-T2M для согласованного соединения проложенного кабеля с DC коннектором камеры с целью подачи питания. 
+Со стороны кабеля разъем имеет зажимные контакты (закручиваются отверткой), со стороны камеры - DC разъем. T2M рассчитан на напряжение до 24В.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_FR04.aspx</url>
+<price>21409</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/eee429a2-7b3d-4c90-b04b-4a9631783729.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam FR04</name>
+<description>Профессиональный 4-х канальный видеорегистратор HD-SDI  Full HD 1080p REALTIME</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_SDI-07.aspx</url>
+<price>9799</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/cda05865-10d5-453a-803a-8480acee33d0.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI-07</name>
+<description>HD-SDI 30FPS@720p Корпусная Камера, 1.3 Мегапиксельная прогрессивная матрица Sony Exmor. Дальность передачи видео до 150 метров (не ограничена при использовании ретрансляторов NOVIcam SDI S2S). Встроенное меню. Механический ИК фильтр для работы и днем, и ночью. Поддерживает крепление объектива типа CS/C. Автоматический баланс белого, Автоматическая регулировка усиления, Компенсация задней засветки.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-DC3A.aspx</url>
+<price>705</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e9924c16-595e-4c21-b0b7-cba77aff8e2a.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-DC3A</name>
+<description>Профессиональный блок питания 12В 3A</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_87E_3.6mm.aspx</url>
+<price>2399</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/6190e9d8-af44-4df3-bab2-da516fbf02ed.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam 87E 3.6мм</name>
+<description>Разрешение 700 ТВЛ. Матрица 1/3" SONY EFFIO-E. Чувствительность 0.01 люкс. Меню на русском языке. Вращение установленного купола на 350 градусов. Объектив 3,6 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_DR08.aspx</url>
+<price>15619</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/6ceed9e2-50b4-425e-ad90-c257cd86da31.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam DR08</name>
+<description>Профессиональный 8-ми канальный видеорегистратор  960Н (960x576) 200 к/с REALTIME</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_DR16.aspx</url>
+<price>22255</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/2b1e4d1e-570b-412b-af1a-1c1e0fb7ebd2.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam DR16</name>
+<description>Профессиональный 16-ти канальный видеорегистратор  960H (960x576) 400 к/с REALTIME</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W54CR_3.6mm.aspx</url>
+<price>1899</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/61626a43-a0e4-4b78-9ffc-904fcd2968ea.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam W54CR 3.6мм</name>
+<description>600 TB линий. Матрица 1/3" Pixel Plus NAVIGATOR. Механический ИК фильтр день/ночь. ИК подсветка до 20 метров. Влагозащищенная класс защиты IP66.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W69CR_2.8~12mm.aspx</url>
+<price>3419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7df87f09-47fc-4a52-8637-fce4366865be.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W69CR 2.8~12мм всепогодная уличная камера с ИК-подсветкой</name>
+<description>600 TB линий. Матрица 1/3" Pixel Plus NAVIGATOR. Механический ИК фильтр день/ночь. ИК подсветка до 30 метров. Влагозащищенная класс защиты IP66. Вариофакальный объектив 2.8~ 12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W83UR_2.8mm.aspx</url>
+<price>2349</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/63e777ac-f543-432d-9e50-7b8f99bc08ab.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W83UR 2.8мм антивандальная уличная камера с ИК-подсветкой</name>
+<description>700 ТВ линий. Матрица 1/3" Sharp ULTRAFIO. ИК-подсветка до 10 метров. Объектив 2,8 мм.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W93ER_2.8~12mm.aspx</url>
+<price>3659</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/f07bc4c0-2c60-43de-9de0-dcbb61add5de.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W93ER 2.8~12мм антивандальная уличная камера с ИК-подсветкой</name>
+<description>700 ТВ линий. Матрица 1/3 SONY EFFIO-E. Электронный режим день/ночь. ИК-подсветка до 20 м. Вариофокальный объектив 2.8~12. 3D вращение камеры в корпусе. Антивандальная IP66.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W69UR_2.8~12mm.aspx</url>
+<price>4798</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3efcc457-e925-48b5-b428-e759113f70f0.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>(Новикам) NOVIcam W69UR 2.8~12мм всепогодная уличная камера с ИК-подсветкой</name>
+<description>700 ТВ линий. Матрица 1/3 Sharp ULTRAFIO. Электронный режим день/ночь. ИК-подсветка до 30 м. Вариофакальный объектив 2.8~12. IP66</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_F2.aspx</url>
+<price>5563</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/88b60532-64eb-4be5-b719-f4697fb715fb.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam F2</name>
+<description>8-ми канальный видеорегистратор с качеством записи D1 (704x576 px) 200 к/с Возможность подключения к облачному сервису NOVIcloud. Поддержка 3G модемов</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-DC3Ab.aspx</url>
+<price>2030</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/69bb3e2a-3287-4475-a4f4-03ddf6e59b9e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-DC3Ab</name>
+<description>Уличный блок бесперебойного питания 12В 3А с герметичным отсеком для коммутации и аккумулятором в комплекте</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam_87OSD.aspx</url>
+<price>150</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e02d5015-c1c1-4778-bec6-f5f6d1dfe3ba.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam 87OSD</name>
+<description>Джойстик 87OSD позволяет использовать встроенное меню видеокамеры и адаптировать её под конкретные условия эксплуатации. Гнездо под питание ''папа'' и разъём BNC ''мама'' позволяют быстро подключить видеокамеру, а подготовленные коннекторы соединить кабель с платой. Подключается вместо комплектного кабеля (BNC+питание) , временно или постоянно.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_SDR28.aspx</url>
+<price>23299</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/fd829228-92d9-49bc-941a-86c5b6353429.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDR28</name>
+<description>Профессиональный мультиплексный гибридный видеорегистратор - HD-SDI + аналог. Возможность записи всех каналов в высоком разрешении: 2 х Full HD (1080p) 30 к/с на канал и 8 х Full D1 (704x576) 25к/с на канал</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_40S.aspx</url>
+<price>5135</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/5b9c06c4-0586-479c-a2d5-ff91cea7ff92.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam 40S</name>
+<description>HD-SDI 1080p 30к/с. 1/3'' 2.1 Мегапиксельная прогрессивная матрица Panasonic.Подавление ярких пятен, Автоматическая регулировка усиления, Компенсация задней засветки. Технология шумоподавления на изображении 3-го поколения. Хорошее качество картинки в условиях слабой освещенности. Дальность передачи видео до 130 метров (не ограничена при использовании ретрансляторов NOVIcam SDI S2S). Наличие аналогового видео выхода. Удаленное управление меню по RS-485</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W80S.aspx</url>
+<price>7589</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/80449aea-0f48-4dd6-8133-cd19a6c49c50.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam W80S</name>
+<description>HD-SDI 1080p 30к/с купольная камера. 1/3'' 2.1 Мегапиксельная прогрессивная матрица Panasonic. Подавление ярких пятен, Автоматическая регулировка усиления, Компенсация задней засветки. Технология шумоподавления на изображении 3-го поколения. Хорошее качество картинки в условиях слабой освещенности. Дальность передачи видео до 130 метров (не ограничена при использовании ретрансляторов NOVIcam SDI S2S). Наличие аналогового видео выхода. Вандалозащищенная, класс защиты IP55. Удаленное управление меню по RS-485</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W90SR.aspx</url>
+<price>9139</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/a6ce2590-2f95-4b89-a565-a81184416b7e.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam W90SR</name>
+<description>HD-SDI 1080p 30к/с купольная камера. 1/3'' 2.1 Мегапиксельная прогрессивная матрица Panasonic. Мегапиксельный трансфокаторный объектив 2.8~12мм с удаленным управлением по RS-485. Подавление ярких пятен, Автоматическая регулировка усиления, Компенсация задней засветки. Технология шумоподавления на изображении 3-го поколения. Хорошее качество картинки в условиях слабой освещенности. Дальность передачи видео до 130 метров (не ограничена при использовании ретрансляторов NOVIcam SDI S2S). Наличие аналогового видео выхода. Вандалозащищенная, класс защиты IP55. Удаленное управление меню по RS-485</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_W60SR.aspx</url>
+<price>10299</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/d730f3a5-a249-40f3-8e53-8c55a4f36362.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam W60SR</name>
+<description>HD-SDI 1080p 30к/с камера. 1/3'' 2.1 Мегапиксельная прогрессивная матрица Panasonic. Мегапиксельный трансфокаторный объектив 2.8~12мм с удаленным управлением по RS-485. Подавление ярких пятен, Автоматическая регулировка усиления, Компенсация задней засветки. Технология шумоподавления на изображении 3-го поколения. Хорошее качество картинки в условиях слабой освещенности. Дальность передачи видео до 130 метров (не ограничена при использовании ретрансляторов NOVIcam SDI S2S). Наличие аналогового видео выхода. класс защиты IP66. Удаленное управление меню по RS-485</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/switches/product/NOVIcam_SDI_S2H_new.aspx</url>
+<price>4899</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3251bde0-ba49-4d7c-a486-b53cc6999dc3.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI S2H new</name>
+<description>Преобразование из HD-SDI в HDMI. Увеличивает расстояние передачи HD-SDI сигнала до 100 метров. Одновременная работа видеовыходов HDMI, HD-SDI, BNC. Передача видео с разрешением 1080p 50 к/с. Отсутствие потерь при передачи видеосигнала.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/NOVIcam_SDI_S1H_new.aspx</url>
+<price>3399</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/15822dc3-a77e-45cb-a028-8d61120131ad.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI S1H new</name>
+<description>Преобразование из HD-SDI в HDMI. Передача видео с разрешением 720p/1080p. Отсутствие потерь при передачи видеосигнала</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/NOVIcam_SDI_S2S_new.aspx</url>
+<price>3419</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3f8f1119-1f65-4624-adff-862238a0f5c3.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI S2S new</name>
+<description>
+
+Увеличивает расстояние передачи сигнала на 130 метров. В линию можно устанавливать неограниченное количество ретрансляторов. Передача видео с разрешением 1080p (60к/с, 50 к/с). Отсутствие потерь при передачи видеосигнала</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/TAMRON_13VG550ASII.aspx</url>
+<price>3599</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/4f31b666-6977-417f-8ac2-d3e411a0719c.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>TAMRON 13VG550ASII</name>
+<description>Вариофокальный объектив 5-50мм с асферическими линзами. Совместим с сенсорами 1/3", 1/4". Крепление CS</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/TAMRON_13VG550.aspx</url>
+<price>7399</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7cefc06e-8d1b-47a4-a7be-f2d7acf76f73.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>TAMRON 13VG550</name>
+<description>Мегапиксельный вариофокальный объектив 5 - 50 мм. Совместим с сенсорами 1/3", 1/4". Крепление CS.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/TAMRON_13VG288IR.aspx</url>
+<price>4899</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/fda3d6b3-2707-48ed-8dee-feff0e639d28.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>TAMRON 13VG288IR</name>
+<description>3-х мегапиксельный вариофокальный объектив 2,8-8 мм. ИК-коррекция. Совместим с сенсорами 1/3", 1/2,8", 1/2,7" Крепление CS. Автодиафрагма DC.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/TAMRON_13VG850IR.aspx</url>
+<price>10199</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/02b71982-62f4-451c-bc65-c40803ff0601.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>TAMRON 13VG850IR</name>
+<description>3-х мегапиксельный вариофокальный объектив 5-50 мм. ИК-коррекция. Совместим с сенсорами 1/3", 1/2,8", 1/2,7" Крепление CS. Автодиафрагма DC.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam_ZK100.aspx</url>
+<price>749</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/d41aa764-159f-4a57-81d6-e4bd56dc2f9c.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam ZK100</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-GrLAN.aspx</url>
+<price>1819</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/b9c5f44b-fe55-428e-bddb-275f739fc845.JPG</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-GrLAN</name>
+<description>Профессиональная грозозащита для 2-х пар UTP линии 100 Мбит/c
+Удобные контакты RJ45 позволяют просто и быстро подключить грозозащиту PV-Link PV-GrLAN даже в уже проложенные линии, а алюминиевый корпус защитит от пыли и повреждений.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/switches/product/_PV-Link__PV-GrPTZ.aspx</url>
+<price>1899</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/bc3749d6-5a7d-40b0-8d25-16579a831e76.JPG</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name> PV-Link  PV-GrPTZ</name>
+<description>Профессиональная грозозащита для коаксиальной линии, питания 24В АC и данных RS-485</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-GrV1.aspx</url>
+<price>695</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/05bc9676-aeb7-4266-8632-62ef1ec1ea16.JPG</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-GrV1</name>
+<description>Профессиональная грозозащита для коаксиальной линии</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-GrV16.aspx</url>
+<price>10165</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/9c288698-858a-4db9-a66f-8455e7e1207a.JPG</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-GrV16</name>
+<description>Профессиональная грозозащита для 16-ти коаксиальных линий</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-DC5As.aspx</url>
+<price>1029</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/60ad1fd7-8234-43a3-beba-6f2c055e4803.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-DC5As</name>
+<description>Профессиональный блок питания для телекоммуникационных устройств (видеокамер охранного видеонаблюдения) 12В 5А внутреннего исполнения с четырьмя выходами и самовосстанавливающимся предохранителем 6А</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/switches/product/PV-Link_PV-351R.aspx</url>
+<price>749</price>
+<currencyId>RUR</currencyId>
+<categoryId>1362</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/431fcff4-f91a-4424-a47e-9fcb473b59f1.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-351R</name>
+<description>Одноканальный активный приемник видеосигнала по UTP-кабелю на расстояние до 2000 м</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_SDI_SR08.aspx</url>
+<price>42875</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e35f93f1-b493-41f0-9a9f-1eb928df2cab.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI SR08</name>
+<description>Профессиональный 8-ми канальный видеорегистратор HD-SDI  Full HD 1080p REALTIME. Подключение двух независимых мониторов с разрешением Full HD 1080р (1920x1080).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVIcam_SDI_SR16.aspx</url>
+<price>66129</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e35f93f1-b493-41f0-9a9f-1eb928df2cab.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam SDI SR16</name>
+<description>Профессиональный 16-ти канальный видеорегистратор HD-SDI  Full HD 1080p REALTIME. Подключение двух независимых мониторов с разрешением Full HD 1080р (1920x1080).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/_ZK103.aspx</url>
+<price>5379</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e49727cc-cf84-4a40-b5a1-e05cde98b311.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name> ZK103</name>
+<description>Пульт ZK103 производства компании NOVIcam предназначен для управления купольными поворотными камерами через интерфейс RS-485.
+
+3D джойстик позволяет управлять поворотным механизмом камеры, а также механизмом приближения. ЖК-дисплей с подсветкой отображает текущий порядок операций, название протокола управления, номера выбранной камеры и монитора, а также статус джойстика.
+
+ZK103 совместим с купольными поворотными камерами NOVIcam и INNOVI, а также с другими PTZ устройствами с поддержкой протоколов PELCO-D и PELCO-P.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-DC5Aplus.aspx</url>
+<price>2699</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/1e487944-709d-4b04-9060-c7d693dea253.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-DC5A+</name>
+<description>Профессиональный источник питания PV-DC5A+ предназначен для преобразования напряжения питания 220В сети переменного тока в напряжение 12В постоянного тока, для питания видеокамер охранного видеонаблюдения (CCTV) с потребляемым током не более 5А. Девять независимых встроенных предохранителей обеспечивают работоспособность системы даже в случае выхода из строя какой-либо из подключенных камер. Конструкция блока питания позволяет устанавливать аккумулятор, который обеспечит питание системы 12В в случае перебоев с питанием от сети 220В.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-DC10Aplus.aspx</url>
+<price>4769</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/55d33091-e457-4c2d-b169-7ac27a28c0a6.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-DC10A+</name>
+<description>Профессиональный блок питания, 12В 10А с возможностью установки 2-х аккумуляторов. 18 независимых выходов. Самовосстанавливающиеся предохранители.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A61_2.8_mm.aspx</url>
+<price>1419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/2d67bae4-310c-436b-98aa-e63529b77abd.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A61 2.8 мм</name>
+<description>Купольная внутренняя камера с ИК подсветкой и мегапиксельным объективом 2,8 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A61_3.6_mm.aspx</url>
+<price>1419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/529fd9f1-7356-412f-a235-dc832e522182.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A61 3.6 мм</name>
+<description>Купольная внутренняя камера с ИК подсветкой и мегапиксельным объективом 3,6 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A63W.aspx</url>
+<price>1649</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/bb5a8916-6598-40b6-a11a-9b26405cece7.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A63W</name>
+<description>Всепогодная видеокамера с ИК подсветкой.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A67.aspx</url>
+<price>2065</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/d950566c-85ce-4f3a-95a6-15042f13a83e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A67</name>
+<description>Купольная внутренняя камера с ИК подсветкой и мегапиксельным вариофокальным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A69W.aspx</url>
+<price>3050</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/dc3ce276-4fac-4b10-9952-b246f54122e3.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A69W</name>
+<description>Всепогодная видеокамера с ИК подсветкой и вариофокальным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A70_2.8_mm.aspx</url>
+<price>1419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3f19f827-5789-46ec-b1da-e7b7061fa1fa.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A70 2.8 мм</name>
+<description>Мини купольная внутренняя видеокамера 960H с мегапиксельным объективом 2,8 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A72W.aspx</url>
+<price>1949</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/74ae4f38-8ebe-4524-b8c1-cdb46ad611f9.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A72W</name>
+<description>Всепогодная купольная видеокамера 960H c ИК подсветкой и мегапиксельным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A75V_2.8_mm.aspx</url>
+<price>2780</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/0898b6af-d170-4f91-bcd4-d5397391c405.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A75V 2.8 мм</name>
+<description>Вандалозащищённая всепогодная компактная видеокамера 960H c ИК подсветкой и мегапиксельным объективом 2,8 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A77.aspx</url>
+<price>2995</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e05713c8-3a9e-4ae9-b513-4d6f59f29880.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A77</name>
+<description>Видеокамера внутренняя купольная 960H c ИК подсветкой и мегапиксельным вариофокальным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A78W.aspx</url>
+<price>3779</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/c95d2a0d-2d3b-44ab-954a-a6f7eb3af357.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A78W</name>
+<description>Всепогодная купольная видеокамера 960H с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A79W.aspx</url>
+<price>4398</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/66b518bf-6676-4b3c-b769-964b1e8b449c.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A79W</name>
+<description>Всепогодная видеокамера 960H с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_AP723.aspx</url>
+<price>28249</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/923407c3-f378-4c16-8749-263381cb8161.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam AP723</name>
+<description>Скоростная купольная поворотная видеокамера 960H с ИК подсветкой</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_PRO_A87.aspx</url>
+<price>3409</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/67875824-f67f-4620-a60d-691ff91c1d1b.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam PRO A87</name>
+<description>Купольная внутренняя камера с ИК подсветкой и мегапиксельным вариофокальным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_PRO_A88W.aspx</url>
+<price>4119</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/98f2c319-15ac-4f89-93df-c7f64bd9ee74.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam PRO A88W</name>
+<description>Купольная всепогодная видеокамера высокого разрешения с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_PRO_A89W.aspx</url>
+<price>4644</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/d4ba1e73-2a32-4f57-9c1b-93a3d14fe9ef.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam PRO A89W</name>
+<description>Всепогодная видеокамера высокого разрешения с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/Kontro_dostupa/product/NOVIcam_PM76.aspx</url>
+<price>10419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3717</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/f5a9db98-1901-4509-926e-e0596de9fd8e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam PM76</name>
+<description>Видеодомофон цветной 4-х проводной сенсорный</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A70_3.6_mm.aspx</url>
+<price>1419</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/5bf53296-9e96-4eea-ba52-fadb9518c28b.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A70 3.6 мм</name>
+<description>Мини купольная внутренняя видеокамера 960H с мегапиксельным объективом 3,6 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_A75V_3.6_mm.aspx</url>
+<price>2780</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/08af2d04-a3c4-46c8-b699-66d2284c629b.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam A75V 3.6 мм</name>
+<description>Вандалозащищённая всепогодная компактная видеокамера 960H c ИК подсветкой и мегапиксельным объективом 3,6 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_NP118.aspx</url>
+<price>30499</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/76739ae3-69b9-4aa0-996f-ec1beeb63a23.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam NP118</name>
+<description>Скоростная купольная поворотная IP видеокамера HD с ИК подсветкой</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_NP220.aspx</url>
+<price>40499</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/98dbee2d-77f2-4e6d-854f-d940cce7f355.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam NP220</name>
+<description>Купольная поворотная IP видеокамера Full HD с ИК подсветкой и скоростью вращения до 200 градусов в сек</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_AP610.aspx</url>
+<price>17369</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/e53caf62-d8be-4de6-b5f0-0fd4e416d31c.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam AP610</name>
+<description>Мини купольная поворотная видеокамера D1 с ИК подсветкой</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_N27.aspx</url>
+<price>10764</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/6d2c4f95-4575-4d22-aa6c-c5bc79e97c76.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam N27</name>
+<description>Купольная встраиваемая IP видеокамера 1080p с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_IP_N29WP.aspx</url>
+<price>12109</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/374c7ad2-ef50-4b90-aebf-2cbae26d9dc1.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam IP N29WP</name>
+<description>Уличная IP видеокамера 1080p с ИК подсветкой и мегапиксельным вариофокальным объективом 2.8~12 мм</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam__PH707.aspx</url>
+<price>855</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/ded68aaa-0052-4b7c-987e-831ca3367bc9.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam  PH707</name>
+<description>Кронштейн для крепления камеры NOVIcam AP723 на стену.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam__PH701.aspx</url>
+<price>1499</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/faafa4c1-9c8b-4cbc-a1f0-fb5bb08e9dcf.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam  PH701</name>
+<description>Кронштейн для крепления камеры NOVIcam AP723 на потолок.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam__PH790.aspx</url>
+<price>1499</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/100cb715-0961-4291-9e18-86744ff0a35a.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam  PH790</name>
+<description>Основание для крепления камеры NOVIcam AP723 на угол.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVIcam__PH708.aspx</url>
+<price>1499</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/ce3b8b5d-dc60-4851-861a-0eefe541f4e2.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam  PH708</name>
+<description>Основание для крепления камеры NOVIcam AP723 на столб.</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-AC3A.aspx</url>
+<price>1019</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7060085f-a10a-4b33-ac28-467d5478e0fb.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-AC3A</name>
+<description>Профессиональный внутренний блок питания AC 24В 3А</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/WD10PURX.aspx</url>
+<price>3338</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/476ab7ce-631d-4289-b81a-480ffca9e9f8.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>WD10PURX</name>
+<description>Жесткие диски для систем наблюдения</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/WD20PURX.aspx</url>
+<price>4740</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/476ab7ce-631d-4289-b81a-480ffca9e9f8.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>WD20PURX</name>
+<description>Жесткие диски для систем наблюдения 2 ТБ</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/WD30PURX.aspx</url>
+<price>6254</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/476ab7ce-631d-4289-b81a-480ffca9e9f8.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>WD30PURX</name>
+<description>Жесткие диски для систем наблюдения 3 Тб</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_PRO_AR1904.aspx</url>
+<price>4709</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/346b04ff-80b9-4515-a947-4ee929c38bd5.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM PRO AR1904</name>
+<description>Компактный 4-канальный мультиплексный видеорегистратор NOVICAM AR1904, созданный на основе процессора HiSilicon, с возможностью записи всех каналов в разрешении 960H и реальном времени (25 к/с на канал).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_PRO_AR1908.aspx</url>
+<price>6759</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/82bf1e74-be5c-41f6-a445-ea9468579d25.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM PRO AR1908</name>
+<description>Компактный 8-канальный мультиплексный видеорегистратор NOVICAM AR1908, созданный на основе процессора HiSilicon, с возможностью записи всех каналов в разрешении 960H и реальном времени (25 к/с на канал).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_PRO_AR1916.aspx</url>
+<price>9619</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/155c218c-e840-4f75-9aaa-9b7832aad331.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM PRO AR1916</name>
+<description>Компактный 16-канальный мультиплексный видеорегистратор NOVICAM AR1916, созданный на основе процессора HiSilicon, с возможностью записи всех каналов в разрешении 960H и реальном времени (25 к/с на канал).</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/accessories/product/WD40PURX.aspx</url>
+<price>8876</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/476ab7ce-631d-4289-b81a-480ffca9e9f8.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>WD40PURX</name>
+<description>Жесткие диски для систем наблюдения 4 Тб</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_AR1604.aspx</url>
+<price>3529</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/630f6fce-5279-4c77-a952-088e57d08b0e.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM AR1604</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_NR1208.aspx</url>
+<price>7739</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/8936e5fd-fbcd-4c53-897f-699109fb5965.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM NR1208</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-POE01GB.aspx</url>
+<price>1819</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/24584587-2730-4e0e-8f24-bc491d3d2111.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-PОЕ01GB</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-POE04M1.aspx</url>
+<price>3419</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/7dda1977-d9a0-4b84-8f4e-188acbc5500b.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-PОЕ04M1</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/supply/product/PV-Link_PV-POE08M.aspx</url>
+<price>7698</price>
+<currencyId>RUR</currencyId>
+<categoryId>2391</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/1199e333-c1bf-4a16-a679-3549825a54cf.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>PV-Link PV-PОЕ08M</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videoreg/product/NOVICAM_NR4224.aspx</url>
+<price>21498</price>
+<currencyId>RUR</currencyId>
+<categoryId>1202</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/2b900976-cce5-467c-b067-04a6c33fa002.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM NR4224</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="false">
+<url>http://novicam.ru/catalog/category/accessories/product/NOVICAM_PRO_UTC.aspx</url>
+<price>855</price>
+<currencyId>RUR</currencyId>
+<categoryId>3185</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/3360c762-5031-4422-8b7b-ef85abad8d95.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM PRO UTC</name>
+<description/>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVICAM_A73W_2,8_mm.aspx</url>
+<price>2319</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/eb30d967-5472-4730-a7f8-2e7878e5225e.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM A73W 2,8 мм</name>
+<description>Всепогодная видеокамера 960H с ИК подсветкой и мегапиксельным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVIcam_NP100F.aspx</url>
+<price>6609</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/c044edc5-8817-455b-bd78-586d353b7d44.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVIcam NP100F</name>
+<description>Поворотная IP видеокамера 720p с ИК-подсветкой и вcтроенным WI-FI модулем</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVICAM_N14.aspx</url>
+<price>4920</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/cda41ebb-0a46-4651-a269-196559e3ecb3.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM N14</name>
+<description>Компактная внутренняя IP видеокамера 720p с ИК-подсветкой и 3G модулем</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVICAM_N12W.aspx</url>
+<price>4840</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/5054573a-eb2e-4ea0-be0c-05ec35529e0f.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM N12W</name>
+<description>Всепогодная купольная IP видеокамера 720p с ИК-подсветкой и мегапиксельным объективом</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/Kontro_dostupa/product/NOVICAM_AD82.aspx</url>
+<price>3500</price>
+<currencyId>RUR</currencyId>
+<categoryId>3717</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/0b43ab7e-24f3-4a9c-af06-f92dd7a407f8.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM AD82</name>
+<description>Цветная вызывная панель 800 ТВЛ с ИК-подсветкой</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/Kontro_dostupa/product/NOVICAM_ADM4.aspx</url>
+<price>4420</price>
+<currencyId>RUR</currencyId>
+<categoryId>3717</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/19c00750-5c5b-4c49-a114-cf230993422f.png</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM ADM4</name>
+<description>Видеодомофон цветной 4-х проводной</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+<offer available="true">
+<url>http://novicam.ru/catalog/category/videocams/product/NOVICAM_N14F.aspx</url>
+<price>5310</price>
+<currencyId>RUR</currencyId>
+<categoryId>3189</categoryId>
+<picture>http://novicam.ru/files/sitedata/PageID/PageModulID/efa52198-eeab-4659-a0e4-b53835c3c015.jpg</picture>
+<delivery>true</delivery>
+<local_delivery_cost>0</local_delivery_cost>
+<name>NOVICAM N14F</name>
+<description>Компактная внутренняя IP видеокамера 720p с ИК-подсветкой и Wi-Fi модулем</description>
+<sales_notes>Доставка по предоплате</sales_notes>
+
+</offer>
+
+</offers>
+</shop>
+</yml_catalog>

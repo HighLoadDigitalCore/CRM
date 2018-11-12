@@ -1,0 +1,65 @@
+﻿@model Product
+@{
+    var helper = new PermissionHelper();
+}
+@if (Model != null && Model.ID > 0)
+{
+    <div id="ProductSize">
+        <div class="">
+            <section class="panel">
+                <header class="panel-heading"><h3>Габариты товара</h3></header>
+                <div class="panel-body">
+                    @using (Ajax.BeginForm("ProductSize", "Products", new { ID = Model.ID }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ProductSize", OnComplete = "" }, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        <input type="hidden" name="ID" value="@Model.ID" />
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Высота, см</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Height" name="Height">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Ширина, см</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Width" name="Width">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Длина, см</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Length" name="Length">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Вес, кг</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" value="@Model.Weight" name="Weight">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                @*<a href="#" id="add-char" onclick="addChar(this); return false;">Добавить характеристику</a>*@
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="submit" style="float: right" class="btn btn-success" value="Сохранить данные" />
+                            </div>
+                        </div>
+                        if (Model.SubmitSuccess)
+                        {
+
+                            <div class="form-group">
+                                <div class="col-sm-7">
+                                    <img src="/Content/img/OK.png?w=34&h=34" />
+                                    Данные успешно сохранены
+                                </div>
+                                <div class="col-sm-5">
+                                    @*<a href="#ProductForm" onclick="addProduct(); return true;" class="btn btn-success form-control">Добавить еще товар</a>*@
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}

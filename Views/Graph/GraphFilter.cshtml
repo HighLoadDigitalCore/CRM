@@ -1,0 +1,64 @@
+﻿@using NPOI.SS.Formula.Functions
+@model GraphPeriod
+@if (Model != null)
+{
+    <div id="GraphFilter_@(Model.ID)">
+        @using (Ajax.BeginForm("GraphFilter", "Graph", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "GraphFilter_" + Model.ID, OnComplete = "initSearchForm();redrawGraph(" + Model.ID + ")" }))
+        {
+            @Html.HiddenFor(x => x.ID)
+            @Html.HiddenFor(x => x.MinDateThresh)
+            @Html.HiddenFor(x => x.MaxDateThresh)
+            if (Model.MinDateThresh.HasValue)
+            {
+                <div class="filter-line-1">
+                    Минимальная дата выборки: <b>@Model.MinDateThresh.Value.ToString("d MMM yyyy")</b>
+                </div>
+            }
+            if (Model.MaxDateThresh.HasValue)
+            {
+                <div class="filter-line-1">
+                    Максимальная дата выборки: <b>@Model.MaxDateThresh.Value.ToString("d MMM yyyy")</b>
+                </div>
+            }
+            <br />
+            <h4>Уточнение даты:</h4>
+            <div class="filter-line clear autopost">
+                <div class="flf"><span>Дата с:</span></div>
+                <div class="flf">
+                    <input arg="date" style="width: 100px" class="form-control" name="MinDate" id="MinDate" value="@Model.MinDate.Value.ToString("dd.MM.yyyy")" />
+                </div>
+                <div class="flf">
+                    <span>по:</span>
+                </div>
+                <div class="flf">
+                    <input arg="date" style="width:100px" class="form-control" name="MaxDate" id="MaxDate" value="@Model.MaxDate.Value.ToString("dd.MM.yyyy")" />
+                </div>
+            </div>
+            if (Model.TypeID != 3)
+            {
+                <h4>Период выборки:</h4>
+                <div class="filter-line">
+                    <div class="periods">
+                        <input type="hidden" name="Days" value="@Model.Days" />
+                        @foreach (var period in Model.AllPeriods)
+                        {
+                            <a onclick="changeFilterPeriod(this, @period)" style="@(Model.AccessiblePeriods.Contains(period)? "cursor:pointer":"")" class="period @(Model.AccessiblePeriods.Contains(period)? "":"disabled") @(period == Model.Days ? "active":"")" arg="@period">
+                                @Model.ToText(period)
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+            <h4>Графики:</h4>
+            <div class="filter-line clear">
+                @foreach (var rel in Model.Serials)
+                {
+                    <div onclick="toggleSerial(@(rel.ID), @(rel.GraphID));" class="legeng-line @(rel.IsHidden?"disabled":"")" title="@(rel.IsHidden?"Показать":"Спрятать")">
+                        <span style="background-color: @rel.InitialColor;" class="legend-block"></span>&nbsp;
+                        @rel.GraphSerial.Name
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

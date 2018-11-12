@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Результаты поиска";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model SearchModel
+<section class="panel">
+    @if (Model.Results.Any())
+    {
+        foreach (var group in Model.Results.GroupBy(x => x.Group))
+        {
+            <header class="panel-heading">
+                <h4>@group.Key@Html.Raw(":")</h4>
+            </header>
+            <div class="panel-body">
+                @foreach (var item in group)
+                {
+                    <div class="form-group">
+                        <a style="font-weight: bold" href="@item.Link">@item.Name</a>
+                    </div>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <h4>По данному запросу ничего не найдено.</h4>
+    }
+</section>

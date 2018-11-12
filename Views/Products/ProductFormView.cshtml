@@ -1,0 +1,45 @@
+﻿@model Product
+@if (Model != null)
+{
+    <div class="col-lg-6">
+        <section class="panel">
+
+            <div class="panel-body">
+                <header class="panel-heading">
+                    <h3>Данные о товаре @Model.Name</h3>
+                </header>
+
+                <div class="form-group" style="clear: both">
+                    <label class="col-sm-4 control-label">Название</label>
+                    <div class="col-sm-7">
+                        @Model.Name
+                    </div>
+                </div>
+                <div class="form-group" style="clear: both">
+                    <label class="col-sm-4 control-label">Артикул</label>
+                    <div class="col-sm-7">
+                        @Model.Article
+                    </div>
+                </div>
+                <div class="form-group" style="clear: both">
+                    <label class="col-sm-4 control-label">Розничная цена:</label>
+                    <div class="col-sm-7">
+                        @((Model.Price ?? 0).ToString("f2"))
+                    </div>
+                </div>
+                <div class="form-group" style="clear: both">
+                    <label class="col-sm-4 control-label">Оптовая цена</label>
+                    <div class="col-sm-7">
+                        @((Model.OptCost ?? 0).ToString("f2"))
+                    </div>
+                </div>
+                <div class="form-group" style="clear: both">
+                    <label class="col-sm-4 control-label">Себестоимость</label>
+                    <div class="col-sm-7">
+                        @((Model.SelfCost ?? 0).ToString("f2"))
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+}

@@ -1,0 +1,33 @@
+﻿@model RoutePointList
+<div id="DeliveryPopupContent">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Выберите заказы или склады для добавления в маршрут:</h4>
+        </div>
+        <div class="modal-body delivery">
+            <div style="border: 1px solid lightgray; margin-bottom: 20px; padding: 10px" id="RouteOrders">
+                @Html.Partial("RoutePointsOrders", Model)
+            </div>
+
+            @if (Model.Stores.Any())
+            {
+                <div style="border: 1px solid lightgray; margin-bottom: 20px; padding: 10px" id="RouteStores">
+                    <h4>Доступные склады:</h4>
+                    <hr style="margin: 0" />
+                    @foreach (var store in Model.Stores)
+                    {
+                        <div class="route-point-add">
+                            <label>
+                                <input type="checkbox" value="@store.ID" />
+                                @store.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+            <input group="@Model.Param.Group" tp="@Model.Param.Type" date="@Model.Param.Date" shop="@Model.Param.ShopID" type="submit" value="Добавить выбранные точки" class="btn btn-success" onclick="addRoutePointsToList(this); $('#DeliveryPopup').modal('hide'); return false;" />
+        </div>
+
+    </div>
+</div>

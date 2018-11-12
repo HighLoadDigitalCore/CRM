@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Список заказов";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model OrderFilter
+
+@Html.Partial("OperatorOrderSearch", Model)
+<div class="modal fade bs-example-modal-lg" id="markModal" tabindex="-1" data-backdrop="static"
+     data-keyboard="false" role="dialog" aria-hidden="true" style="display: none;">
+
+
+    <div id="MarkDialog"></div>
+</div>
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    @*<script src="/Content/assets/data-tables/dataTables.fixedHeader.js"></script>*@
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            initOrdersUI();
+        });
+
+        function initOrdersUI() {
+            initDataTableHelper();
+            initSkipped();
+        }
+
+        function initSkipped() {
+            $('table[id^="example"] tr[arg="mark"]').each(function() {
+                if ($.cookie('skip_order_' + $(this).attr('uid'))) {
+                    var isOdd = $(this).hasClass('odd');
+                    $(this).attr('class', 'gradeU');
+                    if (isOdd) {
+                        $(this).addClass('odd');
+                    }
+                }
+            });
+        }
+
+        function changeShop(obj) {
+            var overage = '@(Request.QueryString["Overage"])';
+            var ref = '/Shop/OperatorOrders/ShopID/' + $(obj).val();
+            if (overage == 'True')
+                ref += '&Overage=True';
+            document.location.href = ref;
+        }
+
+        function loadNextMark() {
+            $('#markModal').modal('hide');
+            $('.autopost').parents('form').submit();
+            setTimeout(function () {
+                startWork();
+            }, 500);
+
+        }
+
+        function skipOrder(id) {
+            $.cookie('skip_order_' + id, '1', { expires: 0.01, path: '/' });
+            $('#markModal').modal('hide');
+            $('.autopost').parents('form').submit();
+            setTimeout(function () {
+                startWork();
+            }, 500);
+        }
+
+        function startWork() {
+            var forMark = $('tr[name="orderLine"]').filter('[arg="mark"]');
+            var openID = 0;
+
+
+            forMark.each(function () {
+                var uid = $(this).attr('uid');
+                var c = $.cookie('skip_order_' + uid);
+                if ((!c || !c.length) && openID == 0) {
+                    openID = uid;
+                }
+            });
+            if (openID > 0) {
+                $.get('/Shop/MarkDialog', { ID: openID }, function (data) {
+                    $('#MarkDialog').replaceWith(data);
+                    $('#markModal').modal('show');
+                    initStars();
+                });
+
+            } else {
+                $('.autopost').parents('form').submit();
+                forMark = $('tr[name="orderLine"]').filter('[arg="mark"]');
+                forMark.each(function () {
+                    var uid = $(this).attr('uid');
+                    var c = $.cookie('skip_order_' + uid);
+                    if ((!c || !c.length) && openID == 0) {
+                        openID = uid;
+                    }
+                });
+                if (openID > 0) {
+                    $.get('/Shop/MarkDialog', { ID: openID }, function (data) {
+                        $('#MarkDialog').replaceWith(data);
+                        $('#markModal').modal('show');
+                        initStars();
+                    });
+                } else {
+                    alert('У вас нет заказов для оценки');
+                }
+            }
+        }
+
+        function initStars() {
+            if ($('#MarkOrderID').attr('arg') == '1') {
+                $('.star-mark').mouseover(function () {
+                    var arg = parseInt($(this).attr('arg'));
+                    var stars = $(this).parents('.col-sm-8').find('.star-mark');
+                    stars.each(function () {
+                        if (parseInt($(this).attr('arg')) <= arg) {
+                            $(this).removeClass('inactive');
+                        } else {
+                            $(this).addClass('inactive');
+                        }
+                    });
+                    if ($(this).parent().find('.sd').text() == '-') {
+                        $(this).parent().find('.sd').html($(this).attr('arg'));
+                    }
+
+                }).mouseout(function () {
+                    var arg = parseInt($(this).parent().find('input[type="hidden"]').val());
+                    var stars = $(this).parents('.col-sm-8').find('.star-mark');
+                    stars.each(function () {
+                        if (parseInt($(this).attr('arg')) <= arg) {
+                            $(this).removeClass('inactive');
+                        } else {
+                            $(this).addClass('inactive');
+                        }
+                    });
+                    if ($(this).parent().find('.star-mark.inactive').length == 5) {
+                        $(this).parent().find('.sd').html('-');
+                    }
+
+
+                })
+                    .click(function () {
+                        $(this).parent().find('input[type="hidden"]').val($(this).attr('arg'));
+                        $(this).parent().find('.sd').html($(this).attr('arg'));
+                    });
+            }
+        }
+    </script>
+}
+@section css{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+}

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Список пользователей";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model UserFilter
+
+@Html.Partial("UserSearch", Model)
+
+@section scripts
+{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/assets/advanced-datatable/media/js/jquery.dataTables_min.js"></script>
+    <script src="/Content/assets/data-tables/DT_bootstrap.js"></script>
+    <script src="/Content/assets/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colReorder.js"></script>
+    <script src="/Content/assets/data-tables/dataTables.colVis.js"></script>
+    <script src="/Content/assets/data-tables/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Content/js/dtextend.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            initUsersUI();
+        });
+
+        function initUsersUI() {
+            initDataTableHelper();
+        }
+    </script>
+}
+@section css{
+    <link rel="stylesheet" type="text/css" href="/Content/assets/datepicker/css/datepicker.css">
+}

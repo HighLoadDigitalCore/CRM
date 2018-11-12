@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Система повышения качества облуживания";
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+
+@if (currentUser.RegStep == 2 && currentUser.UserRoles.Contains("ShopOwner"))
+{
+    @Html.Action("RegBlockPartnerPassword")
+}
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Content/js/hideShowPassword.min.js"></script>
+    <script src="/Content/js/script.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            
+            if ($('#partnerPassModal').length) {
+                $('#partnerPassModal').modal('show');
+
+            }
+
+        });
+
+    </script>
+}
+@Html.Action("WelcomeBlock")

@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Информация о заказе";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+    bool? noShops = (bool?)ViewBag.NoShops;
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@section scripts{
+    <script src="/Content/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+            if ($('#MarkOrderID').attr('arg') == '1') {
+                $('.star-mark').mouseover(function() {
+                        var arg = parseInt($(this).attr('arg'));
+                        var stars = $(this).parents('.col-sm-8').find('.star-mark');
+                        stars.each(function() {
+                            if (parseInt($(this).attr('arg')) <= arg) {
+                                $(this).removeClass('inactive');
+                            } else {
+                                $(this).addClass('inactive');
+                            }
+                        });
+                        if ($(this).parent().find('.sd').text() == '-') {
+                            $(this).parent().find('.sd').html($(this).attr('arg'));
+                        }
+                    }).mouseout(function() {
+                        var arg = parseInt($(this).parent().find('input[type="hidden"]').val());
+                        var stars = $(this).parents('.col-sm-8').find('.star-mark');
+                        stars.each(function() {
+                            if (parseInt($(this).attr('arg')) <= arg) {
+                                $(this).removeClass('inactive');
+                            } else {
+                                $(this).addClass('inactive');
+                            }
+                        });
+                        if ($(this).parent().find('.star-mark.inactive').length == 5) {
+                            $(this).parent().find('.sd').html('-');
+                        }
+
+                    })
+                    .click(function() {
+                        $(this).parent().find('input[type="hidden"]').val($(this).attr('arg'));
+                        $(this).parent().find('.sd').html($(this).attr('arg'));
+                    });
+            }
+        });
+    </script>
+}
+@model Order
+
+@if (currentUser.UserRoles.Contains("Operator") || 
+    (currentUser.ShopOwnerID == Model.Shop.Owner && (currentUser.UserRoles.Contains("ShopOwner") || currentUser.UserRoles.Contains("Manager")))
+    || Model.ContractedOrders.Any(x=> x.Contractor.UserBy == currentUser.ShopOwnerID))
+    
+    
+{
+
+    <div class="row">
+        <input type="hidden" id="OrderID" value="@(Model.ID)" />
+        @Html.Action("ProductsListDetails", new {ID = Model.ID})
+    </div>
+
+
+    <div class="row">
+        @Html.Action("UserFormDetails", new {ID = Model.ID})
+        @Html.Action("MarkForm", new {ID = Model.ID})
+    </div>
+
+
+}

@@ -1,0 +1,43 @@
+﻿@model List<User>
+@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+<div style="clear: both; overflow: hidden" id="SearchResults">
+    @if (Model == null || !Model.Any())
+    {
+        <div class="search-result">
+            <b>По указанному слову никого не найдено. Попробуйте изменить слово и повторить поиск.</b>
+        </div>
+    }
+    else
+    {
+        foreach (var user in Model)
+        {
+
+
+            <div class="search-result" shopid="@user.ShopIDOrDef" userid="@user.ID">
+                <div class="search-result-name">@user.FullName (@user.Shops.Select(x=> x.OrgNameOrName).JoinToString(", "))</div>
+                @if (user.ID != currentUser.ID && !user.HasInvitesToBeContractorFromMe())
+                {
+                    <div class="search-result-actions">
+                        <a href="#nogo" onclick="sendInvite(this); return false;">Отправить приглашение</a>
+                    </div>
+                    <div class="search-result-invite">
+                        <span>Текст приглашения:</span>
+                        <textarea class="form-control"></textarea>
+                        <input type="submit" value="Отправить" onclick="sendInviteMessage(this);" class="btn btn-success" />
+                    </div>
+
+                }
+                else if (user.ID != currentUser.ID)
+                {
+                    <div class="search-result-actions" style="color: green">
+                        Приглашение отправлено
+                    </div>
+                }
+            </div>
+
+
+        }
+    }
+</div>

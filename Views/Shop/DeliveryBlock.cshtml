@@ -1,0 +1,129 @@
+﻿@model DeliveryAddress
+@{
+    var helper = new PermissionHelper();
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+@if (helper.HasPermission(Permissions.OrderEdit) || (helper.HasPermission(Permissions.OrderAdd) && Model.Orders.First().AddedByID == currentUser.ID && Model.Orders.First().Status == -1))
+{
+
+    <div id="DeliveryBlock">
+        <div class="">
+            <section class="panel">
+                <header class="panel-heading"><h3>Информация о доставке</h3></header>
+                <div class="panel-body">
+                    @using (Ajax.BeginForm("DeliveryBlock", "Shop", new { }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "DeliveryBlock", OnComplete = "refreshOrderProducts();" }, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        <input type="hidden" name="ID" value="@Model.Orders.First().ID" />
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label col-lg-4"></label>
+                                <div class="col-lg-8">
+                                    <span style="color: green; font-weight: bold">@ViewBag.Message</span>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Тип доставки:</label>
+                            <div class="col-lg-8">
+                                <select name="DeliveryType" class="form-control">
+                                    <option value="0" @(Model.DeliveryType == 0 ? "selected":"")>Не задан</option>
+                                    <option value="1" @(Model.DeliveryType == 1 ? "selected" : "")>Доставка автотранспортом</option>
+                                    <option value="2" @(Model.DeliveryType == 2 ? "selected" : "")>Доставка курьером</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Стоимость доставки:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Cost" name="Cost" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Стоимость подъема:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.LiftCost" name="LiftCost" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Индекс:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.ZipCode" name="ZipCode" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none">
+                            <label class="col-sm-2 control-label col-lg-4">Регион:</label>
+                            <div class="col-lg-8">
+                                <input rel="suggest" type="text" value="@Model.Region" name="Region" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Город:</label>
+                            <div class="col-lg-8">
+                                <input rel="suggest" type="text" value="@Model.Town" name="Town" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Улица:</label>
+                            <div class="col-lg-8">
+                                <input rel="suggest" type="text" value="@Model.Street" name="Street" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Дом:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.House" name="House" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Корпус:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Building" name="Building" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Строение:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Section" name="Section" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Подъезд:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Doorway" name="Doorway" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Код двери:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Code" name="Code" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Этаж:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Floor" name="Floor" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label col-lg-4">Квартира:</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="@Model.Flat" name="Flat" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="submit" style="float: right" class="btn btn-success" value="Сохранить данные" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}

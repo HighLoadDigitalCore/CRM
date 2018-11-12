@@ -1,0 +1,15 @@
+﻿@model IList<GraphSerial>
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="mySmallModalLabel">Список сохраненных последовательностей:</h4>
+    </div>
+    <div class="modal-body">
+        <div class="serials-list">
+            @foreach (var serial in Model)
+            {
+                <div class="serial-item" arg="@serial.ID"><span>@serial.Name (@serial.GraphSerialsOrders.Count заказ@(serial.GraphSerialsOrders.Count.Pluralize(new[] { "", "а", "ов" })))</span><a href="#nogo" onclick="deleteSerial(@serial.ID)">Удалить</a></div>
+            }
+        </div>
+    </div>
+</div>

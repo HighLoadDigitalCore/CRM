@@ -1,0 +1,579 @@
+﻿@{
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+}
+
+@if (currentUser.ID > 0)
+{
+    if (currentUser.UserRoles.Contains("Admin"))
+    {
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <div class="text-center">
+                            <i class="fa fa-list fa-3x"></i><br>
+                            Логирование <span class="caret"></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="@Url.Action("Actions", "Events")"><i class="fa fa-list-alt"></i> Журнал событий</a></li>
+                        <li><a href="@Url.Action("Logins", "Events")"><i class="fa fa-list-alt"></i> Журнал посещений</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <div class="text-center">
+                            <i class="fa fa-user fa-3x"></i><br>
+                            Пользователи <span class="caret"></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="@Url.Action("Index", "Users")"><i class="fa fa-list-ul"></i> Список пользователей</a></li>
+                        <li><a href="@Url.Action("Edit", "Users")"><i class="fa fa-plus"></i> Добавить пользователя</a></li>
+                    </ul>
+                </li>
+                @*
+                    <li>
+                        <a href="index.html">
+                            <div class="text-center">
+                                <i class="fa fa-dashboard fa-3x"></i><br>
+                                Dashboard
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-laptop fa-3x"></i><br>
+                                UI Element <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="button.html"><i class="fa fa-lemon-o"></i> Button</a></li>
+                            <li><a href="icon.html"><i class="fa fa-puzzle-piece"></i> Icon</a></li>
+                            <li><a href="panel-well.html"><i class="fa fa-file"></i> Panel & Well</a></li>
+                            <li class="divider"></li>
+                            <li><a href="grid.html"><i class="fa fa-th"></i> Grid</a></li>
+                            <li><a href="breadcrumb-pagination.html"><i class="fa fa-send"></i> Breadcrumb & Pagination</a></li>
+                            <li><a href="jumbotron-thumbnail.html"><i class="fa fa-flag"></i> Jumbotron & Thumbnail</a></li>
+                            <li class="divider"></li>
+                            <li><a href="collapse.html"><i class="fa fa-archive"></i> Collapse</a></li>
+                            <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
+                            <li><a href="alert-progress-bar.html"><i class="fa fa-coffee"></i> Alert & Progress Bar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="list-media.html"><i class="fa fa-paw"></i> List Media</a></li>
+                            <li><a href="slider.html"><i class="fa fa-legal"></i> Slider</a></li>
+                            <li><a href="popup-notip.html"><i class="fa fa-bullhorn"></i>Popup & Notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-list fa-3x"></i><br>
+                                Form Element <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="form-component.html"><i class="fa fa-list-alt"></i> Form Component</a></li>
+                            <li><a href="advanced-component.html"><i class="fa fa-list-ul"></i> Advanced Component</a></li>
+                            <li><a href="form-wizard.html"><i class="fa fa-columns"></i> Form Wizard</a></li>
+                            <li class="divider"></li>
+                            <li><a href="form-validation.html"><i class="fa fa-check-square"></i> Form-Validation</a></li>
+                            <li><a href="dropzone-file-upload.html"><i class="fa fa-send"></i> Dropzone File Upload</a></li>
+                            <li><a href="multiple-file-upload.html"><i class="fa fa-file-o"></i> Multiple File Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-folder-open fa-3x"></i><br>
+                                Data Tables <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="basic-table.html"><i class="fa fa-table"></i> Basic Table</a></li>
+                            <li><a href="responsive-table.html"><i class="fa fa-table"></i> Responsive Table</a></li>
+                            <li><a href="dynamic-table.html"><i class="fa fa-table"></i> Dynamic Table</a></li>
+                            <li><a href="editable-table.html"><i class="fa fa-table"></i> Editable Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-bar-chart-o fa-3x"></i><br>
+                                charts <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="moris.html"><i class="fa fa-bar-chart-o"></i> Moris</a></li>
+                            <li><a href="chartjs.html"><i class="fa fa-bar-chart-o"></i> Chartjs</a></li>
+                            <li><a href="xcharts.html"><i class="fa fa-bar-chart-o"></i> xCharts</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="google-maps.html">
+                            <div class="text-center">
+                                <i class="fa fa-location-arrow fa-3x"></i><br>
+                                Google Maps
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-home fa-3x"></i><br>
+                                Real Estates <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="property.html"><i class="fa fa-institution"></i> Property List</a></li>
+                            <li><a href="property-column.html"><i class="fa fa-th-large"></i> Property Column</a></li>
+                            <li><a href="property-detail.html"><i class="fa fa-th-list"></i> Property Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-shopping-cart fa-3x"></i><br>
+                                Stores <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="store.html"><i class="fa fa-gift"></i> Store List</a></li>
+                            <li><a href="store-detail.html"><i class="fa fa-gift"></i> Store Detail</a></li>
+                            <li><a href="shopping-cart.html"><i class="fa fa-gift"></i> Shopping Cart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-plus-square fa-3x"></i><br>
+                                Extras Pages <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="login.html"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                            <li><a href="page-blank.html"><i class="fa fa-square-o"></i> Blank Page</a></li>
+                            <li class="divider"></li>
+                            <li><a href="invoice.html"><i class="fa fa-thumbs-o-up"></i> Invoice</a></li>
+                            <li><a href="princing-table.html"><i class="fa fa-gavel"></i> Princing Table</a></li>
+                            <li><a href="faq.html"><i class="fa fa-sun-o"></i> FAQ</a></li>
+                            <li class="divider"></li>
+                            <li><a href="register.html"><i class="fa fa-plus"></i> Register</a></li>
+                            <li><a href="404.html"><i class="fa fa-warning"></i> 404 Error</a></li>
+                            <li><a href="500.html"><i class="fa fa-warning"></i> 500 Error</a></li>
+                        </ul>
+                    </li>
+                *@
+            </ul>
+        </div>
+    }
+    else if (currentUser.UserRoles.Contains("Operator"))
+    {
+        var helper = new PermissionHelper();
+        if (helper.HasPermission(Permissions.MarkList))
+        {
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a href="@Url.Action("OperatorOrders", "Shop")">
+                            <div class="text-center">
+                                <i class="fa fa-database fa-3x"></i><br>
+                                Заказы для оценки
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        }
+    }
+    else if (currentUser.UserRoles.Contains("ShopOwner") || currentUser.UserRoles.Contains("Manager"))
+    {
+        var helper = new PermissionHelper();
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                @if (helper.HasPermission(Permissions.OrderListView))
+                {
+                    <li>
+                        <a href="@Url.Action("Orders", "Shop")">
+                            <div class="text-center">
+                                <i class="fa fa-database fa-3x"></i><br>
+                                База данных
+                            </div>
+                        </a>
+                    </li>
+                }
+
+                @if (helper.HasPermission(Permissions.OrderAdd))
+                {
+                    <li>
+                        <a href="@Url.Action("CreateOrder", "Shop")">
+                            <div class="text-center">
+                                <i class="fa fa-shopping-cart fa-3x"></i><br>
+                                Добавление заказа
+                            </div>
+                        </a>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.ShopListView))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="@Url.Action("Index", "Shop")" onclick=" document.location.href = $(this).attr('href') ">
+                            <div class="text-center">
+                                <i class="fa fa-tags fa-3x"></i><br>
+                                Мои магазины <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (helper.HasPermission(Permissions.ShopListView))
+                            {
+
+                                foreach (var shop in currentUser.ShopList)
+                                {
+                                    <li><a href="@Url.Action("Edit", "Shop", new {ID = shop.ID})"><i class="fa fa-tag"></i> @shop.Name</a></li>
+                                }
+
+                                <li><a href="@Url.Action("Index", "Shop")"><i class="fa fa-list-ul"></i> Список магазинов</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.UserListView) || helper.HasPermission(Permissions.UserEdit) || helper.HasPermission(Permissions.UserAdd))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-user fa-3x"></i><br>
+                                Менеджеры <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (helper.HasPermission(Permissions.UserListView))
+                            {
+                                <li><a href="@Url.Action("Index", "Users")"><i class="fa fa-list-ul"></i> Список менеджеров</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.UserAdd))
+                            {
+                                <li><a href="@Url.Action("Edit", "Users")"><i class="fa fa-plus"></i> Добавить менеджера</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.StatQuality) || helper.HasPermission(Permissions.StatClientsCompare) ||
+                    helper.HasPermission(Permissions.StatOrderAmount) || helper.HasPermission(Permissions.StatMiddlePrice) || helper.HasPermission(Permissions.StatOrderVolume) || helper.HasPermission(Permissions.StatCommon) || helper.HasPermission(Permissions.StatStatus))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-dashboard  fa-3x"></i><br>
+                                Статистика <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (helper.HasPermission(Permissions.StatConstructor))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatConstructor", controller = "Graph", action = "Constructor"  })"><i class="fa fa-bar-chart-o"></i> Конструктор графиков</a></li>
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "GraphConstructor", controller = "Graph", action = "Constructor"  })"><i class="fa fa-bar-chart-o"></i> Конструктор графиков V2</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatCommon))
+                            {
+                                @*<li><a href="@Url.Action("GraphIndex", "Graph", new { type = "Common" })"><i class="fa fa-bar-chart-o"></i> Общая статистика</a></li>*@
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatCommon", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Общая статистика</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatQuality))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatQuality", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Качество обслуживания</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatClientsCompare))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatClientsCompare", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Удовлетворенность клиентов</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatOrderAmount))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatOrderAmount", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Количество заказов</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatMiddlePrice))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatMiddlePrice", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Средний чек</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatOrderVolume))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatOrderVolume", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Объем продаж</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.StatStatus))
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultOrderSearch", new { ShopID = currentUser.DefShopID, Page = "StatStatus", controller = "Common", action = "OrderSearch" })"><i class="fa fa-bar-chart-o"></i> Статусы заказов</a></li>
+                            }
+
+                            @*<li><a href="@Url.Action("Edit", "Users")"><i class="fa fa-plus"></i> Добавить менеджера</a></li>*@
+                        </ul>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.ShopCharEdit))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                Настройки системы <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (helper.HasPermission(Permissions.ShopCharEdit))
+                            {
+                                <li><a href="@Url.Action("Chars", "Settings")"><i class="fa fa-list-ul"></i> Настройки базы данных</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.ShopAdding))
+                            {
+                                <li><a href="@Url.Action("Edit", "Shop")"><i class="fa fa-plus"></i> Добавить магазин</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.MailSettings))
+                            {
+                                <li><a href="@Url.Action("Index", "Mailing", new { Type = 0 })"><i class="fa fa-plus"></i> Почтовые рассылки</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.SMSSettings))
+                            {
+                                <li><a href="@Url.Action("Index", "Mailing", new { Type = 1 })"><i class="fa fa-plus"></i> SMS рассылки</a></li>
+                            }
+
+                            @*<li><a href="@Url.Action("Edit", "Users")"><i class="fa fa-plus"></i> Добавить менеджера</a></li>*@
+                        </ul>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.DeliveryOrders) || helper.HasPermission(Permissions.DeliveryStores) || helper.HasPermission(Permissions.DeliveryZones))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                Доставка <span class="caret"></span>
+                            </div>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            @if (helper.HasPermission(Permissions.DeliveryOrders))
+                            {
+                                <li><a href="@Url.Action("Orders", "Delivery")"><i class="fa fa-list-ul"></i> Заказы для доставки</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.DeliveryStores))
+                            {
+                                <li><a href="@Url.Action("Stores", "Store")"><i class="fa fa-plus"></i> Адреса складов</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.DeliveryZones))
+                            {
+                                <li><a href="@Url.Action("Zones", "Delivery")"><i class="fa fa-plus"></i> Зоны доставки транспорта</a></li>
+                                <li><a href="@Url.Action("CourierZones", "Delivery")"><i class="fa fa-plus"></i> Зоны доставки курьером</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.Workers))
+                            {
+                                <li><a href="@Url.Action("Workers", "Delivery")"><i class="fa fa-plus"></i> Сотрудники доставки</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.WorkersGroups))
+                            {
+                                <li><a href="@Url.Action("WorkerGroups", "Delivery")"><i class="fa fa-plus"></i> Экипажи</a></li>
+                            }
+                            @if (helper.HasPermission(Permissions.Cars))
+                            {
+                                <li><a href="@Url.Action("Cars", "Delivery")"><i class="fa fa-plus"></i> Автопарк</a></li>
+                            }
+                        </ul>
+
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.ContragentEdit))
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Contractor")">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                Контрагенты
+                            </div>
+                        </a>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.Import))
+                {
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                Интеграция
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action( "YML", "Import")"><i class="fa fa-list-ul"></i> Импортирование товаров из YML</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (helper.HasPermission(Permissions.ProductsEdit))
+                {
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                База данных товаров
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.RouteUrl("DefaultProductSearch", new {StoreID = 0, ShopID = 0, Page = "Common", controller = "Common", action = "ProductSearch" })"><i class="fa fa-bar-chart-o"></i> Список товаров</a></li>
+                        </ul>
+                    </li>
+                }
+
+                @if (helper.HasPermission(Permissions.StoreProducts) && currentUser.StoreList.Any())
+                {
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-sun-o fa-3x"></i><br>
+                                Товары на складах
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @foreach (var store in currentUser.StoreList)
+                            {
+                                <li><a href="@Url.RouteUrl("DefaultProductSearch", new {StoreID = store.ID, ShopID = 0, Page = "Stores", controller = "Common", action = "ProductSearch" })"><i class="fa fa-bar-chart-o"></i> @store.Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                @*
+                    <li>
+                        <a href="index.html">
+                            <div class="text-center">
+                                <i class="fa fa-dashboard fa-3x"></i><br>
+                                Dashboard
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-laptop fa-3x"></i><br>
+                                UI Element <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="button.html"><i class="fa fa-lemon-o"></i> Button</a></li>
+                            <li><a href="icon.html"><i class="fa fa-puzzle-piece"></i> Icon</a></li>
+                            <li><a href="panel-well.html"><i class="fa fa-file"></i> Panel & Well</a></li>
+                            <li class="divider"></li>
+                            <li><a href="grid.html"><i class="fa fa-th"></i> Grid</a></li>
+                            <li><a href="breadcrumb-pagination.html"><i class="fa fa-send"></i> Breadcrumb & Pagination</a></li>
+                            <li><a href="jumbotron-thumbnail.html"><i class="fa fa-flag"></i> Jumbotron & Thumbnail</a></li>
+                            <li class="divider"></li>
+                            <li><a href="collapse.html"><i class="fa fa-archive"></i> Collapse</a></li>
+                            <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
+                            <li><a href="alert-progress-bar.html"><i class="fa fa-coffee"></i> Alert & Progress Bar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="list-media.html"><i class="fa fa-paw"></i> List Media</a></li>
+                            <li><a href="slider.html"><i class="fa fa-legal"></i> Slider</a></li>
+                            <li><a href="popup-notip.html"><i class="fa fa-bullhorn"></i>Popup & Notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-list fa-3x"></i><br>
+                                Form Element <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="form-component.html"><i class="fa fa-list-alt"></i> Form Component</a></li>
+                            <li><a href="advanced-component.html"><i class="fa fa-list-ul"></i> Advanced Component</a></li>
+                            <li><a href="form-wizard.html"><i class="fa fa-columns"></i> Form Wizard</a></li>
+                            <li class="divider"></li>
+                            <li><a href="form-validation.html"><i class="fa fa-check-square"></i> Form-Validation</a></li>
+                            <li><a href="dropzone-file-upload.html"><i class="fa fa-send"></i> Dropzone File Upload</a></li>
+                            <li><a href="multiple-file-upload.html"><i class="fa fa-file-o"></i> Multiple File Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-folder-open fa-3x"></i><br>
+                                Data Tables <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="basic-table.html"><i class="fa fa-table"></i> Basic Table</a></li>
+                            <li><a href="responsive-table.html"><i class="fa fa-table"></i> Responsive Table</a></li>
+                            <li><a href="dynamic-table.html"><i class="fa fa-table"></i> Dynamic Table</a></li>
+                            <li><a href="editable-table.html"><i class="fa fa-table"></i> Editable Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-bar-chart-o fa-3x"></i><br>
+                                charts <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="moris.html"><i class="fa fa-bar-chart-o"></i> Moris</a></li>
+                            <li><a href="chartjs.html"><i class="fa fa-bar-chart-o"></i> Chartjs</a></li>
+                            <li><a href="xcharts.html"><i class="fa fa-bar-chart-o"></i> xCharts</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="google-maps.html">
+                            <div class="text-center">
+                                <i class="fa fa-location-arrow fa-3x"></i><br>
+                                Google Maps
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-home fa-3x"></i><br>
+                                Real Estates <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="property.html"><i class="fa fa-institution"></i> Property List</a></li>
+                            <li><a href="property-column.html"><i class="fa fa-th-large"></i> Property Column</a></li>
+                            <li><a href="property-detail.html"><i class="fa fa-th-list"></i> Property Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-shopping-cart fa-3x"></i><br>
+                                Stores <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="store.html"><i class="fa fa-gift"></i> Store List</a></li>
+                            <li><a href="store-detail.html"><i class="fa fa-gift"></i> Store Detail</a></li>
+                            <li><a href="shopping-cart.html"><i class="fa fa-gift"></i> Shopping Cart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div class="text-center">
+                                <i class="fa fa-plus-square fa-3x"></i><br>
+                                Extras Pages <span class="caret"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="login.html"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                            <li><a href="page-blank.html"><i class="fa fa-square-o"></i> Blank Page</a></li>
+                            <li class="divider"></li>
+                            <li><a href="invoice.html"><i class="fa fa-thumbs-o-up"></i> Invoice</a></li>
+                            <li><a href="princing-table.html"><i class="fa fa-gavel"></i> Princing Table</a></li>
+                            <li><a href="faq.html"><i class="fa fa-sun-o"></i> FAQ</a></li>
+                            <li class="divider"></li>
+                            <li><a href="register.html"><i class="fa fa-plus"></i> Register</a></li>
+                            <li><a href="404.html"><i class="fa fa-warning"></i> 404 Error</a></li>
+                            <li><a href="500.html"><i class="fa fa-warning"></i> 500 Error</a></li>
+                        </ul>
+                    </li>
+                *@
+            </ul>
+        </div>
+    }
+}

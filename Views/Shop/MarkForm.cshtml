@@ -1,0 +1,96 @@
+﻿@using System.Web.UI.WebControls
+@{
+    var popup = ((bool?) ViewBag.Popup) ?? false;
+}
+@model Mark
+<div id="MarkForm">
+    <div class="col-lg-6">
+        <section class="panel">
+
+            <div class="panel-body">
+                @using (Ajax.BeginForm("MarkForm", "Shop", new { }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "MarkForm", OnComplete = (popup? "loadNextMark()":"")}, new { @class = "form-horizontal tasi-form" }))
+                {
+
+                    <header class="panel-heading">
+                        <h3>Оценка заказа</h3>
+                    </header>
+                    if (Model.ID > 0)
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Заказ оценивал:</label>
+                            <div class="col-sm-8">
+                                <label class="form-control">@Model.User.FullName</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Дата оценки:</label>
+                            <div class="col-sm-8">
+                                <label class="form-control">@Model.MarkDate.ToString("d MMMM yyyy, HH:mm:ss")</label>
+                            </div>
+                        </div>
+                    }
+                    <input type="hidden" name="Popup" value="@(popup)" />
+                    <input type="hidden" arg="@(Model.ID > 0? 0: 1)" id="MarkOrderID" name="OrderID" value="@Model.OrderID" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Качество обслуживания:</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="Quality" value="@Model.Quality">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <img arg="@i" class="star-mark @(Model.Quality>=i ? "active":"inactive")" src="/Content/img/star.png" />
+                            }
+                            <label class="sd">@(Model.Quality>0 ? Model.Quality.ToString():"-")</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Стоимость:</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="Price" value="@Model.Price">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <img arg="@i" class="star-mark @(Model.Price>=i ? "active":"inactive")" src="/Content/img/star.png" />
+                            }
+                            <label class="sd">@(Model.Price > 0 ? Model.Price.ToString() : "-")</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Работа оператора:</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="Operator" value="@Model.Operator">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <img arg="@i" class="star-mark @(Model.Operator>=i ? "active":"inactive")" src="/Content/img/star.png" />
+                            }
+                            <label class="sd">@(Model.Operator > 0 ? Model.Operator.ToString() : "-")</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Качество доставки:</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="Delivery" value="@Model.Delivery">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <img arg="@i" class="star-mark @(Model.Delivery>=i ? "active":"inactive")" src="/Content/img/star.png" />
+                            }
+                            <label class="sd">@(Model.Delivery > 0 ? Model.Delivery.ToString() : "-")</label>
+                        </div>
+                    </div>
+                    if (Model.ID == 0)
+                    {
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                @if (popup)
+                                {
+                                    <a class="btn btn-warning" style="float: left" onclick="skipOrder(@Model.OrderID)">Пропустить</a>
+                                }
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="submit" style="float: right" class="btn btn-success" value="Оценить" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+    </div>
+</div>

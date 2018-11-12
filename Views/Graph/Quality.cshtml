@@ -1,0 +1,62 @@
+﻿<script type="text/javascript" src="/Content/js/graph/quality.js"></script>
+<div id="morris">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Качество обслуживания
+                </header>
+                <div class="panel-body">
+                    <input type="hidden" id="PointsList" />
+                    <div id="quality" class="graph"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h3>Параметры графика</h3>
+                </header>
+                <div class="panel-body">
+                    <div class="periods">
+                        <h4>Период точки:</h4>
+                        @*<a class="period" href="#" arg="1" onclick="return loadPeriod(this);">Час</a>*@
+                        <a class="period active" href="#" arg="24" onclick="return qu.loadPeriod(this);">День</a>
+                        <a class="period" href="#" arg="168" onclick="return qu.loadPeriod(this);">Неделя</a>
+                        <a class="period" href="#" arg="336" onclick="return qu.loadPeriod(this);">2 недели</a>
+                        <a class="period" href="#" arg="720" onclick="return qu.loadPeriod(this);">Месяц</a>
+                        <a class="period" href="#" arg="2880" onclick="return qu.loadPeriod(this);">4 месяца</a>
+                        <a class="period" href="#" arg="4320" onclick="return qu.loadPeriod(this);">Полгода</a>
+                        <a class="period" href="#" arg="8640" onclick="return qu.loadPeriod(this);">Год</a>
+                    </div>
+                    <div class="periods">
+                        <h4>Графики:</h4>
+                        <div class="legeng">
+                            <span style="color: #000000">&mdash;</span>
+                            Общая оценка
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #4a8bc2">&mdash;</span>
+                            Работа оператора
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #ff6c60">&mdash;</span>
+                            Доставка
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #a9d86e">&mdash;</span>
+                            Качество
+                        </div>
+                        <div class="legeng">
+                            <span style="color: #ff00ff">&mdash;</span>
+                            Цена
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+ 
+</div>

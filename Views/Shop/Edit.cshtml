@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = Model.ID > 0 ? "Новый магазин":"Редактирование магазина";
+    Layout = "~/Views/Shared/MainPage.cshtml";
+}
+@model Shop
+@{
+    var taxes = (List<TaxPlane>) ViewBag.Taxes;
+    var currentUser = ((BaseController)ViewContext.Controller).CurrentUser ?? new User() { ID = 0 };
+    currentUser.MyManagers.Load();
+    var helper = new PermissionHelper();
+}
+
+<div id="UserForm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading"></header>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Edit", "Shop", FormMethod.Post, new { @class = "form-horizontal tasi-form" }))
+                    {
+                        @Html.HiddenFor(x => x.ID)
+                        @Html.HiddenFor(x => x.CreateDate)
+                        @Html.HiddenFor(x => x.Owner)
+                        <div class="form-group @(Model.IsPost && Model.Name.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Название</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Name" name="Name">
+                            </div>
+                        </div>
+                        <div class="form-group @(Model.IsPost && Model.Link.IsNullOrEmpty() ? "has-error" : "")">
+                            <label class="col-sm-2 col-sm-2 control-label">Ссылка на сайт</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="@Model.Link" name="Link">
+                            </div>
+                        </div>
+
+                        <div class="form-group @(Model.IsPost && !Model.TaxPlanID.HasValue  ? "has-error" : "")">
+
+                            <label class="col-lg-2 col-sm-2 control-label">Тарифный план</label>
+                            <div class="col-lg-10">
+                                @foreach (var tax in taxes)
+                                {
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" value="@tax.ID" name="TaxPlanID" @(Model.TaxPlanID == tax.ID ? "checked" : "")>
+                                            @tax.Description
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>    
+                        
+                        <div class="form-group">
+
+                            <label class="col-lg-2 col-sm-2 control-label">Менеджеры магазина</label>
+                            <div class="col-lg-10">
+                                @if (currentUser.ManagerList.Any())
+                                {
+                                    foreach (var manager in currentUser.ManagerList)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="@manager.ID" name="Manager_@manager.ID" @(Model.ShopManagers.Any(z=> z.ManagerID == manager.ID) ? "checked" : "")>
+                                                @manager.User.FullName
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Вы не добавили ни одного менеджера в систему. Добавить менеджеров можно на <a href="@Url.Action("Edit", "Users")">этой странице</a></p>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+
+                            </div>
+                            <div class="col-sm-10">
+                                @if (helper.HasPermission(Permissions.ShopEditing) || (Model.ID == 0 && helper.HasPermission(Permissions.ShopAdding)))
+                                {
+                                    <input type="submit" class="btn btn-success" value="Сохранить" />
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Восстановление пароля";
+    Layout = "~/Views/Shared/LoginPage.cshtml";
+}
+
+<div class="form-login">
+    @using (Html.BeginForm("ChangePass", "Home", new { key = Request["key"] }, FormMethod.Post))
+    {
+        <h2 class="form-login-heading">Изменение пароля</h2>
+        <div class="login-wrap">
+            @if (ViewBag.Error != null)
+            {
+
+            <p style="color: red">@ViewBag.Error</p>
+            }
+
+            <input type="password" class="form-control" placeholder="Укажите новый пароль" name="Pass">
+            <button class="btn btn-lg btn-login btn-block" style="width: 200px" type="submit">Изменить пароль</button>
+        </div>
+    }
+</div>
